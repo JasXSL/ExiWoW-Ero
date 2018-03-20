@@ -134,7 +134,7 @@ aTable.rpTexts = function(self)
 			id = "SWING_CRIT",
 			text_receiver = "%S clamps down hard on your %Tgroin!",
 			--sound = 57787,
-			requirements = {rtc.attackerIsPinchy},
+			requirements = {rtc.attackerIsPinchy, rtc.victimPenis},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -282,6 +282,30 @@ aTable.rpTexts = function(self)
 					fn = ef.addExcitementMasochisticCrit
 				}))
 
+			-- Headbutt
+				table.insert(R, ExiWoW.RPText:new({
+					id = "SPELL_Headbutt",
+					text_receiver = "%S headbutts straight into your %Tbreasts!",
+					--sound = 35103,
+					requirements = {
+						rtc.spellTick,
+						rtc.victimBreasts
+					},
+					fn = ef.addExcitementMasochisticCrit
+				}))
+
+			-- Shield bash
+				table.insert(R, ExiWoW.RPText:new({
+					id = "SPELL_Shield Bash",
+					text_receiver = "%S's %spell slams against your %Tbreasts!",
+					--sound = 35103,
+					requirements = {
+						rtc.spellTick,
+						rtc.victimBreasts
+					},
+					fn = ef.addExcitementMasochisticCrit
+				}))
+
 			-- Spillable
 				table.insert(R, ExiWoW.RPText:new({
 					id = getsk("spillable"),
@@ -299,27 +323,27 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Insect swarm
-			table.insert(R, ExiWoW.RPText:new({
-				id = getsk("insects"),
-				text_receiver = "An insect gets into your chestpiece and bites your %leftright nipple!",
-				--sound = 35103,
-				requirements = {rtc.spellTick, rtc.victimBreasts},
-				fn = ef.addExcitementMasochistic
-			}))
-			table.insert(R, ExiWoW.RPText:new({
-				id = getsk("insects"),
-				text_receiver = "An insect gets into your pants and bites your %Tpenis!",
-				--sound = 35103,
-				requirements = {rtc.spellTick, rtc.victimPenis},
-				fn = ef.addExcitementMasochisticCrit
-			}))
-			table.insert(R, ExiWoW.RPText:new({
-				id = getsk("insects"),
-				text_receiver = "An insect gets into your chestpiece and skitters across your %Tvagina!",
-				--sound = 35103,
-				requirements = {rtc.spellTick, rtc.victimVagina},
-				fn = ef.addExcitementDefault
-			}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("insects"),
+					text_receiver = "An insect gets into your chestpiece and bites your %leftright nipple!",
+					--sound = 35103,
+					requirements = {rtc.spellTick, rtc.victimBreasts},
+					fn = ef.addExcitementMasochistic
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("insects"),
+					text_receiver = "An insect gets into your pants and bites your %Tpenis!",
+					--sound = 35103,
+					requirements = {rtc.spellTick, rtc.victimPenis},
+					fn = ef.addExcitementMasochisticCrit
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("insects"),
+					text_receiver = "An insect gets into your chestpiece and skitters across your %Tvagina!",
+					--sound = 35103,
+					requirements = {rtc.spellTick, rtc.victimVagina},
+					fn = ef.addExcitementDefault
+				}))
 
 
 
