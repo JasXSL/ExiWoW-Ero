@@ -230,7 +230,44 @@ aTable.rpTexts = function(self)
 					fn = ef.addExcitementMasochisticCrit
 				}))
 
+			-- Spillable
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("spillable"),
+					text_receiver = "Some of the %spell spills onto your %Tbreasts!",
+					sound = 1059,
+					requirements = {rtc.spellTick, rtc.victimBreasts},
+					fn = ef.addExcitementDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("spillable_add"),
+					text_receiver = "Some of the %spell spills onto your %Tbreasts!",
+					sound = 1059,
+					requirements = {rtc.spellAdd, rtc.victimBreasts},
+					fn = ef.addExcitementDefault
+				}))
 
+			-- Insect swarm
+			table.insert(R, ExiWoW.RPText:new({
+				id = getsk("insects"),
+				text_receiver = "An insect gets into your chestpiece and bites your %leftright nipple!",
+				--sound = 35103,
+				requirements = {rtc.spellTick, rtc.victimBreasts},
+				fn = ef.addExcitementMasochistic
+			}))
+			table.insert(R, ExiWoW.RPText:new({
+				id = getsk("insects"),
+				text_receiver = "An insect gets into your pants and bites your %Tpenis!",
+				--sound = 35103,
+				requirements = {rtc.spellTick, rtc.victimPenis},
+				fn = ef.addExcitementMasochisticCrit
+			}))
+			table.insert(R, ExiWoW.RPText:new({
+				id = getsk("insects"),
+				text_receiver = "An insect gets into your chestpiece and skitters across your %Tvagina!",
+				--sound = 35103,
+				requirements = {rtc.spellTick, rtc.victimVagina},
+				fn = ef.addExcitementDefault
+			}))
 
 
 
@@ -273,15 +310,7 @@ aTable.rpTexts = function(self)
 
 		
 
-		-- ROGUE 
-			-- Crimson vial
-			table.insert(R, ExiWoW.RPText:new({
-				id = "SPELL_Crimson Vial",
-				text_receiver = "You spill some of the crimson vial all over your %Tbreasts!",
-				sound = 1059,
-				requirements = {rtc.spellAdd, rtc.victimBreasts},
-				fn = ef.addExcitementDefault
-			}))
+		
 
 
 	return R;
