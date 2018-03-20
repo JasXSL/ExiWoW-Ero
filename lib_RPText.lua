@@ -104,6 +104,58 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticCrit
 		}))
 
+	-- Pinchers --
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_receiver = "%S pinches your %leftright nipple!",
+			--sound = 57787,
+			requirements = {rtc.attackerIsPinchy, rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochistic
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_receiver = "%S pinches your %leftright %Tbreast!",
+			--sound = 57787,
+			requirements = {rtc.attackerIsPinchy, rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochistic
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_receiver = "%S pinches your %Tgroin!",
+			--sound = 57787,
+			requirements = {rtc.attackerIsPinchy},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochistic
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING_CRIT",
+			text_receiver = "%S clamps down hard on your %Tgroin!",
+			--sound = 57787,
+			requirements = {rtc.attackerIsPinchy},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING_CRIT",
+			text_receiver = "%S clamps down hard and tugs at both your nipples!",
+			--sound = 57787,
+			requirements = {rtc.attackerIsPinchy, rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING_CRIT",
+			text_receiver = "%S clamps down hard on your %leftright nipple, twisting it in the process!",
+			--sound = 57787,
+			requirements = {rtc.attackerIsPinchy, rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+	
+
 
 	-- Tentacle fiends (like the one in the draenei start area)
 		table.insert(R, ExiWoW.RPText:new({
