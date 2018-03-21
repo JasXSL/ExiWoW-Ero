@@ -2,7 +2,9 @@ local aName, aTable = ...;
 aTable.rpTexts = function(self)
 
 	local R = {};
-
+	local req = ExiWoW.RPText.Req;	-- RPText requirement constructor
+	local ty = req.Types;			-- Local filter types
+	
 	-- Shortcuts for the templates library
 	-- It's recommended to use templates if one is available, you can also use lib_Assets to extend the templates library
 	local assetLib = ExiWoW.LibAssets;
@@ -61,7 +63,28 @@ aTable.rpTexts = function(self)
 			}))
 		--
 
+	-- TICKLE --
+			-- Tickle target
+			table.insert(R, ExiWoW.RPText:new({
+				id = "TICKLE",
+				text_sender = "You tickle %T between %This legs!",
+				text_receiver = "%T tickles you between your legs!",
+				requirements = {},
+			}))
+			table.insert(R, ExiWoW.RPText:new({
+				id = "TICKLE",
+				text_sender = "You tickle %T between %This legs with your %item!",
+				text_receiver = "%S tickles your %Tgroin with %Shis %item!",
+				requirements = {rtc.invFeathers},
+			}))
 
+			-- Tickle self
+			table.insert(R, ExiWoW.RPText:new({
+				id = "TICKLE",
+				text_receiver = "You tickle your own %Tgroin with a %item!",
+				requirements = {rtc.invFeathers},
+				--fn = ef.addExcitementMasochisticDefault
+			}))
 
 
 -- MELEE SWINGS --
@@ -161,7 +184,7 @@ aTable.rpTexts = function(self)
 			id = "SWING",
 			text_receiver = "%S's stinger tickles between your legs!",
 			--sound = 57787,
-			requirements = {rtc.attackerIsWasp, rtc.rand20},
+			requirements = {rtc.attackerIsWasp, rtc.rand50},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -309,6 +332,15 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticCrit
 		}))
 
+	-- Ooze NPCs
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_receiver = "Some ooze trickles into your cleavage.",
+			--sound = 3338,
+			requirements = {rtc.attackerIsOoze, rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementDefault
+		}))
 
 -- SPELLS --
 
