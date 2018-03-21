@@ -154,7 +154,17 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
-	
+
+
+	-- Wasps
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_receiver = "%S's stinger tickles between your legs!",
+			--sound = 57787,
+			requirements = {rtc.attackerIsWasp, rtc.rand20},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
 
 
 	-- Tentacle fiends (like the one in the draenei start area)
@@ -198,7 +208,107 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementDefault
 		}))
-	--
+	
+	-- Lashing NPCs
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_receiver = "%S lashes your %Tgroin!",
+			sound = 3338,
+			requirements = {rtc.attackerIsLasher},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticDefault
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_receiver = "%S lashes your %leftright %Tbreast!",
+			sound = 3338,
+			requirements = {rtc.attackerIsLasher, rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticDefault
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING_CRIT",
+			text_receiver = "%S lashes hard across your %Tgroin!",
+			sound = 3338,
+			requirements = {rtc.attackerIsLasher},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_receiver = "%S slips a vine between your legs, tickling your %Tgroin!",
+			sound = 21727,
+			requirements = {rtc.attackerIsVines},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementDefault
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_receiver = "A vine slips across your %Tbreasts, tickling your nipples!",
+			sound = 21727,
+			requirements = {rtc.attackerIsVines, rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementDefault
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING_CRIT",
+			text_receiver = "%S lashes across both your %Tbreasts!",
+			sound = 3338,
+			requirements = {rtc.attackerIsLasher, rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING_CRIT",
+			text_receiver = "%S envelops your package with a vine, squeezing hard!",
+			sound = 25626,
+			requirements = {rtc.attackerIsVines, rtc.victimPenis},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING_CRIT",
+			text_receiver = "%S envelops your %Tbreasts with vines, squeezing hard!",
+			sound = 25626,
+			requirements = {rtc.attackerIsVines, rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING_CRIT",
+			text_receiver = "%S lashes vines around your nipples and tugs back!",
+			sound = 25626,
+			requirements = {rtc.attackerIsVines, rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING_CRIT",
+			text_receiver = "%S pushes a vine up between your legs, rigorously rubbing your clit through your clothes!",
+			sound = 21727,
+			requirements = {rtc.attackerIsVines, rtc.victimVagina},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_receiver = "%S takes advantage of you being knocked down and lashes hard across your %Tgroin!",
+			sound = 3338,
+			requirements = {rtc.attackerIsVines, rtc.victimKnockedDown},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+
 
 -- SPELLS --
 
@@ -322,13 +432,30 @@ aTable.rpTexts = function(self)
 					fn = ef.addExcitementDefault
 				}))
 
+			-- Bone toss
+				table.insert(R, ExiWoW.RPText:new({
+					id = "SPELL_Bone Toss",
+					text_receiver = "%S's %spell hit you right between the legs!",
+					sound = 78936,
+					requirements = {},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = "SPELL_Bone Toss",
+					text_receiver = "%S's %spell hits your %leftright %Tbreast!",
+					sound = 78936,
+					requirements = {rtc.victimBreasts},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+
+
 			-- Insect swarm
 				table.insert(R, ExiWoW.RPText:new({
 					id = getsk("insects"),
 					text_receiver = "An insect gets into your chestpiece and bites your %leftright nipple!",
 					--sound = 35103,
 					requirements = {rtc.spellTick, rtc.victimBreasts},
-					fn = ef.addExcitementMasochistic
+					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, ExiWoW.RPText:new({
 					id = getsk("insects"),
