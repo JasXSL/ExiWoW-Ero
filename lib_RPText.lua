@@ -87,42 +87,82 @@ aTable.rpTexts = function(self)
 			}))
 
 	-- Throw sand --
-			table.insert(R, ExiWoW.RPText:new({
-				id = "THROW_SAND",
-				text_sender = "You throw a handful of sand at %T, the majority of which falls into %This cleavage!", 
-				text_receiver = "%S throws a handful of sand at you, the majority of which falls into your cleavage!",
-				sound = 907,
-				requirements = {rtc.victimBreasts},
-				fn = ef.addExcitementMasochisticDefault
-			}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "THROW_SAND",
+			text_sender = "You throw a handful of sand at %T, the majority of which falls into %This cleavage!", 
+			text_receiver = "%S throws a handful of sand at you, the majority of which falls into your cleavage!",
+			sound = 907,
+			requirements = {rtc.victimBreasts},
+			--fn = ef.addExcitementMasochisticDefault
+		}))
 
-			table.insert(R, ExiWoW.RPText:new({
-				id = "THROW_SAND",
-				text_sender = "You throw a handful of sand at %T, the majority of which gets into %This %Tundies!", 
-				text_receiver = "%S throws a handful of sand at you, the majority of which gets into your %Tundies!",
-				sound = 907,
-				requirements = {rtc.targetWearsUnderwear},
-				fn = ef.addExcitementMasochisticDefault
-			}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "THROW_SAND",
+			text_sender = "You throw a handful of sand at %T, the majority of which gets into %This %Tundies!", 
+			text_receiver = "%S throws a handful of sand at you, the majority of which gets into your %Tundies!",
+			sound = 907,
+			requirements = {rtc.targetWearsUnderwear},
+			--fn = ef.addExcitementMasochisticDefault
+		}))
 
-			-- Self
-			table.insert(R, ExiWoW.RPText:new({
-				id = "THROW_SAND",
-				text_receiver = "You let a trickle of sand fall down your cleavage!",
-				sound = 73172,
-				requirements = {rtc.victimBreasts},
-				fn = ef.addExcitementMasochisticDefault
-			}))
+		-- Self
+		table.insert(R, ExiWoW.RPText:new({
+			id = "THROW_SAND",
+			text_receiver = "You let a trickle of sand fall down your cleavage!",
+			sound = 73172,
+			requirements = {rtc.victimBreasts},
+			--fn = ef.addExcitementMasochisticDefault
+		}))
 
-			table.insert(R, ExiWoW.RPText:new({
-				id = "THROW_SAND",
-				text_receiver = "You stretch out your waistline and pour some sand into your %Tundies!",
-				sound = 73172,
-				requirements = {rtc.targetWearsUnderwear},
-				fn = ef.addExcitementMasochisticDefault
-			}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "THROW_SAND",
+			text_receiver = "You stretch out your waistline and pour some sand into your %Tundies!",
+			sound = 73172,
+			requirements = {rtc.targetWearsUnderwear},
+			--fn = ef.addExcitementMasochisticDefault
+		}))
 
 
+	-- Claw pinch --
+	table.insert(R, ExiWoW.RPText:new({
+		id = "CLAW_PINCH",
+		text_sender = "You pinch %T's %Tbutt with your big claw!",
+		text_receiver = "%S pinches your %Tbutt with %Shis big claw!",
+		sound = 36721,
+		requirements = {},
+		--fn = ef.addExcitementMasochisticDefault
+	}))
+	table.insert(R, ExiWoW.RPText:new({
+		id = "CLAW_PINCH",
+		text_sender = "You pinch %T's %Tgroin with your big claw!",
+		text_receiver = "%S pinches your %Tgroin with %Shis big claw!",
+		sound = 36721,
+		requirements = {},
+		--fn = ef.addExcitementMasochisticDefault
+	}))
+	table.insert(R, ExiWoW.RPText:new({
+		id = "CLAW_PINCH",
+		text_sender = "You pinch %T's nipple with your big claw!",
+		text_receiver = "%S pinches your nipple with %Shis big claw!",
+		sound = 36721,
+		requirements = {rtc.victimBreasts},
+		--fn = ef.addExcitementMasochisticDefault
+	}))
+
+	table.insert(R, ExiWoW.RPText:new({
+		id = "CLAW_PINCH",
+		text_receiver = "You pinch your %Tbutt with your big claw!",
+		sound = 36721,
+		requirements = {},
+		--fn = ef.addExcitementMasochisticDefault
+	}))
+	table.insert(R, ExiWoW.RPText:new({
+		id = "CLAW_PINCH",
+		text_receiver = "You pinch your %leftright nipple with your big claw!",
+		sound = 36721,
+		requirements = {rtc.victimBreasts},
+		--fn = ef.addExcitementMasochisticDefault
+	}))
 
 
 -- MELEE SWINGS --
@@ -172,7 +212,7 @@ aTable.rpTexts = function(self)
 			--sound = 57787,
 			requirements = {rtc.attackerIsPinchy, rtc.victimBreasts},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
-			fn = ef.addExcitementMasochistic
+			fn = ef.addExcitementMasochisticDefault
 		}))
 		table.insert(R, ExiWoW.RPText:new({
 			id = "SWING",
@@ -180,7 +220,7 @@ aTable.rpTexts = function(self)
 			--sound = 57787,
 			requirements = {rtc.attackerIsPinchy, rtc.victimBreasts},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
-			fn = ef.addExcitementMasochistic
+			fn = ef.addExcitementMasochisticDefault
 		}))
 		table.insert(R, ExiWoW.RPText:new({
 			id = "SWING",
@@ -188,7 +228,7 @@ aTable.rpTexts = function(self)
 			--sound = 57787,
 			requirements = {rtc.attackerIsPinchy},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
-			fn = ef.addExcitementMasochistic
+			fn = ef.addExcitementMasochisticDefault
 		}))
 
 		table.insert(R, ExiWoW.RPText:new({
@@ -390,7 +430,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "The cold spell causes your nipples to harden!",
 					--sound = 48289,
 					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
-					fn = ef.addExcitementPain
+					fn = ef.addExcitementMasochisticDefault
 				}))
 
 			-- Lightning
@@ -403,7 +443,7 @@ aTable.rpTexts = function(self)
 						rtc.spellAddOrTick,  -- OR
 						rtc.victimBreasts
 					},
-					fn = ef.addExcitementPain
+					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, ExiWoW.RPText:new({
 					id = getsk("electric"),
@@ -413,7 +453,7 @@ aTable.rpTexts = function(self)
 						rtc.spellAddOrTick,  -- OR
 						rtc.victimBreasts
 					},
-					fn = ef.addExcitementPain
+					fn = ef.addExcitementMasochisticDefault
 				}))
 
 
@@ -471,7 +511,7 @@ aTable.rpTexts = function(self)
 						rtc.spellTick,
 						rtc.victimBreasts
 					},
-					fn = ef.addExcitementMasochistic
+					fn = ef.addExcitementMasochisticDefault
 				}))
 
 			-- Headbutt
@@ -607,7 +647,7 @@ aTable.rpTexts = function(self)
 				sound = 48289,
 				requirements = {rtc.spellAdd},
 				-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
-				fn = ef.addExcitement
+				fn = ef.addExcitementDefault
 			}))
 			table.insert(R, ExiWoW.RPText:new({
 				id = "SPELL_Entangling Roots",
@@ -615,7 +655,7 @@ aTable.rpTexts = function(self)
 				sound = 48289,
 				requirements = {rtc.spellAdd, rtc.victimPenis},
 				-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
-				fn = ef.addExcitement
+				fn = ef.addExcitementDefault
 			}))
 			table.insert(R, ExiWoW.RPText:new({
 				id = "SPELL_Entangling Roots",
@@ -629,7 +669,7 @@ aTable.rpTexts = function(self)
 				text_receiver = "A vine from the roots slips inside your clothes and wrap around your %Tbreasts, squeezing them rigorously!",
 				sound = 48289,
 				requirements = {rtc.spellAdd, rtc.victimBreasts},
-				fn = ef.addExcitementPain
+				fn = ef.addExcitementMasochisticDefault
 			}))
 			
 
