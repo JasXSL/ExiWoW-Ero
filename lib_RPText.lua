@@ -347,13 +347,13 @@ aTable.rpTexts = function(self)
 		-- GENERIC / NPC --
 
 			-- Ice spells
-			table.insert(R, ExiWoW.RPText:new({
-				id = getsk("ice", "ice_common"),
-				text_receiver = "The cold spell causes your nipples to harden!",
-				--sound = 48289,
-				requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
-				fn = ef.addExcitementPain
-			}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("ice", "ice_common"),
+					text_receiver = "The cold spell causes your nipples to harden!",
+					--sound = 48289,
+					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					fn = ef.addExcitementPain
+				}))
 
 			-- Lightning
 				
@@ -424,6 +424,18 @@ aTable.rpTexts = function(self)
 					fn = ef.addExcitementMasochisticCrit
 				}))
 
+			-- Shield bash
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("shield_bash"),
+					text_receiver = "%S bashes %ahis shield across your %Tbreasts!",
+					--sound = 35103,
+					requirements = {
+						rtc.spellTick,
+						rtc.victimBreasts
+					},
+					fn = ef.addExcitementMasochistic
+				}))
+
 			-- Headbutt
 				table.insert(R, ExiWoW.RPText:new({
 					id = "SPELL_Headbutt",
@@ -478,6 +490,25 @@ aTable.rpTexts = function(self)
 					sound = 78936,
 					requirements = {rtc.victimBreasts},
 					fn = ef.addExcitementMasochisticDefault
+				}))
+
+			-- Slosh
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("slosh"),
+					text_receiver = "Liquid from the %spell trickles down between your %Tbreasts!",
+					requirements = {rtc.victimBreasts},
+					fn = ef.addExcitementDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("slosh"),
+					text_receiver = "Liquid from the %spell pours into your %Tundies!",
+					requirements = {rtc.targetWearsUnderwear},
+					fn = ef.addExcitementDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("slosh"),
+					text_receiver = "Liquid from the %spell seeps into your clothes.",
+					requirements = {}
 				}))
 
 
