@@ -86,6 +86,44 @@ aTable.rpTexts = function(self)
 				--fn = ef.addExcitementMasochisticDefault
 			}))
 
+	-- Throw sand --
+			table.insert(R, ExiWoW.RPText:new({
+				id = "THROW_SAND",
+				text_sender = "You throw a handful of sand at %T, the majority of which falls into %This cleavage!", 
+				text_receiver = "%S throws a handful of sand at you, the majority of which falls into your cleavage!",
+				sound = 907,
+				requirements = {rtc.victimBreasts},
+				fn = ef.addExcitementMasochisticDefault
+			}))
+
+			table.insert(R, ExiWoW.RPText:new({
+				id = "THROW_SAND",
+				text_sender = "You throw a handful of sand at %T, the majority of which gets into %This %Tundies!", 
+				text_receiver = "%S throws a handful of sand at you, the majority of which gets into your %Tundies!",
+				sound = 907,
+				requirements = {rtc.targetWearsUnderwear},
+				fn = ef.addExcitementMasochisticDefault
+			}))
+
+			-- Self
+			table.insert(R, ExiWoW.RPText:new({
+				id = "THROW_SAND",
+				text_receiver = "You let a trickle of sand fall down your cleavage!",
+				sound = 73172,
+				requirements = {rtc.victimBreasts},
+				fn = ef.addExcitementMasochisticDefault
+			}))
+
+			table.insert(R, ExiWoW.RPText:new({
+				id = "THROW_SAND",
+				text_receiver = "You stretch out your waistline and pour some sand into your %Tundies!",
+				sound = 73172,
+				requirements = {rtc.targetWearsUnderwear},
+				fn = ef.addExcitementMasochisticDefault
+			}))
+
+
+
 
 -- MELEE SWINGS --
 	-- HUMANOIDISH (crits) --
@@ -535,7 +573,29 @@ aTable.rpTexts = function(self)
 					fn = ef.addExcitementDefault
 				}))
 
-
+			-- Bonk
+				table.insert(R, ExiWoW.RPText:new({
+					id = "SPELL_Bonk",
+					text_receiver = "%S bonks your %leftright %Tbreast!",
+					sound = 33927,
+					requirements = {rtc.victimBreasts, rtc.spellAdd},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = "SPELL_Bonk",
+					text_receiver = "%S bonks across both of your %Tbreasts!",
+					sound = 33927,
+					requirements = {rtc.victimBreasts, rtc.spellAdd},
+					fn = ef.addExcitementMasochisticCrit
+				}))
+				
+				table.insert(R, ExiWoW.RPText:new({
+					id = "SPELL_Bonk",
+					text_receiver = "%S bonks your %Tgroin!",
+					sound = 33927,
+					requirements = {rtc.spellAdd},
+					fn = ef.addExcitementMasochisticCrit
+				}))
 
 
 		-- DRUID --
