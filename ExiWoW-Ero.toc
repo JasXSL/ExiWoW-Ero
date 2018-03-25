@@ -6,7 +6,7 @@
 index.lua
 
 # Extend standard assets
-# lib_Assets.lua
+lib_Assets.lua
 
 # Add custom RP texts
 lib_RPText.lua

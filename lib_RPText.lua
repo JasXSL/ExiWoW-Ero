@@ -165,6 +165,27 @@ aTable.rpTexts = function(self)
 		}))
 
 
+	-- Goblin buzzrocket
+		table.insert(R, ExiWoW.RPText:new({
+			id = "GOBLIN_BUZZROCKET",
+			text_receiver = "You push the vibrational rocket into your %Tvagina and hit the ingition!",
+			requirements = {rtc.victimVagina}
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "GOBLIN_BUZZROCKET",
+			text_receiver = "You stick the vibrational rocket between your %Tbreasts and hit the ingition!",
+			requirements = {rtc.victimBreasts}
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "GOBLIN_BUZZROCKET",
+			text_receiver = "You push the vibrational rocket against your %Tgroin and hit the ingition!",
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "GOBLIN_BUZZROCKET",
+			text_receiver = "You push the vibrational rocket into your %Tbutt and hit the ingition!",
+		}))
+		
+
 
 
 -- MELEE SWINGS --
