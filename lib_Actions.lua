@@ -2,6 +2,7 @@ local aName, aTable = ...;
 aTable.actions = function(self)
 
 	local out = {}
+	local ef = ExiWoW.LibAssets.effects;
 
 	-- Fondle (Public) --
 	table.insert(out, ExiWoW.Action:new({
@@ -37,11 +38,16 @@ aTable.actions = function(self)
 		allow_caster_moving = false,
 		fn_cast = function(self)
 			local _, text = self:sendRPText("player", "player", false);
+			ExiWoW.Timer:clear(self.interval)
+			self.interval = ExiWoW.Timer:set(function()
+				ExiWoW.ME:addExcitement(0.05)
+			end, 1, 30)
 			text(self, true, {receiver=true});
-			print("Begin")
+			ef:toggleVibHubProgram("BUZZROCKET", true);
 		end,
 		fn_done = function(self, success)
-			print("Done", success)
+			ExiWoW.Timer:clear(self.interval)
+			ef:toggleVibHubProgram("BUZZROCKET", false);
 			return true
 		end
 	}));
