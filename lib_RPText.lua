@@ -186,6 +186,27 @@ aTable.rpTexts = function(self)
 		}))
 		
 
+	-- Jade Rod
+		table.insert(R, ExiWoW.RPText:new({
+			id = "JADE_ROD",
+			text_receiver = "You push the vibrational rocket into your %Tvagina where it starts pleasantly pulsating!",
+			requirements = {rtc.victimVagina}
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "JADE_ROD",
+			text_receiver = "You stick the vibrational rocket between your %Tbreasts where it starts pleasantly pulsating!",
+			requirements = {rtc.victimBreasts}
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "JADE_ROD",
+			text_receiver = "You push the vibrational rocket against your %Tgroin where it starts pleasantly pulsating!",
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "JADE_ROD",
+			text_receiver = "You push the vibrational rocket into your %Tbutt where it starts pleasantly pulsating!",
+		}))
+		
+
 
 
 -- MELEE SWINGS --
@@ -528,7 +549,7 @@ aTable.rpTexts = function(self)
 			-- Shield bash
 				table.insert(R, ExiWoW.RPText:new({
 					id = getsk("shield_bash"),
-					text_receiver = "%S bashes %ahis shield across your %Tbreasts!",
+					text_receiver = "%S' shield slams across your %Tbreasts!",
 					--sound = 35103,
 					requirements = {
 						rtc.spellTick,
