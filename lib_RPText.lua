@@ -697,6 +697,29 @@ aTable.rpTexts = function(self)
 					fn = ef.addExcitementMasochistic
 				}))
 
+			-- Lash of pain
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Lash of Pain",
+					text_receiver = "%S whip cracks across your %leftright %Tbreast!",
+					sound = 3338,
+					requirements = {rtc.spellTick, rtc.victimBreasts},
+					fn = ef.addExcitementMasochistic
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Lash of Pain",
+					text_receiver = "%S whip cracks across your %Tbreasts!",
+					sound = 3338,
+					requirements = {rtc.spellTick, rtc.victimBreasts},
+					fn = ef.addExcitementMasochistic
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Lash of Pain",
+					text_receiver = "%S whip cracks across your %Tgroin!",
+					sound = 3338,
+					requirements = {rtc.spellTick},
+					fn = ef.addExcitementMasochistic
+				}))
+
 		-- DRUID --
 
 			-- Entangling Roots
