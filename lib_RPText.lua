@@ -476,6 +476,20 @@ aTable.rpTexts = function(self)
 					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
 					fn = ef.addExcitementMasochisticDefault
 				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("ice", "ice_common"),
+					text_receiver = "The %spell chills your nipples!",
+					--sound = 48289,
+					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("ice", "ice_common"),
+					text_receiver = "The %spell chills your %Tgroin!",
+					--sound = 48289,
+					requirements = {rtc.spellAddOrTick, rtc.victimPenis},
+					fn = ef.addExcitementMasochisticDefault
+				}))
 
 			-- Lightning
 				
@@ -565,7 +579,8 @@ aTable.rpTexts = function(self)
 					--sound = 35103,
 					requirements = {
 						rtc.spellTick,
-						rtc.victimBreasts
+						rtc.victimBreasts,
+						rtc.attackerHumanoidish
 					},
 					fn = ef.addExcitementMasochisticCrit
 				}))
@@ -632,6 +647,68 @@ aTable.rpTexts = function(self)
 					text_receiver = "Liquid from the %spell seeps into your clothes.",
 					requirements = {}
 				}))
+
+			-- Small Shards
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("shards"),
+					text_receiver = "A pulsating crystal shard tumbles into your clothes, coming to a rest between your %Tbreasts!",
+					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					fn = function()
+						ef.addExcitementDefault();
+						DoEmote("LAUGH", "player");
+					end
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("shards"),
+					text_receiver = "A pulsating crystal shard tumbles into your %Tundies, tickling your %Tgenitals!",
+					requirements = {rtc.spellAddOrTick, rtc.targetWearsUnderwear},
+					fn = function()
+						DoEmote("LAUGH", "player");
+						ef.addExcitementDefault();
+					end
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("shards"),
+					text_receiver = "A crystal shard tumbles down your buttcrack, tickling your %Tbutt!",
+					requirements = {rtc.spellAddOrTick},
+					fn = function()
+						DoEmote("LAUGH", "player");
+						ef.addExcitementDefault();
+					end
+				}))
+			
+			-- Bop barrage
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Bop Barrage",
+					text_receiver = "%S bops your %leftright %Tbreast!",
+					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Bop Barrage",
+					text_receiver = "%S bops both your %Tbreasts!",
+					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Bop Barrage",
+					text_receiver = "%S bops your bulge!",
+					requirements = {rtc.spellAddOrTick, rtc.targetWearsUnderwear, rtc.victimPenis},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Big Bop",
+					text_receiver = "%S bops your %Tbreasts with enough force to knock you down!",
+					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					fn = ef.addExcitementMasochisticCrit
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Big Bop",
+					text_receiver = "%S bops your bulge with enough force to knock you to the ground!",
+					requirements = {rtc.spellAddOrTick, rtc.targetWearsUnderwear, rtc.victimPenis},
+					fn = ef.addExcitementMasochisticCrit
+				}))
+				
 
 
 			-- Insect swarm
