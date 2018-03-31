@@ -656,6 +656,7 @@ aTable.rpTexts = function(self)
 					fn = function()
 						ef.addExcitementDefault();
 						DoEmote("LAUGH", "player");
+						ef.debuffShardTickleBreasts:add()
 					end
 				}))
 				table.insert(R, ExiWoW.RPText:new({
@@ -665,6 +666,7 @@ aTable.rpTexts = function(self)
 					fn = function()
 						DoEmote("LAUGH", "player");
 						ef.addExcitementDefault();
+						ef.debuffShardTickleGroin:add()
 					end
 				}))
 				table.insert(R, ExiWoW.RPText:new({
@@ -674,6 +676,7 @@ aTable.rpTexts = function(self)
 					fn = function()
 						DoEmote("LAUGH", "player");
 						ef.addExcitementDefault();
+						ef.debuffShardTickleButt:add()
 					end
 				}))
 			
@@ -709,6 +712,19 @@ aTable.rpTexts = function(self)
 					fn = ef.addExcitementMasochisticCrit
 				}))
 				
+			-- Dancing thorns
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Dancing Thorns",
+					text_receiver = "A dancing thorn pricks your %leftright %Tbreast!",
+					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Dancing Thorns",
+					text_receiver = "A dancing thorn pricks your %Tbutt!",
+					requirements = {rtc.spellAddOrTick},
+					fn = ef.addExcitementMasochisticDefault
+				}))
 
 
 			-- Insect swarm
