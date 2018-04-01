@@ -563,7 +563,7 @@ aTable.rpTexts = function(self)
 			-- Shield bash
 				table.insert(R, ExiWoW.RPText:new({
 					id = getsk("shield_bash"),
-					text_receiver = "%S' shield slams across your %Tbreasts!",
+					text_receiver = "%S's shield slams across your %Tbreasts!",
 					--sound = 35103,
 					requirements = {
 						rtc.spellTick,
@@ -583,6 +583,68 @@ aTable.rpTexts = function(self)
 						rtc.attackerHumanoidish
 					},
 					fn = ef.addExcitementMasochisticCrit
+				}))
+
+			-- Slitherstrike
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Slitherstrike",
+					text_receiver = "Cold goo from the %spell trickles down over your %Tbreasts!",
+					--sound = 35103,
+					requirements = {
+						rtc.spellTick,
+						rtc.victimBreasts
+					},
+					fn = ef.addExcitementDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = "Slitherstrike",
+					text_receiver = "Cold goo from the %spell trickles down into your %Tundies!",
+					--sound = 35103,
+					requirements = {
+						rtc.spellTick,
+						rtc.targetWearsUnderwear
+					},
+					fn = ef.addExcitementDefault
+				}))
+				
+			-- Magic whips
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("magicWhip"),
+					text_receiver = "%S's %spell lashes across your %Tbutt!",
+					sound = 75769,
+					requirements = {
+						rtc.spellTick
+					},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("magicWhip"),
+					text_receiver = "%S's %spell lashes across your %Tgroin!",
+					sound = 75769,
+					requirements = {
+						rtc.spellTick
+					},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("magicWhip"),
+					text_receiver = "%S's %spell lashes across both of your %Tbreasts!",
+					sound = 75769,
+					requirements = {
+						rtc.spellTick,
+						rtc.victimBreasts
+					},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("magicWhip"),
+					text_receiver = "%S's %spell lashes across your %leftright %Tbreast!",
+					sound = 75769,
+					requirements = {
+						rtc.spellTick,
+						rtc.victimBreasts
+					},
+					fn = ef.addExcitementMasochisticDefault
 				}))
 
 			-- Shield bash
