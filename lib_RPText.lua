@@ -461,7 +461,29 @@ aTable.rpTexts = function(self)
 			--sound = 3338,
 			requirements = {rtc.attackerIsOoze, rtc.victimBreasts},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
-			fn = ef.addExcitementDefault
+			fn = function()
+				ef.addExcitementDefault(self)
+				if math.random() < 0.3 then
+					ExiWoW.Timer:set(function()
+						ExiWoW.Effect:run("oozeInClothes")
+					end, 3+math.random()*3)
+				end
+			end
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_receiver = "Some ooze trickles into your %Tundies.",
+			--sound = 3338,
+			requirements = {rtc.attackerIsOoze, rtc.targetWearsUnderwear},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = function(self)
+				ef.addExcitementDefault(self)
+				if math.random() < 0.5 then
+					ExiWoW.Timer:set(function()
+						ExiWoW.Effect:run("oozeInClothes")
+					end, 3+math.random()*3)
+				end
+			end
 		}))
 
 -- SPELLS --
@@ -607,6 +629,39 @@ aTable.rpTexts = function(self)
 					fn = ef.addExcitementDefault
 				}))
 				
+
+			-- Ground spike
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("groundSpike"),
+					text_receiver = "The %spell prods up between your buttcheeks, tickling your behind!",
+					sound = 48922,
+					requirements = {
+						rtc.spellTick
+					},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("groundSpike"),
+					text_receiver = "The %spell lands a glancing blow between your legs, smacking your %Tbulge around!",
+					sound = 48922,
+					requirements = {
+						rtc.spellTick,
+						rtc.victimPenis
+					},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("groundSpike"),
+					text_receiver = "The %spell lands a glancing blow between your legs, firmly prodding up against your %Tgroin!",
+					sound = 48922,
+					requirements = {
+						rtc.spellTick,
+						rtc.victimVagina
+					},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+
+
 			-- Magic whips
 				table.insert(R, ExiWoW.RPText:new({
 					id = getsk("magicWhip"),
@@ -910,8 +965,99 @@ aTable.rpTexts = function(self)
 			}))
 			
 
+-- CUSTOM TICKING BUFFS/DEBUFFS
 
-		
+	-- Living goo
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesAdd",
+			text_receiver = "The goo in your outfit comes to life!",
+			sound = 73580,
+			requirements = {},
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesFade",
+			text_receiver = "The living goo expires!",
+			--sound = 73580,
+			requirements = {},
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesRem",
+			text_receiver = "You forcefully remove the living goo from your clothes!",
+			sound = 73580,
+			requirements = {},
+		}))
+
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesTick",
+			text_receiver = "The living goo tickles your %Tbutt!",
+			sound = 48289,
+			requirements = {},
+			fn = ef.addExcitementDefault
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesTick",
+			text_receiver = "The living goo tickles your %Tvagina!",
+			sound = 48289,
+			requirements = {rtc.victimVagina},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementCrit
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesTick",
+			text_receiver = "The living goo tickles your %Tpenis!",
+			sound = 48289,
+			requirements = {rtc.victimPenis},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementCrit
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesTick",
+			text_receiver = "The living goo tickles your clit!",
+			sound = 48289,
+			requirements = {rtc.victimVagina},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementCrit
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesTick",
+			text_receiver = "The living goo tickles your %leftright nipple!",
+			sound = 48289,
+			requirements = {rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementDefault
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesTick",
+			text_receiver = "The living goo wraps around your %Tbreasts, squeezing both!",
+			sound = 18711,
+			requirements = {rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticDefault
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesTick",
+			text_receiver = "The living goo wraps around your nipples, pulling your %Tbreasts together!",
+			sound = 18711,
+			requirements = {rtc.victimBreasts},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesTick",
+			text_receiver = "The living goo prods inside your %Tvagina, swirling a tendril around!",
+			sound = 21727,
+			requirements = {rtc.victimVagina},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementCrit
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_OozeInClothesTick",
+			text_receiver = "The living goo prods inside your %Tbutt, swirling a tendril around!",
+			sound = 21727,
+			requirements = {},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementCrit
+		}))
 
 		
 
