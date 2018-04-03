@@ -53,7 +53,7 @@ aTable.actions = function(self)
 	}));
 
 
-	-- Goblin Buzzrocket (Public) --
+	-- Jade rod (Item) --
 	table.insert(out, ExiWoW.Action:new({
 		id = "JADE_ROD",
 		name = "Jade Rod",
@@ -81,8 +81,43 @@ aTable.actions = function(self)
 		end
 	}));
 
+	-- Pulsating mushroom consumable
+	table.insert(out, ExiWoW.Action:new({
+		id = "PULSATING_MUSHROOM",
+		name = "Pulsating Mushroom",
+		description = "Stick a pulsating mushroom into your target's underwear. It will remain until manually removed.",
+		texture = "druid_ability_wildmushroom_b",
+		cast_time = 2,
+		charges = 0,
+		max_charges = 100,
+		cast_sound_start = 1185,
+		cast_sound_loop = 47693,
+		allow_caster_moving = false,
+		allow_targ_moving = false,
+		target_has_underwear = true,
+		fn_send = ExiWoW.Action.sendRPText,
+		fn_receive = function(self, sender, target, args)
+			self:receiveRPText(sender, target, args) -- Default behavior
+			ExiWoW.Effect:run("PULSATING_MUSHROOM")
+			return true
+		end
+	}));
+
 	return out;
 
+
+	--[[
+
+	function(self)
+			
+			local _, text = self:sendRPText("player", "player", false);
+			ExiWoW.Timer:clear(self.interval)
+			self.interval = ExiWoW.Timer:set(function()
+				ExiWoW.ME:addExcitement(0.05)
+			end, 1, 30)
+			
+		end
+	]]
 end
 
 

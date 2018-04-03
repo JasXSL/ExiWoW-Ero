@@ -206,6 +206,26 @@ aTable.rpTexts = function(self)
 			text_receiver = "You push the vibrational rocket into your %Tbutt where it starts pleasantly pulsating!",
 		}))
 		
+	-- PULSATING_MUSHROOM
+		table.insert(R, ExiWoW.RPText:new({
+			id = "PULSATING_MUSHROOM",
+			sound = 43036,
+			text_sender = "You stick your pulsating mushroom into %T's %Tundies!",
+			text_receiver = "%S sticks a pulsating mushroom into your %Tundies!",
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "PULSATING_MUSHROOM",
+			sound = 43036,
+			text_receiver = "You stick a pulsating mushroom into your %Tundies!",
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "FX_PULSATING_MUSHROOM_REM",
+			text_receiver = "You remove the pulsating mushroom from your %Tundies!",
+			sound = 73580
+		}))
+		
+		
+	
 
 
 
@@ -594,6 +614,18 @@ aTable.rpTexts = function(self)
 					fn = ef.addExcitementMasochisticDefault
 				}))
 
+			-- Steam below
+				table.insert(R, ExiWoW.RPText:new({
+					id = getsk("steam_below"),
+					text_receiver = "Hot steam blasts up across your %Tgroin!",
+					--sound = 35103,
+					requirements = {
+						rtc.spellTick
+					},
+					fn = ef.addExcitementMasochisticDefault
+				}))
+
+
 			-- Headbutt
 				table.insert(R, ExiWoW.RPText:new({
 					id = "Headbutt",
@@ -934,7 +966,7 @@ aTable.rpTexts = function(self)
 
 			-- Entangling Roots
 			table.insert(R, ExiWoW.RPText:new({
-				id = "Entangling Roots",
+				id = getsk("roots"),
 				text_receiver = "A vine from the roots slips inside your clothes and starts tickling your %Tbutt!",
 				sound = 48289,
 				requirements = {rtc.spellAdd},
@@ -942,7 +974,7 @@ aTable.rpTexts = function(self)
 				fn = ef.addExcitementDefault
 			}))
 			table.insert(R, ExiWoW.RPText:new({
-				id = "Entangling Roots",
+				id = getsk("roots"),
 				text_receiver = "A vine from the roots slips inside your clothes and squeezes your %Tpenis!",
 				sound = 48289,
 				requirements = {rtc.spellAdd, rtc.victimPenis},
@@ -950,14 +982,14 @@ aTable.rpTexts = function(self)
 				fn = ef.addExcitementDefault
 			}))
 			table.insert(R, ExiWoW.RPText:new({
-				id = "Entangling Roots",
+				id = getsk("roots"),
 				text_receiver = "A vine from the roots slips inside your clothes and up inside your %Tvagina where it wiggles about!",
 				sound = 48289,
 				requirements = {rtc.spellAdd, rtc.victimVagina},
 				fn = ef.addExcitementCrit
 			}))
 			table.insert(R, ExiWoW.RPText:new({
-				id = "Entangling Roots",
+				id = getsk("roots"),
 				text_receiver = "A vine from the roots slips inside your clothes and wrap around your %Tbreasts, squeezing them rigorously!",
 				sound = 48289,
 				requirements = {rtc.spellAdd, rtc.victimBreasts},

@@ -2,6 +2,7 @@ local aName, aTable = ...;
 aTable.assets = function(self)
 	-- Use this if you want to extend the default triggers, such as electric/frost spells etc
 	-- Feel free to supply any interesting triggers you find to the official project!
+	local zones = ExiWoW.LibAssets.zones
 
 	-- Add loot
 	local loot = ExiWoW.LibAssets.loot;
@@ -56,7 +57,8 @@ aTable.assets = function(self)
 	})
 	table.insert(loot, {
 		zone = "The Jade Forest",
-		name = "Serpent's Heart",
+		sub = "Serpent's Heart",
+		name = "_FORAGE_",
 		items={
 			{
 				type = "Charges", 
@@ -71,7 +73,24 @@ aTable.assets = function(self)
 		}
 	})
 
-
+	-- Mushrooms
+	table.insert(loot, {
+		zone = zones.shrooms,
+		name = "_FORAGE_",
+		items={
+			{
+				type = "Charges", 
+				id = "PULSATING_MUSHROOM", 
+				chance = 0.5,
+				quant = 1,
+				quantRand = 3,
+				sound = 1221,
+				text = ExiWoW.RPText:new({
+					text_receiver = "You found %Q pulsating mushroom%Qs!"
+				})
+			}
+		}
+	})
 	
 
 	-- This will cause the property to self delete, it's not needed. 
