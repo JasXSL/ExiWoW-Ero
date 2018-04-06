@@ -40,7 +40,7 @@ aTable.actions = function(self)
 			local _, text = self:sendRPText("player", "player", false);
 			ExiWoW.Timer:clear(self.interval)
 			self.interval = ExiWoW.Timer:set(function()
-				ExiWoW.ME:addExcitement(0.05)
+				ExiWoW.LibAssets.effects.addExcitementDefault()
 			end, 1, 30)
 			text(self, true, {receiver=true});
 			ef:toggleVibHubProgram("BUZZROCKET", 20);
@@ -69,7 +69,7 @@ aTable.actions = function(self)
 			local _, text = self:sendRPText("player", "player", false);
 			ExiWoW.Timer:clear(self.interval)
 			self.interval = ExiWoW.Timer:set(function()
-				ExiWoW.ME:addExcitement(0.05)
+				ExiWoW.LibAssets.effects.addExcitementDefault()
 			end, 1, 30)
 			text(self, true, {receiver=true});
 			ef:toggleVibHubProgram("JADE_ROD", 20)

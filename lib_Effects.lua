@@ -130,8 +130,8 @@ aTable.effects = function(self)
 			self.rightClicked = false
 			ef:toggleVibHubProgram("PULSATING_MUSHROOM", math.huge)
 			self.interval = ExiWoW.Timer:set(function()
-				ExiWoW.ME:addExcitement(0.01)
-			end, 1, 30)
+				ExiWoW.LibAssets.effects.addExcitementDefault()
+			end, 2, math.huge)
 		end,
 		onRemove = function(self)
 			ExiWoW.Timer:clear(self.interval);
