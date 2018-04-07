@@ -91,7 +91,24 @@ aTable.assets = function(self)
 			}
 		}
 	})
-	
+
+	-- Mushroom underwear
+	table.insert(loot, {
+		zone = "Zangarmarsh",
+		sub = "Sporeggar",
+		name = "_FORAGE_",
+		items={
+			{
+				type = "Underwear", 
+				id = "MUSHROOM_UNDERWEAR", 
+				chance = 0.25,
+				sound = 1185,
+				text = ExiWoW.RPText:new({
+					text_receiver = "You find an interesting cluster of mushrooms that seem to shape themselves to your body!"
+				})
+			}
+		}
+	})
 
 	-- This will cause the property to self delete, it's not needed. 
 	return nil

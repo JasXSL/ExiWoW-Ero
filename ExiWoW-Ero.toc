@@ -16,3 +16,5 @@ lib_Actions.lua
 lib_SpellBindings.lua
 # Custom effects
 lib_Effects.lua
+# Custom underwear
+lib_Underwear.lua

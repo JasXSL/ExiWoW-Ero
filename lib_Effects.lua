@@ -130,7 +130,7 @@ aTable.effects = function(self)
 			self.rightClicked = false
 			ef:toggleVibHubProgram("PULSATING_MUSHROOM", math.huge)
 			self.interval = ExiWoW.Timer:set(function()
-				ExiWoW.LibAssets.effects.addExcitementDefault()
+				ExiWoW.ME:addExcitement(0.01)
 			end, 2, math.huge)
 		end,
 		onRemove = function(self)
@@ -169,6 +169,26 @@ aTable.effects = function(self)
 			ExiWoW.Action:useOnTarget(remAction, "player")
 			
 			return false
+		end
+	}));
+
+	table.insert(ExiWoW.R.effects, ExiWoW.Effect:new({
+		id = "MUSHROOM_UNDERWEAR",
+		detrimental = true,
+		duration = 0,
+		max_stacks = 1,
+		texture = "Interface/Icons/Inv_misc_herb_ghostmushroomcap",
+		name = "Pulsating Mushroom",
+		description = "Your underwear are alive.",
+		onAdd = function(self, binding, fromReload)
+			ef:toggleVibHubProgram("PULSATING_MUSHROOM_SMALL", math.huge)
+			self.interval = ExiWoW.Timer:set(function()
+				ExiWoW.ME:addExcitement(0.01)
+			end, 1, math.huge)
+		end,
+		onRemove = function(self)
+			ExiWoW.Timer:clear(self.interval);
+			ef:toggleVibHubProgram("PULSATING_MUSHROOM_SMALL")
 		end
 	}));
 

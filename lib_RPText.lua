@@ -291,6 +291,35 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticCrit
 		}))
 
+		-- Paralysis
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_bystander = "%S takes advantage of %T being paralyzed, squeezing %This %Tbreasts hard!",
+			text_receiver = "%S takes advantage of you being paralyzed, squeezing your %Tbreasts hard!",
+			sound = 25626,
+			requirements = {rtc.attackerHumanoidish, rtc.victimBreasts, rtc.victimParalyzed},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_bystander = "While %T is paralyzed, %S grabs a hold of %This nipples and twists hard!",
+			text_receiver = "While you are paralyzed, %S grabs a hold of your nipples and twists hard!",
+			sound = 25626,
+			requirements = {rtc.attackerHumanoidish, rtc.victimBreasts, rtc.victimParalyzed},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SWING",
+			text_bystander = "%S takes advantage of %T being paralyzed, squeezing %This %Tgroin hard!",
+			text_receiver = "%S takes advantage of you being paralyzed, squeezing your %Tgroin hard!",
+			sound = 25626,
+			requirements = {rtc.attackerHumanoidish, rtc.victimBreasts, rtc.victimParalyzed},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = ef.addExcitementMasochisticCrit
+		}))
+
 	-- Pinchers --
 		table.insert(R, ExiWoW.RPText:new({
 			id = "SWING",
@@ -1063,7 +1092,7 @@ aTable.rpTexts = function(self)
 				text_receiver = "A vine from the roots slips inside your clothes and wraps around your %Tbreasts, squeezing them rigorously!",
 				sound = 48289,
 				requirements = {rtc.spellAdd, rtc.victimBreasts},
-				fn = ef.addExcitementMasochisticDefault
+				fn = ef.addExcitementMasochisticCrit
 			}))
 			
 
