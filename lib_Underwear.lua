@@ -9,7 +9,7 @@ aTable.underwear = function(self)
 		icon = "Inv_misc_herb_ghostmushroomcap",
 		description = "Living mushroom underwear that grows to cover your essentials.",
 		flavor = "It wiggles!",
-		rarity = 2,
+		rarity = 4,
 		effects = {
 			"MUSHROOM_UNDERWEAR"
 		},
