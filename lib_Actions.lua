@@ -106,6 +106,34 @@ aTable.actions = function(self)
 		end
 	}));
 
+	-- Headmistress' paddle
+	table.insert(ExiWoW.R.actions, ExiWoW.Action:new({
+		id = "HEADMISTRESS_PADDLE",
+		name = "Headmistress' Paddle",
+		description = "Whap your target across their rear.",
+		texture = "inv_bullroarer",
+		cooldown = 6,
+		charges=0,
+		rarity=3,
+		max_distance = ExiWoW.Action.MELEE_RANGE,
+		party_restricted = false,
+		fn_send = function(self, sender, target, suppressErrors)
+			local race = UnitRace(target)
+			local gender = UnitSex(target)
+			return self:sendRPText(sender, target, suppressErrors, function(se, success)
+					if success and not UnitIsUnit(target, "player") then
+					ExiWoW.LibAssets.effects:critSound(race, gender)
+				end
+			end);
+		end,
+		fn_receive = function(self, sender, target, args)
+			DoEmote("GASP");
+			ExiWoW.LibAssets.effects.addExcitementMasochisticCrit();
+			self:receiveRPText(sender, target, args);
+			return true
+		end
+	}));
+
 	return out;
 
 

@@ -110,6 +110,25 @@ aTable.assets = function(self)
 		}
 	})
 
+	-- Headmistress' paddle
+	table.insert(loot, {
+		zone = "Azsuna",
+		sub = "Hall of Arcane Learning",
+		name = "_FORAGE_",
+		items={
+			{
+				type = "Charges", 
+				id = "HEADMISTRESS_PADDLE", 
+				chance = 0.25,
+				quant = math.huge,
+				sound = 1199,
+				text = ExiWoW.RPText:new({
+					text_receiver = "You found the headmistress' paddle laying around. You decide it's probably better for someone more... 'responsible' to hold it."
+				})
+			}
+		}
+	})
+
 	-- This will cause the property to self delete, it's not needed. 
 	return nil
 end

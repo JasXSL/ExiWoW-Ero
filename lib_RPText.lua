@@ -252,6 +252,22 @@ aTable.rpTexts = function(self)
 			sound = 73580
 		}))
 		
+	-- HEADMISTRESS_PADDLE
+		table.insert(R, ExiWoW.RPText:new({
+			id = "HEADMISTRESS_PADDLE",
+			sound = 3338,
+			text_bystander = "%S slaps %T hard across %This %Tbutt with the headmistress' paddle!",
+			text_sender = "You slap %T hard across %This %Tbutt with your headmistress' paddle!",
+			text_receiver = "%S slaps you hard across your %Tbutt with %Shis headmistress' paddle!",
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "HEADMISTRESS_PADDLE",
+			sound = 3338,
+			text_bystander = "%T slaps %Thimself across %This %Tbutt with the headmistress' paddle!",
+			text_receiver = "You slap your own %Tbutt with the headmistress' paddle!",
+		}))
+		
+
 		
 	
 
@@ -1038,7 +1054,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S's whip cracks across your %leftright %Tbreast!",
 					sound = 3338,
 					requirements = {rtc.spellTick, rtc.victimBreasts},
-					fn = ef.addExcitementMasochistic
+					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, ExiWoW.RPText:new({
 					id = "Lash of Pain",
@@ -1046,7 +1062,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S's whip cracks across your %Tbreasts!",
 					sound = 3338,
 					requirements = {rtc.spellTick, rtc.victimBreasts},
-					fn = ef.addExcitementMasochistic
+					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, ExiWoW.RPText:new({
 					id = "Lash of Pain",
@@ -1054,9 +1070,114 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S's whip cracks across your %Tgroin!",
 					sound = 3338,
 					requirements = {rtc.spellTick},
-					fn = ef.addExcitementMasochistic
+					fn = ef.addExcitementMasochisticDefault
 				}))
 
+
+			-- Daglop
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_NIPPLE_TWIST",
+					text_bystander = "Daglop reaches into %T's chestpiece and twists %This nipples!",
+					text_receiver = "Daglop reaches into your chestpiece and twists your nipples!",
+					sound = 25626,
+					requirements = {},
+					fn = ef.addExcitementMasochisticCrit
+				}));
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_NIPPLE_TWIST_TEXT",
+					is_chat = true,
+					sound = 770,
+					text_receiver = "Daglop: Work harder, minion!",
+					requirements = {}
+				}));
+
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_WEDIGE",
+					text_bystander = "Daglop grabs a hold of %T's %Tundies from behind, giving %Thim a wedgie!",
+					text_receiver = "Daglop grabs a hold of the back of your %Tundies, giving you a wedgie!",
+					sound = 25626,
+					requirements = {rtc.targetWearsUnderwear},
+					fn = ef.addExcitementMasochistic
+				}));
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_WEDIGE_TEXT",
+					is_chat = true,
+					sound = 770,
+					text_receiver = "Daglop: Huh, interesting choice in underwear!",
+					requirements = {}
+				}));
+
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_BUTTKICK",
+					text_bystander = "Daglop kicks %T's %Tbutt!",
+					text_receiver = "Daglop kicks you in the %Tbutt!",
+					sound = 31941,
+					requirements = {},
+					fn = ef.addExcitementMasochistic
+				}));
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_BUTTKICK_TEXT",
+					is_chat = true,
+					sound = 770,
+					text_receiver = "Daglop: Get to it, chop chop!",
+					requirements = {}
+				}));
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_BUTTKICK_TEXT",
+					is_chat = true,
+					sound = 770,
+					text_receiver = "Daglop: Big butts are bound to be beaten for motivation!",
+					requirements = {rtc.largeButt}
+				}));
+
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_BOOB_GRAB",
+					text_bystander = "Daglop grabs a hold of and squeezes %T's %Tbreasts!",
+					text_receiver = "Daglop grabs a hold of and squeezes your %Tbreasts!",
+					sound = 25626,
+					requirements = {rtc.victimBreasts},
+					fn = ef.addExcitementMasochistic
+				}));
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_BOOB_GRAB_TEXT",
+					is_chat = true,
+					sound = 770,
+					text_receiver = "Daglop: Oh sorry, I was er... slipping...",
+					requirements = {}
+				}));
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_BOOB_GRAB_TEXT",
+					is_chat = true,
+					sound = 770,
+					text_receiver = "Daglop: Why don't I hold onto these big things so you don't get back problems?",
+					requirements = {rtc.largeBreasts}
+				}));
+
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_MOUTH_FINGER",
+					text_bystander = "Daglop forces a finger into %T's mouth!",
+					text_receiver = "Daglop forces a finger into your mouth!",
+					sound = 3541,
+					requirements = {},
+					fn = ef.addExcitement
+				}));
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_MOUTH_FINGER_TEXT",
+					is_chat = true,
+					sound = 770,
+					text_receiver = "Daglop: Just making sure my minion is in good health.",
+					requirements = {}
+				}));
+
+				table.insert(R, ExiWoW.RPText:new({
+					id = "DAGLOP_RITUAL_TEXT",
+					is_chat = true,
+					sound = 770,
+					text_receiver = "Daglop: Partake in a ritual some time! I could strap you to an altar, remove your %Tundies and you know...",
+					requirements = {}
+				}));
+
+				
 		-- DRUID --
 
 			-- Entangling Roots
