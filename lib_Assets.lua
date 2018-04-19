@@ -73,6 +73,28 @@ aTable.assets = function(self)
 		}
 	})
 
+	-- Shara's fel rod
+	table.insert(loot, {
+		zone = "Highmountain",
+		sub = "Bloodhunt Highland",
+		name = "_FORAGE_",
+		points = {
+			{x = 50.85, y=25.39, rad=0.11},
+		},
+		items={
+			{
+				type = "Charges", 
+				id = "SHARAS_FEL_ROD", 
+				chance = 1,
+				quant = math.huge,
+				sound = 1191,
+				text = ExiWoW.RPText:new({
+					text_receiver = "You found an uncomfortable pulsating fel iron rod. You decide that it'd be better with you than with Shara..."
+				})
+			}
+		}
+	})
+
 	-- Mushrooms
 	table.insert(loot, {
 		zone = zones.shrooms,

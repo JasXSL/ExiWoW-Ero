@@ -41,7 +41,7 @@ aTable.actions = function(self)
 			local _, text = self:sendRPText("player", "player", false);
 			ExiWoW.Timer:clear(self.interval)
 			self.interval = ExiWoW.Timer:set(function()
-				ExiWoW.LibAssets.effects.addExcitementDefault()
+				ExiWoW.LibAssets.effects.addExcitementDefault(self, true)
 			end, 1, 30)
 			text(self, true, {receiver=true});
 			ef:toggleVibHubProgram("BUZZROCKET", 20);
@@ -71,7 +71,7 @@ aTable.actions = function(self)
 			local _, text = self:sendRPText("player", "player", false);
 			ExiWoW.Timer:clear(self.interval)
 			self.interval = ExiWoW.Timer:set(function()
-				ExiWoW.LibAssets.effects.addExcitementDefault()
+				ExiWoW.LibAssets.effects.addExcitementDefault(self, true)
 			end, 1, 30)
 			text(self, true, {receiver=true});
 			ef:toggleVibHubProgram("JADE_ROD", 20)
@@ -79,6 +79,35 @@ aTable.actions = function(self)
 		fn_done = function(self, success)
 			ExiWoW.Timer:clear(self.interval)
 			ef:toggleVibHubProgram("JADE_ROD")
+			return true
+		end
+	}));
+
+	-- Shara's Fel Rod (Item) --
+	table.insert(out, ExiWoW.Action:new({
+		id = "SHARAS_FEL_ROD",
+		name = "Shara's Fel Rod",
+		description = "A barely polished rod of fel iron with glowing green runes. Looks powerful, but not very pleasurable.",
+		texture = "Inv_rod_enchantedfelsteel",
+		cast_time = 20,
+		charges = 0,
+		rarity = 3,
+		self_cast_only = true,
+		cast_sound_start = 85131,
+		cast_sound_loop = 85132,
+		allow_caster_moving = false,
+		fn_cast = function(self)
+			local _, text = self:sendRPText("player", "player", false);
+			ExiWoW.Timer:clear(self.interval)
+			self.interval = ExiWoW.Timer:set(function()
+				ExiWoW.LibAssets.effects.addExcitementDefault(self, true)
+			end, 1, 30)
+			text(self, true, {receiver=true});
+			ef:toggleVibHubProgram("SHARAS_FEL_ROD", 20)
+		end,
+		fn_done = function(self, success)
+			ExiWoW.Timer:clear(self.interval)
+			ef:toggleVibHubProgram("SHARAS_FEL_ROD")
 			return true
 		end
 	}));

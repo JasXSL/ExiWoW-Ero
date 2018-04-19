@@ -230,6 +230,30 @@ aTable.rpTexts = function(self)
 			text_bystander = "%T pushes an elongated slab of jade into %This %Tbutt where it starts pulsating!",
 			text_receiver = "You push the elongated slab of jade into your %Tbutt where it starts pleasantly pulsating!",
 		}))
+
+	-- Shara's fel rod
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SHARAS_FEL_ROD",
+			text_bystander = "%T pushes a corrupted rod of fel iron inside %This %Tvagina!",
+			text_receiver = "You push the corrupted rod of fel iron into your %Tvagina!",
+			requirements = {rtc.victimVagina}
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SHARAS_FEL_ROD",
+			text_bystander = "%T sticks a corrupted rod of fel iron between %This %Tbreasts!",
+			text_receiver = "You stick the corrupted rod of fel iron between your %Tbreasts!",
+			requirements = {rtc.victimBreasts}
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SHARAS_FEL_ROD",
+			text_bystander = "%T pushes a corrupted rod of fel iron against %This %Tgroin!",
+			text_receiver = "You push the corrupted rod of fel iron against your %Tgroin!",
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "SHARAS_FEL_ROD",
+			text_bystander = "%T pushes a corrupted rod of fel iron into %This %Tbutt!",
+			text_receiver = "You push the corrupted rod of fel iron into your %Tbutt!",
+		}))
 		
 	-- PULSATING_MUSHROOM
 		table.insert(R, ExiWoW.RPText:new({
