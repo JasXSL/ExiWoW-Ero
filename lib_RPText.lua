@@ -1111,6 +1111,7 @@ aTable.rpTexts = function(self)
 					id = "DAGLOP_NIPPLE_TWIST_TEXT",
 					is_chat = true,
 					sound = 770,
+					text_bystander = true,
 					text_receiver = "Daglop: Work harder, minion!",
 					requirements = {}
 				}));
@@ -1127,6 +1128,7 @@ aTable.rpTexts = function(self)
 					id = "DAGLOP_WEDIGE_TEXT",
 					is_chat = true,
 					sound = 770,
+					text_bystander = true,
 					text_receiver = "Daglop: Huh, interesting choice in underwear!",
 					requirements = {}
 				}));
@@ -1143,6 +1145,7 @@ aTable.rpTexts = function(self)
 					id = "DAGLOP_BUTTKICK_TEXT",
 					is_chat = true,
 					sound = 770,
+					text_bystander = true,
 					text_receiver = "Daglop: Get to it, chop chop!",
 					requirements = {}
 				}));
@@ -1150,6 +1153,7 @@ aTable.rpTexts = function(self)
 					id = "DAGLOP_BUTTKICK_TEXT",
 					is_chat = true,
 					sound = 770,
+					text_bystander = true,
 					text_receiver = "Daglop: Big butts are bound to be beaten for motivation!",
 					requirements = {rtc.largeButt}
 				}));
@@ -1166,6 +1170,7 @@ aTable.rpTexts = function(self)
 					id = "DAGLOP_BOOB_GRAB_TEXT",
 					is_chat = true,
 					sound = 770,
+					text_bystander = true,
 					text_receiver = "Daglop: Oh sorry, I was er... slipping...",
 					requirements = {}
 				}));
@@ -1173,6 +1178,7 @@ aTable.rpTexts = function(self)
 					id = "DAGLOP_BOOB_GRAB_TEXT",
 					is_chat = true,
 					sound = 770,
+					text_bystander = true,
 					text_receiver = "Daglop: Why don't I hold onto these big things so you don't get back problems?",
 					requirements = {rtc.largeBreasts}
 				}));
@@ -1189,6 +1195,7 @@ aTable.rpTexts = function(self)
 					id = "DAGLOP_MOUTH_FINGER_TEXT",
 					is_chat = true,
 					sound = 770,
+					text_bystander = true,
 					text_receiver = "Daglop: Just making sure my minion is in good health.",
 					requirements = {}
 				}));
@@ -1197,6 +1204,7 @@ aTable.rpTexts = function(self)
 					id = "DAGLOP_RITUAL_TEXT",
 					is_chat = true,
 					sound = 770,
+					text_bystander = true,
 					text_receiver = "Daglop: Partake in a ritual some time! I could strap you to an altar, remove your %Tundies and you know...",
 					requirements = {}
 				}));
@@ -1239,10 +1247,10 @@ aTable.rpTexts = function(self)
 				requirements = {rtc.spellAdd, rtc.victimBreasts},
 				fn = ef.addExcitementMasochisticCrit
 			}))
-			
+	--
+
 
 -- CUSTOM TICKING BUFFS/DEBUFFS
-
 	-- Living goo
 		table.insert(R, ExiWoW.RPText:new({
 			id = "FX_OozeInClothesAdd",
@@ -1335,7 +1343,89 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementCrit
 		}))
 
+	--
+--
+
+-- Voice chats
+	
+	-- Feltotem bull
+		table.insert(R, ExiWoW.RPText:new({
+			id = "_WHISPER_",
+			is_chat = true,
+			sound = 48315,
+			text_receiver = "%S whispers: Soon you'll be choking on my fel empowered bull cock!",
+			requirements = {
+				rtc.attackerIsFeltotemMale,
+				rtc.maleWhispers,					-- User allows whispers from male
+			},
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "_WHISPER_",
+			is_chat = true,
+			sound = 48315,
+			text_receiver = "%S whispers: Ever had fel infused bull dick shoved in your %Tvagina? You'll soon find out what that feels like!",
+			requirements = {
+				rtc.victimVagina,
+				rtc.attackerIsFeltotemMale,
+				rtc.maleWhispers,					-- User allows whispers from male
+			},
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "_WHISPER_",
+			is_chat = true,
+			sound = 48315,
+			text_receiver = "%S whispers: Ever had fel infused bull dick shoved in your %Tbutt? You'll soon find out what that feels like!",
+			requirements = {
+				rtc.victimPenis,
+				rtc.attackerIsFeltotemMale,
+				rtc.maleWhispers,					-- User allows whispers from male
+			},
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "_WHISPER_",
+			is_chat = true,
+			sound = 48315,
+			text_receiver = "%S whispers: Why don't skip directly to the point where I pin you to the ground and pound your %Tbutt relentlessy?",
+			requirements = {
+				rtc.victimPenis,
+				rtc.attackerIsFeltotemMale,
+				rtc.maleWhispers,					-- User allows whispers from male
+			},
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "_WHISPER_",
+			is_chat = true,
+			sound = 48315,
+			text_receiver = "%S whispers: Why don't skip directly to the point where I pin you to the ground and pound your %Tvagina relentlessy?",
+			requirements = {
+				rtc.victimVagina,
+				rtc.attackerIsFeltotemMale,
+				rtc.maleWhispers,					-- User allows whispers from male
+			},
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "_WHISPER_",
+			is_chat = true,
+			sound = 48315,
+			text_receiver = "%S whispers: Nice %Tbreasts. Can't wait to stick my fel empowered %Spenis between them!",
+			requirements = {
+				rtc.victimBreasts,
+				rtc.attackerIsFeltotemMale,
+				rtc.maleWhispers,					-- User allows whispers from male
+			},
+		}))
+		table.insert(R, ExiWoW.RPText:new({
+			id = "_WHISPER_",
+			is_chat = true,
+			sound = 48315,
+			text_receiver = "%S whispers: I will have my way with you before handing you to my demon masters!",
+			requirements = {
+				rtc.attackerIsFeltotemMale,
+				rtc.maleWhispers,					-- User allows whispers from male
+			},
+		}))
 		
+
 
 
 	return R;
