@@ -1,18 +1,33 @@
 local aName, aTable = ...;
+local require = ExiWoW.require
+
 aTable.rpTexts = function(self)
 
 	local R = {};
-	local req = ExiWoW.RPText.Req;	-- RPText requirement constructor
-	local ty = req.Types;			-- Local filter types
+	local RPText = require("RPText");
+	local Condition = require("Condition");	-- RPText requirement constructor
+	local Effect = require("Effect");
+	local ty = Condition.Types;			-- Local filter types
 	
 	-- Shortcuts for the templates library
 	-- It's recommended to use templates if one is available, you can also use lib_Assets to extend the templates library
 	local assetLib = ExiWoW.LibAssets;
-	local spellKits = assetLib.kits;		-- RP Text spell kits library
+	local spellKits = assetLib.spell_kits;		-- RP Text spell kits library
 	local rtc = ExiWoW.LibAssets.rpTextConds;	-- RP Text conditions
 	local ef = ExiWoW.LibAssets.effects;		-- RP Text effects library
 	-- Gets a spell kit condition formated for RP texts
-	local getsk = assetLib.spellKitToRP
+	local getsk = function(...)
+		local kits = {...};
+		local out = {};
+		for _,v in pairs(kits) do
+			if type(spellKits[v]) == "table" then
+				for k,t in pairs(spellKits[v]) do
+					out[k] = t;
+				end
+			end
+		end
+		return out;
+	end
 	
 
 -- ACTIONS
@@ -22,7 +37,7 @@ aTable.rpTexts = function(self)
 		-- TARGET --
 
 			-- Fondle breasts target
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = "FONDLE",
 				text_bystander = "%S grabs a hold of and rubs %T's %Tbreasts!",
 				text_sender = "You grab a hold of and rub %T's %Tbreasts!",
@@ -32,7 +47,7 @@ aTable.rpTexts = function(self)
 			}))
 
 			-- Fondle groin target
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = "FONDLE",
 				text_bystander = "%S grabs a hold of and rubs %T's %Tgroin!",
 				text_sender = "You grab a hold of and rub %T's %Tgroin!",
@@ -42,7 +57,7 @@ aTable.rpTexts = function(self)
 			}))
 
 			-- Fondle butt target
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = "FONDLE",
 				text_bystander = "%S grabs a hold of and rubs %T's %Tbutt!",
 				text_sender = "You grab a hold of and rub %T's %Tbutt!",
@@ -52,14 +67,14 @@ aTable.rpTexts = function(self)
 			}))
 
 		-- SELF --
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = "FONDLE",
 				text_bystander = "%T rubs %This %Tgroin!",
 				text_receiver = "You rub your %Tgroin!",
 				sound = 57179,
 				requirements = {}
 			}))
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = "FONDLE",
 				text_bystander = "%T rubs %This %Tbreasts!",
 				text_receiver = "You rub your %Tbreasts!",
@@ -70,14 +85,14 @@ aTable.rpTexts = function(self)
 
 	-- TICKLE --
 			-- Tickle target
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = "TICKLE",
 				text_bystander = "%S tickles %T between %This legs!",
 				text_sender = "You tickle %T between %This legs!",
 				text_receiver = "%S tickles you between your legs!",
 				requirements = {},
 			}))
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = "TICKLE",
 				text_bystander = "%S tickles %T between %This legs with %Shis %item!",
 				text_sender = "You tickle %T between %This legs with your %item!",
@@ -86,7 +101,7 @@ aTable.rpTexts = function(self)
 			}))
 
 			-- Tickle self
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = "TICKLE",
 				text_bystander = "%T tickles %Thimself with %This %item!",
 				text_receiver = "You tickle your own %Tgroin with %This %item!",
@@ -95,7 +110,7 @@ aTable.rpTexts = function(self)
 			}))
 
 	-- Throw sand --
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "THROW_SAND",
 			text_bystander = "%S throws a handful of sand at %T, the majority of which falls into %This cleavage!", 
 			text_sender = "You throw a handful of sand at %T, the majority of which falls into %This cleavage!", 
@@ -105,7 +120,7 @@ aTable.rpTexts = function(self)
 			--fn = ef.addExcitementMasochisticDefault
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "THROW_SAND",
 			text_bystander = "%S throws a handful of sand at %T, the majority of which gets into %This %Tundies!", 
 			text_sender = "You throw a handful of sand at %T, the majority of which gets into %This %Tundies!", 
@@ -116,7 +131,7 @@ aTable.rpTexts = function(self)
 		}))
 
 		-- Self
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "THROW_SAND",
 			text_bystander = "%T lets a trickle of sand fall down %This cleavage!",
 			text_receiver = "You let a trickle of sand fall down your cleavage!",
@@ -125,7 +140,7 @@ aTable.rpTexts = function(self)
 			--fn = ef.addExcitementMasochisticDefault
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "THROW_SAND",
 			text_bystander = "%T stretches out %This waistline and pours some sand into %This %Tundies!",
 			text_receiver = "You stretch out your waistline and pour some sand into your %Tundies!",
@@ -136,7 +151,7 @@ aTable.rpTexts = function(self)
 
 
 	-- Claw pinch --
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "CLAW_PINCH",
 			text_bystander = "%S pinches %T's %Tbutt with %Shis big claw!",
 			text_sender = "You pinch %T's %Tbutt with your big claw!",
@@ -145,7 +160,7 @@ aTable.rpTexts = function(self)
 			requirements = {},
 			--fn = ef.addExcitementMasochisticDefault
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "CLAW_PINCH",
 			text_bystander = "%S pinches %T's %Tgroin with a big claw!",
 			text_sender = "You pinch %T's %Tgroin with your big claw!",
@@ -154,7 +169,7 @@ aTable.rpTexts = function(self)
 			requirements = {},
 			--fn = ef.addExcitementMasochisticDefault
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "CLAW_PINCH",
 			text_bystander = "%S pinches %T's nipple with a big claw!",
 			text_sender = "You pinch %T's nipple with your big claw!",
@@ -164,7 +179,7 @@ aTable.rpTexts = function(self)
 			--fn = ef.addExcitementMasochisticDefault
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "CLAW_PINCH",
 			text_bystander = "%T pinches %This %Tbutt with a big claw!",
 			text_receiver = "You pinch your %Tbutt with your big claw!",
@@ -172,7 +187,7 @@ aTable.rpTexts = function(self)
 			requirements = {},
 			--fn = ef.addExcitementMasochisticDefault
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "CLAW_PINCH",
 			text_bystander = "%T pinches %This %leftright nipple with a big claw!",
 			text_receiver = "You pinch your %leftright nipple with your big claw!",
@@ -183,24 +198,24 @@ aTable.rpTexts = function(self)
 
 
 	-- Goblin buzzrocket
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "GOBLIN_BUZZROCKET",
 			text_bystander =  "%T pushes a vibrational rocket into %This %Tvagina and hits the ingition!",
 			text_receiver = "You push the vibrational rocket into your %Tvagina and hit the ingition!",
 			requirements = {rtc.victimVagina}
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "GOBLIN_BUZZROCKET",
 			text_bystander = "%T sticks a vibrational rocket between %This %Tbreasts and hits the ingition!",
 			text_receiver = "You stick the vibrational rocket between your %Tbreasts and hit the ingition!",
 			requirements = {rtc.victimBreasts}
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "GOBLIN_BUZZROCKET",
 			text_bystander = "%T pushes a vibrational rocket against %This %Tgroin and hits the ingition!",
 			text_receiver = "You push the vibrational rocket against your %Tgroin and hit the ingition!",
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "GOBLIN_BUZZROCKET",
 			text_bystander = "%T pushes a vibrational rocket into %This %Tbutt and hits the ingition!",
 			text_receiver = "You push the vibrational rocket into your %Tbutt and hit the ingition!",
@@ -208,68 +223,68 @@ aTable.rpTexts = function(self)
 		
 
 	-- Jade Rod
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "JADE_ROD",
 			text_bystander = "%T pushes an elongated slab of jade into %This %Tvagina where it starts pulsating!",
 			text_receiver = "You push the elongated slab of jade into your %Tvagina where it starts pleasantly pulsating!",
 			requirements = {rtc.victimVagina}
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "JADE_ROD",
 			text_bystander = "%T sticks an elongated slab of jade between %This %Tbreasts where it starts pulsating!",
 			text_receiver = "You stick the elongated slab of jade between your %Tbreasts where it starts pleasantly pulsating!",
 			requirements = {rtc.victimBreasts}
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "JADE_ROD",
 			text_bystander = "%T pushes an elongated slab of jade against %This %Tgroin where it starts pulsating!",
 			text_receiver = "You push the elongated slab of jade against your %Tgroin where it starts pleasantly pulsating!",
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "JADE_ROD",
 			text_bystander = "%T pushes an elongated slab of jade into %This %Tbutt where it starts pulsating!",
 			text_receiver = "You push the elongated slab of jade into your %Tbutt where it starts pleasantly pulsating!",
 		}))
 
 	-- Shara's fel rod
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SHARAS_FEL_ROD",
 			text_bystander = "%T pushes a corrupted rod of fel iron inside %This %Tvagina!",
 			text_receiver = "You push the corrupted rod of fel iron into your %Tvagina!",
 			requirements = {rtc.victimVagina}
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SHARAS_FEL_ROD",
 			text_bystander = "%T sticks a corrupted rod of fel iron between %This %Tbreasts!",
 			text_receiver = "You stick the corrupted rod of fel iron between your %Tbreasts!",
 			requirements = {rtc.victimBreasts}
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SHARAS_FEL_ROD",
 			text_bystander = "%T pushes a corrupted rod of fel iron against %This %Tgroin!",
 			text_receiver = "You push the corrupted rod of fel iron against your %Tgroin!",
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SHARAS_FEL_ROD",
 			text_bystander = "%T pushes a corrupted rod of fel iron into %This %Tbutt!",
 			text_receiver = "You push the corrupted rod of fel iron into your %Tbutt!",
 		}))
 		
 	-- PULSATING_MUSHROOM
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "PULSATING_MUSHROOM",
 			sound = 43036,
 			text_bystander = "%S sticks a pulsating mushroom into %T's %Tundies!",
 			text_sender = "You stick your pulsating mushroom into %T's %Tundies!",
 			text_receiver = "%S sticks a pulsating mushroom into your %Tundies!",
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "PULSATING_MUSHROOM",
 			sound = 43036,
 			text_bystander = "%T sticks a pulsating mushroom into %This %Tundies!",
 			text_receiver = "You stick a pulsating mushroom into your %Tundies!",
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_PULSATING_MUSHROOM_REM",
 			text_bystander = "%T removes the pulsating mushroom from %This %Tundies!",
 			text_receiver = "You remove the pulsating mushroom from your %Tundies!",
@@ -277,14 +292,14 @@ aTable.rpTexts = function(self)
 		}))
 		
 	-- HEADMISTRESS_PADDLE
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "HEADMISTRESS_PADDLE",
 			sound = 3338,
 			text_bystander = "%S slaps %T hard across %This %Tbutt with the headmistress' paddle!",
 			text_sender = "You slap %T hard across %This %Tbutt with your headmistress' paddle!",
 			text_receiver = "%S slaps you hard across your %Tbutt with %Shis headmistress' paddle!",
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "HEADMISTRESS_PADDLE",
 			sound = 3338,
 			text_bystander = "%T slaps %Thimself across %This %Tbutt with the headmistress' paddle!",
@@ -300,7 +315,7 @@ aTable.rpTexts = function(self)
 -- MELEE SWINGS --
 	-- HUMANOIDISH (crits) --
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S's attacks smacks against %T's %leftright %Tbreast!",
 			text_receiver = "%S's attacks smacks against your %leftright %Tbreast!",
@@ -311,7 +326,7 @@ aTable.rpTexts = function(self)
 		}))
 
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S's attack smacks across %T's %Tgroin!",
 			text_receiver = "%S's attack smacks painfully across your %Tgroin!",
@@ -321,7 +336,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticCrit
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S's attack smacks across %T's %Tbreasts!",
 			text_receiver = "%S's attack smacks painfully across your %Tbreasts!",
@@ -332,7 +347,7 @@ aTable.rpTexts = function(self)
 		}))
 
 		-- Paralysis
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S takes advantage of %T being paralyzed, squeezing %This %Tbreasts hard!",
 			text_receiver = "%S takes advantage of you being paralyzed, squeezing your %Tbreasts hard!",
@@ -341,7 +356,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "While %T is paralyzed, %S grabs a hold of %This nipples and twists hard!",
 			text_receiver = "While you are paralyzed, %S grabs a hold of your nipples and twists hard!",
@@ -350,7 +365,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S takes advantage of %T being paralyzed, squeezing %This %Tgroin hard!",
 			text_receiver = "%S takes advantage of you being paralyzed, squeezing your %Tgroin hard!",
@@ -361,7 +376,7 @@ aTable.rpTexts = function(self)
 		}))
 
 	-- Pinchers --
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S pinches %T's %leftright nipple!",
 			text_receiver = "%S pinches your %leftright nipple!",
@@ -370,7 +385,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticDefault
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S pinches %T's %leftright %Tbreast!",
 			text_receiver = "%S pinches your %leftright %Tbreast!",
@@ -379,7 +394,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticDefault
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S pinches %T's %Tgroin!",
 			text_receiver = "%S pinches your %Tgroin!",
@@ -389,7 +404,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticDefault
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S clamps down hard on %T's %Tgroin!",
 			text_receiver = "%S clamps down hard on your %Tgroin!",
@@ -398,7 +413,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S clamps down hard and tugs at both %T's nipples!",
 			text_receiver = "%S clamps down hard and tugs at both your nipples!",
@@ -407,7 +422,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S clamps down hard on %T's %leftright nipple, twisting it in the process!",
 			text_receiver = "%S clamps down hard on your %leftright nipple, twisting it in the process!",
@@ -419,7 +434,7 @@ aTable.rpTexts = function(self)
 
 
 	-- Wasps
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S's stinger tickles between %T's legs!",
 			text_receiver = "%S's stinger tickles between your legs!",
@@ -431,7 +446,7 @@ aTable.rpTexts = function(self)
 
 
 	-- Tentacle fiends (like the one in the draenei start area)
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S slips a tentacle into %T's clothes, wiggling against %This %Tgroin!",
 			text_receiver = "%S slips a tentacle into your clothes, tickling your %Tgroin!",
@@ -440,7 +455,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementDefault
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S slips a tentacle into %T's clothes, wiggling between %This %Trtag buttcheeks!",
 			text_receiver = "%S slips a tentacle into your clothes, tickling between your %Trtag buttcheeks!",
@@ -449,7 +464,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementDefault
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S slips a tentacle into %T's clothes, slipping it up into %This %Tvagina and wiggling it around!",
 			text_receiver = "%S slips a tentacle into your clothes, slipping it up into your %Tvagina and wiggling it around!",
@@ -458,7 +473,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementCrit
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S slips a tentacle into %T's clothes, hooping it around %This nipples and tugs!",
 			text_receiver = "%S slips a tentacle into your clothes, hooping it around your nipples and tugs!",
@@ -469,7 +484,7 @@ aTable.rpTexts = function(self)
 		}))
 
 	-- Lashing NPCs
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S lashes %T's %Tgroin!",
 			text_receiver = "%S lashes your %Tgroin!",
@@ -479,7 +494,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticDefault
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S lashes %T's %leftright %Tbreast!",
 			text_receiver = "%S lashes your %leftright %Tbreast!",
@@ -489,7 +504,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticDefault
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S lashes hard across %T's %Tgroin!",
 			text_receiver = "%S lashes hard across your %Tgroin!",
@@ -499,7 +514,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticCrit
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S slips a vine between %T's legs and tickles %This %Tgroin!",
 			text_receiver = "%S slips a vine between your legs, tickling your %Tgroin!",
@@ -509,7 +524,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementDefault
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "A vine slips across %T's %Tbreasts wiggling against %This nipples!",
 			text_receiver = "A vine slips across your %Tbreasts, tickling your nipples!",
@@ -519,7 +534,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementDefault
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S lashes across both %T's %Tbreasts!",
 			text_receiver = "%S lashes across both your %Tbreasts!",
@@ -529,7 +544,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticCrit
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S envelops %T's package with a vine, squeezing hard!",
 			text_receiver = "%S envelops your package with a vine, squeezing hard!",
@@ -539,7 +554,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticCrit
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S envelops %T's %Tbreasts with vines, squeezing hard!",
 			text_receiver = "%S envelops your %Tbreasts with vines, squeezing hard!",
@@ -549,7 +564,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticCrit
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S lashes vines around %T's nipples and tugs back!",
 			text_receiver = "%S lashes vines around your nipples and tugs back!",
@@ -559,7 +574,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticCrit
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
 			text_bystander = "%S pushes a vine up between %T's legs, rigorously rubbing %This clit through %This clothes!",
 			text_receiver = "%S pushes a vine up between your legs, rigorously rubbing your clit through your clothes!",
@@ -569,7 +584,7 @@ aTable.rpTexts = function(self)
 			fn = ef.addExcitementMasochisticCrit
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S takes advantage of %T being knocked down and lashes hard across %This %Tgroin!",
 			text_receiver = "%S takes advantage of you being knocked down and lashes hard across your %Tgroin!",
@@ -580,7 +595,7 @@ aTable.rpTexts = function(self)
 		}))
 
 	-- Ooze NPCs
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_receiver = "Some ooze trickles into your cleavage.",
 			--sound = 3338,
@@ -589,13 +604,13 @@ aTable.rpTexts = function(self)
 			fn = function()
 				ef.addExcitementDefault(self)
 				if math.random() < 0.3 then
-					ExiWoW.Timer:set(function()
-						ExiWoW.Effect:run("oozeInClothes")
+					Timer.set(function()
+						Effect.run("oozeInClothes")
 					end, 3+math.random()*3)
 				end
 			end
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "SWING",
 			text_receiver = "Some ooze trickles into your %Tundies.",
 			--sound = 3338,
@@ -604,8 +619,8 @@ aTable.rpTexts = function(self)
 			fn = function(self)
 				ef.addExcitementDefault(self)
 				if math.random() < 0.5 then
-					ExiWoW.Timer:set(function()
-						ExiWoW.Effect:run("oozeInClothes")
+					Timer.set(function()
+						Effect.run("oozeInClothes")
 					end, 3+math.random()*3)
 				end
 			end
@@ -616,7 +631,7 @@ aTable.rpTexts = function(self)
 		-- GENERIC / NPC --
 
 			-- Ice spells
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("ice", "ice_common"),
 					text_bystander = "The cold spell causes %T's nipples to harden!",
 					text_receiver = "The cold spell causes your nipples to harden!",
@@ -624,14 +639,14 @@ aTable.rpTexts = function(self)
 					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("ice", "ice_common"),
 					text_receiver = "%spell chills your nipples!",
 					--sound = 48289,
 					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("ice", "ice_common"),
 					text_receiver = "%spell chills your %Tgroin!",
 					--sound = 48289,
@@ -641,7 +656,7 @@ aTable.rpTexts = function(self)
 
 			-- Lightning
 				
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("electric", "electric_common"),
 					text_receiver = "The %spell shocks your nipples!",
 					sound = 35286,
@@ -651,7 +666,7 @@ aTable.rpTexts = function(self)
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("electric"),
 					text_receiver = "The %spell painfully shocks your %Tbreasts!",
 					sound = 35286,
@@ -665,7 +680,7 @@ aTable.rpTexts = function(self)
 
 			-- Basilisk stares
 				
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("basilisk"),
 					text_bystander = "%spell causes %T's nipples to %harden!",
 					text_receiver = "%spell causes your nipples to %harden!",
@@ -676,7 +691,7 @@ aTable.rpTexts = function(self)
 					},
 					fn = ef.addExcitementDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("basilisk"),
 					text_bystander = "%spell causes %T's %Tpenis to %harden!",
 					text_receiver = "%spell causes your %Tpenis to %harden!",
@@ -689,7 +704,7 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Uppercut
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Uppercut",
 					text_bystander = "%S uppercuts %T's %Tbreasts with enough force to knock %Thim back!",
 					text_receiver = "%S uppercuts your %Tbreasts with enough force to knock you back!",
@@ -700,7 +715,7 @@ aTable.rpTexts = function(self)
 					},
 					fn = ef.addExcitementMasochisticCrit
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Uppercut",
 					text_bystander = "%S uppercuts %T's %leftright %Tbreast, jiggling it around heavily as %The stagger backwards!",
 					text_receiver = "%S uppercuts your %leftright %Tbreast, jiggling it around heavily as you stagger backwards!",
@@ -713,7 +728,7 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Shield bash
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("shield_bash"),
 					text_bystander = "%S's shield slams across %T's %Tbreasts!",
 					text_receiver = "%S's shield slams across your %Tbreasts!",
@@ -726,7 +741,7 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Steam below
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("steam_below"),
 					text_receiver = "Hot steam blasts up across your %Tgroin!",
 					--sound = 35103,
@@ -738,7 +753,7 @@ aTable.rpTexts = function(self)
 
 
 			-- Headbutt
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Headbutt",
 					text_bystander = "%S headbutts straight into %T's %Tbreasts!",
 					text_receiver = "%S headbutts straight into your %Tbreasts!",
@@ -752,7 +767,7 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Slitherstrike
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Slitherstrike",
 					text_receiver = "Cold goo from the %spell trickles down over your %Tbreasts!",
 					--sound = 35103,
@@ -762,7 +777,7 @@ aTable.rpTexts = function(self)
 					},
 					fn = ef.addExcitementDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Slitherstrike",
 					text_receiver = "Cold goo from the %spell trickles down into your %Tundies!",
 					--sound = 35103,
@@ -775,7 +790,7 @@ aTable.rpTexts = function(self)
 				
 
 			-- Ground spike
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("groundSpike"),
 					text_bystander = "%spell prods up between %T's buttcheeks, striking a glancing blow!",
 					text_receiver = "%spell prods up between your buttcheeks, tickling your behind!",
@@ -785,7 +800,7 @@ aTable.rpTexts = function(self)
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("groundSpike"),
 					text_bystander = "%spell lands a glancing blow between %T's legs, smacking %This %Tbulge around!",
 					text_receiver = "%spell lands a glancing blow between your legs, smacking your %Tbulge around!",
@@ -796,7 +811,7 @@ aTable.rpTexts = function(self)
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("groundSpike"),
 					text_bystander = "%spell lands a glancing blow between %T's legs, firmly prodding up against %This %Tgroin!",
 					text_receiver = "%spell lands a glancing blow between your legs, firmly prodding up against your %Tgroin!",
@@ -810,7 +825,7 @@ aTable.rpTexts = function(self)
 
 
 			-- Magic whips
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("magicWhip"),
 					text_bystander = "%S's %spell lashes across %T's %Tbutt!",
 					text_receiver = "%S's %spell lashes across your %Tbutt!",
@@ -820,7 +835,7 @@ aTable.rpTexts = function(self)
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("magicWhip"),
 					text_bystander = "%S's %spell lashes across %T's %Tgroin!",
 					text_receiver = "%S's %spell lashes across your %Tgroin!",
@@ -830,7 +845,7 @@ aTable.rpTexts = function(self)
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("magicWhip"),
 					text_bystander = "%S's %spell lashes across both of %T's %Tbreasts!",
 					text_receiver = "%S's %spell lashes across both of your %Tbreasts!",
@@ -841,7 +856,7 @@ aTable.rpTexts = function(self)
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("magicWhip"),
 					text_bystander = "%S's %spell lashes across %T's %leftright %Tbreast!",
 					text_receiver = "%S's %spell lashes across your %leftright %Tbreast!",
@@ -854,7 +869,7 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Shield bash
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Shield Bash",
 					text_bystander = "%S's %spell slams against %T's %Tbreasts!",
 					text_receiver = "%S's %spell slams against your %Tbreasts!",
@@ -867,7 +882,7 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Spillable
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("spillable"),
 					text_bystander = "%spell spills onto %T's %Tbreasts!",
 					text_receiver = "Some of the %spell spills onto your %Tbreasts!",
@@ -875,7 +890,7 @@ aTable.rpTexts = function(self)
 					requirements = {rtc.spellTick, rtc.victimBreasts},
 					fn = ef.addExcitementDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("spillable_add"),
 					text_bystander = "%spell spills onto %T's %Tbreasts!",
 					text_receiver = "Some of the %spell spills onto your %Tbreasts!",
@@ -885,7 +900,7 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Bone toss
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Bone Toss",
 					text_bystander = "%S's %spell hits %T right between %This legs!",
 					text_receiver = "%S's %spell hit you right between the legs!",
@@ -893,7 +908,7 @@ aTable.rpTexts = function(self)
 					requirements = {},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Bone Toss",
 					text_bystander = "%S's %spell hits %T's %leftright %Tbreast!",
 					text_receiver = "%S's %spell hits your %leftright %Tbreast!",
@@ -903,26 +918,26 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Slosh
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("slosh"),
 					text_receiver = "Liquid from the %spell trickles down between your %Tbreasts!",
 					requirements = {rtc.victimBreasts},
 					fn = ef.addExcitementDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("slosh"),
 					text_receiver = "Liquid from the %spell pours into your %Tundies!",
 					requirements = {rtc.targetWearsUnderwear},
 					fn = ef.addExcitementDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("slosh"),
 					text_receiver = "Liquid from the %spell seeps into your clothes.",
 					requirements = {}
 				}))
 
 			-- Small Shards
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("shards"),
 					text_receiver = "A pulsating crystal shard tumbles into your clothes, coming to a rest between your %Tbreasts!",
 					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
@@ -932,7 +947,7 @@ aTable.rpTexts = function(self)
 						ef.debuffShardTickleBreasts:add()
 					end
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("shards"),
 					text_receiver = "A pulsating crystal shard tumbles into your %Tundies, tickling your %Tgenitals!",
 					requirements = {rtc.spellAddOrTick, rtc.targetWearsUnderwear},
@@ -942,7 +957,7 @@ aTable.rpTexts = function(self)
 						ef.debuffShardTickleGroin:add()
 					end
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("shards"),
 					text_receiver = "A crystal shard tumbles down your buttcrack, tickling your %Tbutt!",
 					requirements = {rtc.spellAddOrTick},
@@ -954,35 +969,35 @@ aTable.rpTexts = function(self)
 				}))
 			
 			-- Bop barrage
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Bop Barrage",
 					text_bystander = "%S bops %T's %leftright %Tbreast!",
 					text_receiver = "%S bops your %leftright %Tbreast!",
 					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Bop Barrage",
 					text_bystander = "%S bops both %T's %Tbreasts!",
 					text_receiver = "%S bops both your %Tbreasts!",
 					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Bop Barrage",
 					text_bystander = "%S bops %T's bulge!",
 					text_receiver = "%S bops your bulge!",
 					requirements = {rtc.spellAddOrTick, rtc.targetWearsUnderwear, rtc.victimPenis},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Big Bop",
 					text_bystander = "%S bops %T's %Tbreasts with enough force to knock %Thim down!",
 					text_receiver = "%S bops your %Tbreasts with enough force to knock you down!",
 					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
 					fn = ef.addExcitementMasochisticCrit
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Big Bop",
 					text_bystander = "%S bops %T's bulge with enough force to knock %Thim to the ground!",
 					text_receiver = "%S bops your bulge with enough force to knock you to the ground!",
@@ -991,13 +1006,13 @@ aTable.rpTexts = function(self)
 				}))
 				
 			-- Dancing thorns
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Dancing Thorns",
 					text_receiver = "A dancing thorn pricks your %leftright %Tbreast!",
 					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Dancing Thorns",
 					text_receiver = "A dancing thorn pricks your %Tbutt!",
 					requirements = {rtc.spellAddOrTick},
@@ -1006,21 +1021,21 @@ aTable.rpTexts = function(self)
 
 
 			-- Insect swarm
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("insects"),
 					text_receiver = "An insect gets into your chestpiece and bites your %leftright nipple!",
 					--sound = 35103,
 					requirements = {rtc.spellTick, rtc.victimBreasts},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("insects"),
 					text_receiver = "An insect gets into your pants and bites your %Tpenis!",
 					--sound = 35103,
 					requirements = {rtc.spellTick, rtc.victimPenis},
 					fn = ef.addExcitementMasochisticCrit
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = getsk("insects"),
 					text_receiver = "An insect gets into your chestpiece and skitters across your %Tvagina!",
 					--sound = 35103,
@@ -1029,7 +1044,7 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Bonk
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Bonk",
 					text_bystander = "%S bonks %T's %leftright %Tbreast!",
 					text_receiver = "%S bonks your %leftright %Tbreast!",
@@ -1037,7 +1052,7 @@ aTable.rpTexts = function(self)
 					requirements = {rtc.victimBreasts, rtc.spellAdd},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Bonk",
 					text_bystander = "%S bonks across both of %T's %Tbreasts!",
 					text_receiver = "%S bonks across both of your %Tbreasts!",
@@ -1046,7 +1061,7 @@ aTable.rpTexts = function(self)
 					fn = ef.addExcitementMasochisticCrit
 				}))
 				
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Bonk",
 					text_bystander = "%S bonks %T's %Tgroin!",
 					text_receiver = "%S bonks your %Tgroin!",
@@ -1056,14 +1071,14 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Shoot
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Shoot",
 					text_receiver = "%S's projectile bounces off your chestplate!",
 					sound = 57073,
 					requirements = {rtc.spellTick, rtc.chestPlate, rtc.victimBreasts},
 					fn = ef.addExcitementMasochistic
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Shoot",
 					text_receiver = "%S shot bounces off your crotchplate!",
 					sound = 57073,
@@ -1072,7 +1087,7 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Lash of pain
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Lash of Pain",
 					text_bystander = "%S's whip cracks across %T's %leftright %Tbreast!",
 					text_receiver = "%S's whip cracks across your %leftright %Tbreast!",
@@ -1080,7 +1095,7 @@ aTable.rpTexts = function(self)
 					requirements = {rtc.spellTick, rtc.victimBreasts},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Lash of Pain",
 					text_bystander = "%S's whip cracks across %T's %Tbreasts!",
 					text_receiver = "%S's whip cracks across your %Tbreasts!",
@@ -1088,7 +1103,7 @@ aTable.rpTexts = function(self)
 					requirements = {rtc.spellTick, rtc.victimBreasts},
 					fn = ef.addExcitementMasochisticDefault
 				}))
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "Lash of Pain",
 					text_bystander = "%S's whip cracks across %T's %Tgroin!",
 					text_receiver = "%S's whip cracks across your %Tgroin!",
@@ -1099,7 +1114,7 @@ aTable.rpTexts = function(self)
 
 
 			-- Daglop
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_NIPPLE_TWIST",
 					text_bystander = "Daglop reaches into %T's chestpiece and twists %This nipples!",
 					text_receiver = "Daglop reaches into your chestpiece and twists your nipples!",
@@ -1107,7 +1122,7 @@ aTable.rpTexts = function(self)
 					requirements = {},
 					fn = ef.addExcitementMasochisticCrit
 				}));
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_NIPPLE_TWIST_TEXT",
 					is_chat = true,
 					sound = 770,
@@ -1116,7 +1131,7 @@ aTable.rpTexts = function(self)
 					requirements = {}
 				}));
 
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_WEDIGE",
 					text_bystander = "Daglop grabs a hold of %T's %Tundies from behind, giving %Thim a wedgie!",
 					text_receiver = "Daglop grabs a hold of the back of your %Tundies, giving you a wedgie!",
@@ -1124,7 +1139,7 @@ aTable.rpTexts = function(self)
 					requirements = {rtc.targetWearsUnderwear},
 					fn = ef.addExcitementMasochistic
 				}));
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_WEDIGE_TEXT",
 					is_chat = true,
 					sound = 770,
@@ -1133,7 +1148,7 @@ aTable.rpTexts = function(self)
 					requirements = {}
 				}));
 
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_BUTTKICK",
 					text_bystander = "Daglop kicks %T's %Tbutt!",
 					text_receiver = "Daglop kicks you in the %Tbutt!",
@@ -1141,7 +1156,7 @@ aTable.rpTexts = function(self)
 					requirements = {},
 					fn = ef.addExcitementMasochistic
 				}));
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_BUTTKICK_TEXT",
 					is_chat = true,
 					sound = 770,
@@ -1149,7 +1164,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "Daglop: Get to it, chop chop!",
 					requirements = {}
 				}));
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_BUTTKICK_TEXT",
 					is_chat = true,
 					sound = 770,
@@ -1158,7 +1173,7 @@ aTable.rpTexts = function(self)
 					requirements = {rtc.largeButt}
 				}));
 
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_BOOB_GRAB",
 					text_bystander = "Daglop grabs a hold of and squeezes %T's %Tbreasts!",
 					text_receiver = "Daglop grabs a hold of and squeezes your %Tbreasts!",
@@ -1166,7 +1181,7 @@ aTable.rpTexts = function(self)
 					requirements = {rtc.victimBreasts},
 					fn = ef.addExcitementMasochistic
 				}));
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_BOOB_GRAB_TEXT",
 					is_chat = true,
 					sound = 770,
@@ -1174,7 +1189,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "Daglop: Oh sorry, I was er... slipping...",
 					requirements = {}
 				}));
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_BOOB_GRAB_TEXT",
 					is_chat = true,
 					sound = 770,
@@ -1183,7 +1198,7 @@ aTable.rpTexts = function(self)
 					requirements = {rtc.largeBreasts}
 				}));
 
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_MOUTH_FINGER",
 					text_bystander = "Daglop forces a finger into %T's mouth!",
 					text_receiver = "Daglop forces a finger into your mouth!",
@@ -1191,7 +1206,7 @@ aTable.rpTexts = function(self)
 					requirements = {},
 					fn = ef.addExcitement
 				}));
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_MOUTH_FINGER_TEXT",
 					is_chat = true,
 					sound = 770,
@@ -1200,7 +1215,7 @@ aTable.rpTexts = function(self)
 					requirements = {}
 				}));
 
-				table.insert(R, ExiWoW.RPText:new({
+				table.insert(R, RPText:new({
 					id = "DAGLOP_RITUAL_TEXT",
 					is_chat = true,
 					sound = 770,
@@ -1213,7 +1228,7 @@ aTable.rpTexts = function(self)
 		-- DRUID --
 
 			-- Entangling Roots
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = getsk("roots"),
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and starts tickling against %This %Tbutt!",
 				text_receiver = "A vine from the roots slips inside your clothes and starts tickling your %Tbutt!",
@@ -1222,7 +1237,7 @@ aTable.rpTexts = function(self)
 				-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 				fn = ef.addExcitementDefault
 			}))
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = getsk("roots"),
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and squeezes %This %Tpenis!",
 				text_receiver = "A vine from the roots slips inside your clothes and squeezes your %Tpenis!",
@@ -1231,7 +1246,7 @@ aTable.rpTexts = function(self)
 				-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 				fn = ef.addExcitementDefault
 			}))
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = getsk("roots"),
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and up inside %This %Tvagina where it wiggles about!",
 				text_receiver = "A vine from the roots slips inside your clothes and up inside your %Tvagina where it wiggles about!",
@@ -1239,7 +1254,7 @@ aTable.rpTexts = function(self)
 				requirements = {rtc.spellAdd, rtc.victimVagina},
 				fn = ef.addExcitementCrit
 			}))
-			table.insert(R, ExiWoW.RPText:new({
+			table.insert(R, RPText:new({
 				id = getsk("roots"),
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and wraps around %This %Tbreasts, squeezing them rigorously!",
 				text_receiver = "A vine from the roots slips inside your clothes and wraps around your %Tbreasts, squeezing them rigorously!",
@@ -1252,33 +1267,33 @@ aTable.rpTexts = function(self)
 
 -- CUSTOM TICKING BUFFS/DEBUFFS
 	-- Living goo
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesAdd",
 			text_receiver = "The goo in your outfit comes to life!",
 			sound = 73580,
 			requirements = {},
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesFade",
 			text_receiver = "The living goo expires!",
 			--sound = 73580,
 			requirements = {},
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesRem",
 			text_receiver = "You forcefully remove the living goo from your clothes!",
 			sound = 73580,
 			requirements = {},
 		}))
 
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo tickles your %Tbutt!",
 			sound = 48289,
 			requirements = {},
 			fn = ef.addExcitementDefault
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo tickles your %Tvagina!",
 			sound = 48289,
@@ -1286,7 +1301,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementCrit
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo tickles your %Tpenis!",
 			sound = 48289,
@@ -1294,7 +1309,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementCrit
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo tickles your clit!",
 			sound = 48289,
@@ -1302,7 +1317,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementCrit
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo tickles your %leftright nipple!",
 			sound = 48289,
@@ -1310,7 +1325,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementDefault
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo wraps around your %Tbreasts, squeezing both!",
 			sound = 18711,
@@ -1318,7 +1333,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticDefault
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo wraps around your nipples, pulling your %Tbreasts together!",
 			sound = 18711,
@@ -1326,7 +1341,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo prods inside your %Tvagina, swirling a tendril around!",
 			sound = 21727,
@@ -1334,7 +1349,7 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementCrit
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo prods inside your %Tbutt, swirling a tendril around!",
 			sound = 21727,
@@ -1349,7 +1364,7 @@ aTable.rpTexts = function(self)
 -- Voice chats
 	
 	-- Feltotem bull
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "_WHISPER_",
 			is_chat = true,
 			sound = 48315,
@@ -1359,7 +1374,7 @@ aTable.rpTexts = function(self)
 				rtc.maleWhispers,					-- User allows whispers from male
 			},
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "_WHISPER_",
 			is_chat = true,
 			sound = 48315,
@@ -1370,7 +1385,7 @@ aTable.rpTexts = function(self)
 				rtc.maleWhispers,					-- User allows whispers from male
 			},
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "_WHISPER_",
 			is_chat = true,
 			sound = 48315,
@@ -1381,7 +1396,7 @@ aTable.rpTexts = function(self)
 				rtc.maleWhispers,					-- User allows whispers from male
 			},
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "_WHISPER_",
 			is_chat = true,
 			sound = 48315,
@@ -1392,7 +1407,7 @@ aTable.rpTexts = function(self)
 				rtc.maleWhispers,					-- User allows whispers from male
 			},
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "_WHISPER_",
 			is_chat = true,
 			sound = 48315,
@@ -1403,7 +1418,7 @@ aTable.rpTexts = function(self)
 				rtc.maleWhispers,					-- User allows whispers from male
 			},
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "_WHISPER_",
 			is_chat = true,
 			sound = 48315,
@@ -1414,7 +1429,7 @@ aTable.rpTexts = function(self)
 				rtc.maleWhispers,					-- User allows whispers from male
 			},
 		}))
-		table.insert(R, ExiWoW.RPText:new({
+		table.insert(R, RPText:new({
 			id = "_WHISPER_",
 			is_chat = true,
 			sound = 48315,

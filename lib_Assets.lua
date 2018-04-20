@@ -1,8 +1,11 @@
 local aName, aTable = ...;
+local require = ExiWoW.require
+
 aTable.assets = function(self)
 	-- Use this if you want to extend the default triggers, such as electric/frost spells etc
 	-- Feel free to supply any interesting triggers you find to the official project!
 	local zones = ExiWoW.LibAssets.zones
+	local RPText = require("RPText");
 
 	-- Add loot
 	local loot = ExiWoW.LibAssets.loot;
@@ -22,7 +25,7 @@ aTable.assets = function(self)
 				chance = 1,
 				quant = math.huge,
 				sound = 1213,
-				text = ExiWoW.RPText:new({
+				text = RPText:new({
 					text_receiver = "This old goblin grinder rocket contraption looks to have been obsoleted and thrown away.\nMaybe I could find another use for it..."
 				})
 			}
@@ -49,7 +52,7 @@ aTable.assets = function(self)
 				chance = 1,
 				quant = math.huge,
 				sound = 1221,
-				text = ExiWoW.RPText:new({
+				text = RPText:new({
 					text_receiver = "You found a jade rod! It seems to be pulsating gently..."
 				})
 			}
@@ -66,7 +69,7 @@ aTable.assets = function(self)
 				chance = 0.2,
 				quant = math.huge,
 				sound = 1221,
-				text = ExiWoW.RPText:new({
+				text = RPText:new({
 					text_receiver = "You found a jade rod! It seems to be pulsating gently..."
 				})
 			}
@@ -88,7 +91,7 @@ aTable.assets = function(self)
 				chance = 1,
 				quant = math.huge,
 				sound = 1191,
-				text = ExiWoW.RPText:new({
+				text = RPText:new({
 					text_receiver = "You found an uncomfortable pulsating fel iron rod. You decide that it'd be better with you than with Shara..."
 				})
 			}
@@ -107,7 +110,7 @@ aTable.assets = function(self)
 				quant = 1,
 				quantRand = 3,
 				sound = 1221,
-				text = ExiWoW.RPText:new({
+				text = RPText:new({
 					text_receiver = "You found %Q pulsating mushroom%Qs!"
 				})
 			}
@@ -125,7 +128,7 @@ aTable.assets = function(self)
 				id = "MUSHROOM_UNDERWEAR", 
 				chance = 0.25,
 				sound = 1185,
-				text = ExiWoW.RPText:new({
+				text = RPText:new({
 					text_receiver = "You find an interesting cluster of mushrooms that seem to shape themselves to your body!"
 				})
 			}
@@ -144,7 +147,7 @@ aTable.assets = function(self)
 				chance = 0.25,
 				quant = math.huge,
 				sound = 1199,
-				text = ExiWoW.RPText:new({
+				text = RPText:new({
 					text_receiver = "You found the headmistress' paddle laying around. You decide it's probably better for someone more... 'responsible' to hold it."
 				})
 			}

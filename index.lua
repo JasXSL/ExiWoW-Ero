@@ -16,7 +16,7 @@ frame:SetScript("OnEvent", function(self, event, prefix, message, channel, sende
 					aTable[i] = f();
 				end
 			end
-			ExiWoW.Extension:import(aTable);
+			ExiWoW.require("Extension").import(aTable);
 		end
 
 	end
