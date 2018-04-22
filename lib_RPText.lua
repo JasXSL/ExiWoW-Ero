@@ -7,13 +7,14 @@ aTable.rpTexts = function(self)
 	local RPText = require("RPText");
 	local Condition = require("Condition");	-- RPText requirement constructor
 	local Effect = require("Effect");
+	local Database = require("Database");
+
 	local ty = Condition.Types;			-- Local filter types
 	
 	-- Shortcuts for the templates library
 	-- It's recommended to use templates if one is available, you can also use lib_Assets to extend the templates library
 	local assetLib = ExiWoW.LibAssets;
 	local spellKits = assetLib.spell_kits;		-- RP Text spell kits library
-	local rtc = ExiWoW.LibAssets.rpTextConds;	-- RP Text conditions
 	local ef = ExiWoW.LibAssets.effects;		-- RP Text effects library
 	-- Gets a spell kit condition formated for RP texts
 	local getsk = function(...)
@@ -28,7 +29,12 @@ aTable.rpTexts = function(self)
 		end
 		return out;
 	end
+
+	local function getCondition(id)
+		return Database.getID("Condition", id);
+	end
 	
+	local spellAddOrTick = Database.getIDs("Condition", {spellAdd=true, spellTick=true});
 
 -- ACTIONS
 	-- Fondle --
@@ -43,7 +49,7 @@ aTable.rpTexts = function(self)
 				text_sender = "You grab a hold of and rub %T's %Tbreasts!",
 				text_receiver = "%S grabs a hold of and rubs your %Tbreasts!",
 				sound = 57179,
-				requirements = {rtc.victimBreasts}
+				requirements = {getCondition("victimBreasts")}
 			}))
 
 			-- Fondle groin target
@@ -79,7 +85,7 @@ aTable.rpTexts = function(self)
 				text_bystander = "%T rubs %This %Tbreasts!",
 				text_receiver = "You rub your %Tbreasts!",
 				sound = 57179,
-				requirements = { rtc.victimBreasts }
+				requirements = { getCondition("victimBreasts") }
 			}))
 		--
 
@@ -97,7 +103,7 @@ aTable.rpTexts = function(self)
 				text_bystander = "%S tickles %T between %This legs with %Shis %item!",
 				text_sender = "You tickle %T between %This legs with your %item!",
 				text_receiver = "%S tickles your %Tgroin with %Shis %item!",
-				requirements = {rtc.invFeathers},
+				requirements = {getCondition("invFeathers")},
 			}))
 
 			-- Tickle self
@@ -105,7 +111,7 @@ aTable.rpTexts = function(self)
 				id = "TICKLE",
 				text_bystander = "%T tickles %Thimself with %This %item!",
 				text_receiver = "You tickle your own %Tgroin with %This %item!",
-				requirements = {rtc.invFeathers},
+				requirements = {getCondition("invFeathers")},
 				--fn = ef.addExcitementMasochisticDefault
 			}))
 
@@ -116,7 +122,7 @@ aTable.rpTexts = function(self)
 			text_sender = "You throw a handful of sand at %T, the majority of which falls into %This cleavage!", 
 			text_receiver = "%S throws a handful of sand at you, the majority of which falls into your cleavage!",
 			sound = 907,
-			requirements = {rtc.victimBreasts},
+			requirements = {getCondition("victimBreasts")},
 			--fn = ef.addExcitementMasochisticDefault
 		}))
 
@@ -126,7 +132,7 @@ aTable.rpTexts = function(self)
 			text_sender = "You throw a handful of sand at %T, the majority of which gets into %This %Tundies!", 
 			text_receiver = "%S throws a handful of sand at you, the majority of which gets into your %Tundies!",
 			sound = 907,
-			requirements = {rtc.targetWearsUnderwear},
+			requirements = {getCondition("targetWearsUnderwear")},
 			--fn = ef.addExcitementMasochisticDefault
 		}))
 
@@ -136,7 +142,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%T lets a trickle of sand fall down %This cleavage!",
 			text_receiver = "You let a trickle of sand fall down your cleavage!",
 			sound = 73172,
-			requirements = {rtc.victimBreasts},
+			requirements = {getCondition("victimBreasts")},
 			--fn = ef.addExcitementMasochisticDefault
 		}))
 
@@ -145,7 +151,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%T stretches out %This waistline and pours some sand into %This %Tundies!",
 			text_receiver = "You stretch out your waistline and pour some sand into your %Tundies!",
 			sound = 73172,
-			requirements = {rtc.targetWearsUnderwear},
+			requirements = {getCondition("targetWearsUnderwear")},
 			--fn = ef.addExcitementMasochisticDefault
 		}))
 
@@ -175,7 +181,7 @@ aTable.rpTexts = function(self)
 			text_sender = "You pinch %T's nipple with your big claw!",
 			text_receiver = "%S pinches your nipple with %Shis big claw!",
 			sound = 36721,
-			requirements = {rtc.victimBreasts},
+			requirements = {getCondition("victimBreasts")},
 			--fn = ef.addExcitementMasochisticDefault
 		}))
 
@@ -192,7 +198,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%T pinches %This %leftright nipple with a big claw!",
 			text_receiver = "You pinch your %leftright nipple with your big claw!",
 			sound = 36721,
-			requirements = {rtc.victimBreasts},
+			requirements = {getCondition("victimBreasts")},
 			--fn = ef.addExcitementMasochisticDefault
 		}))
 
@@ -202,13 +208,13 @@ aTable.rpTexts = function(self)
 			id = "GOBLIN_BUZZROCKET",
 			text_bystander =  "%T pushes a vibrational rocket into %This %Tvagina and hits the ingition!",
 			text_receiver = "You push the vibrational rocket into your %Tvagina and hit the ingition!",
-			requirements = {rtc.victimVagina}
+			requirements = {getCondition("victimVagina")}
 		}))
 		table.insert(R, RPText:new({
 			id = "GOBLIN_BUZZROCKET",
 			text_bystander = "%T sticks a vibrational rocket between %This %Tbreasts and hits the ingition!",
 			text_receiver = "You stick the vibrational rocket between your %Tbreasts and hit the ingition!",
-			requirements = {rtc.victimBreasts}
+			requirements = {getCondition("victimBreasts")}
 		}))
 		table.insert(R, RPText:new({
 			id = "GOBLIN_BUZZROCKET",
@@ -227,13 +233,13 @@ aTable.rpTexts = function(self)
 			id = "JADE_ROD",
 			text_bystander = "%T pushes an elongated slab of jade into %This %Tvagina where it starts pulsating!",
 			text_receiver = "You push the elongated slab of jade into your %Tvagina where it starts pleasantly pulsating!",
-			requirements = {rtc.victimVagina}
+			requirements = {getCondition("victimVagina")}
 		}))
 		table.insert(R, RPText:new({
 			id = "JADE_ROD",
 			text_bystander = "%T sticks an elongated slab of jade between %This %Tbreasts where it starts pulsating!",
 			text_receiver = "You stick the elongated slab of jade between your %Tbreasts where it starts pleasantly pulsating!",
-			requirements = {rtc.victimBreasts}
+			requirements = {getCondition("victimBreasts")}
 		}))
 		table.insert(R, RPText:new({
 			id = "JADE_ROD",
@@ -251,13 +257,13 @@ aTable.rpTexts = function(self)
 			id = "SHARAS_FEL_ROD",
 			text_bystander = "%T pushes a corrupted rod of fel iron inside %This %Tvagina!",
 			text_receiver = "You push the corrupted rod of fel iron into your %Tvagina!",
-			requirements = {rtc.victimVagina}
+			requirements = {getCondition("victimVagina")}
 		}))
 		table.insert(R, RPText:new({
 			id = "SHARAS_FEL_ROD",
 			text_bystander = "%T sticks a corrupted rod of fel iron between %This %Tbreasts!",
 			text_receiver = "You stick the corrupted rod of fel iron between your %Tbreasts!",
-			requirements = {rtc.victimBreasts}
+			requirements = {getCondition("victimBreasts")}
 		}))
 		table.insert(R, RPText:new({
 			id = "SHARAS_FEL_ROD",
@@ -320,7 +326,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S's attacks smacks against %T's %leftright %Tbreast!",
 			text_receiver = "%S's attacks smacks against your %leftright %Tbreast!",
 			sound = 37472,
-			requirements = {rtc.attackerHumanoidish, rtc.victimBreasts},
+			requirements = {getCondition("attackerHumanoidish"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -331,7 +337,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S's attack smacks across %T's %Tgroin!",
 			text_receiver = "%S's attack smacks painfully across your %Tgroin!",
 			sound = 37472,
-			requirements = {rtc.attackerHumanoidish},
+			requirements = {getCondition("attackerHumanoidish")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -341,7 +347,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S's attack smacks across %T's %Tbreasts!",
 			text_receiver = "%S's attack smacks painfully across your %Tbreasts!",
 			sound = 37472,
-			requirements = {rtc.attackerHumanoidish, rtc.victimBreasts},
+			requirements = {getCondition("attackerHumanoidish"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -352,7 +358,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S takes advantage of %T being paralyzed, squeezing %This %Tbreasts hard!",
 			text_receiver = "%S takes advantage of you being paralyzed, squeezing your %Tbreasts hard!",
 			sound = 25626,
-			requirements = {rtc.attackerHumanoidish, rtc.victimBreasts, rtc.victimParalyzed},
+			requirements = {getCondition("attackerHumanoidish"), getCondition("victimBreasts"), getCondition("victimParalyzed")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -361,7 +367,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "While %T is paralyzed, %S grabs a hold of %This nipples and twists hard!",
 			text_receiver = "While you are paralyzed, %S grabs a hold of your nipples and twists hard!",
 			sound = 25626,
-			requirements = {rtc.attackerHumanoidish, rtc.victimBreasts, rtc.victimParalyzed},
+			requirements = {getCondition("attackerHumanoidish"), getCondition("victimBreasts"), getCondition("victimParalyzed")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -370,7 +376,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S takes advantage of %T being paralyzed, squeezing %This %Tgroin hard!",
 			text_receiver = "%S takes advantage of you being paralyzed, squeezing your %Tgroin hard!",
 			sound = 25626,
-			requirements = {rtc.attackerHumanoidish, rtc.victimBreasts, rtc.victimParalyzed},
+			requirements = {getCondition("attackerHumanoidish"), getCondition("victimBreasts"), getCondition("victimParalyzed")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -381,7 +387,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S pinches %T's %leftright nipple!",
 			text_receiver = "%S pinches your %leftright nipple!",
 			--sound = 57787,
-			requirements = {rtc.attackerIsPinchy, rtc.victimBreasts},
+			requirements = {getCondition("attackerIsPinchy"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticDefault
 		}))
@@ -390,7 +396,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S pinches %T's %leftright %Tbreast!",
 			text_receiver = "%S pinches your %leftright %Tbreast!",
 			--sound = 57787,
-			requirements = {rtc.attackerIsPinchy, rtc.victimBreasts},
+			requirements = {getCondition("attackerIsPinchy"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticDefault
 		}))
@@ -399,7 +405,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S pinches %T's %Tgroin!",
 			text_receiver = "%S pinches your %Tgroin!",
 			--sound = 57787,
-			requirements = {rtc.attackerIsPinchy},
+			requirements = {getCondition("attackerIsPinchy")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticDefault
 		}))
@@ -409,7 +415,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S clamps down hard on %T's %Tgroin!",
 			text_receiver = "%S clamps down hard on your %Tgroin!",
 			--sound = 57787,
-			requirements = {rtc.attackerIsPinchy, rtc.victimPenis},
+			requirements = {getCondition("attackerIsPinchy"), getCondition("victimPenis")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -418,7 +424,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S clamps down hard and tugs at both %T's nipples!",
 			text_receiver = "%S clamps down hard and tugs at both your nipples!",
 			--sound = 57787,
-			requirements = {rtc.attackerIsPinchy, rtc.victimBreasts},
+			requirements = {getCondition("attackerIsPinchy"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -427,7 +433,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S clamps down hard on %T's %leftright nipple, twisting it in the process!",
 			text_receiver = "%S clamps down hard on your %leftright nipple, twisting it in the process!",
 			--sound = 57787,
-			requirements = {rtc.attackerIsPinchy, rtc.victimBreasts},
+			requirements = {getCondition("attackerIsPinchy"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -439,7 +445,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S's stinger tickles between %T's legs!",
 			text_receiver = "%S's stinger tickles between your legs!",
 			--sound = 57787,
-			requirements = {rtc.attackerIsWasp, rtc.rand50},
+			requirements = {getCondition("attackerIsWasp"), getCondition("rand50")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -451,7 +457,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S slips a tentacle into %T's clothes, wiggling against %This %Tgroin!",
 			text_receiver = "%S slips a tentacle into your clothes, tickling your %Tgroin!",
 			sound = 21727,
-			requirements = {rtc.attackerIsTentacleFiend},
+			requirements = {getCondition("attackerIsTentacleFiend")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementDefault
 		}))
@@ -460,7 +466,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S slips a tentacle into %T's clothes, wiggling between %This %Trtag buttcheeks!",
 			text_receiver = "%S slips a tentacle into your clothes, tickling between your %Trtag buttcheeks!",
 			sound = 21727,
-			requirements = {rtc.attackerIsTentacleFiend},
+			requirements = {getCondition("attackerIsTentacleFiend")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementDefault
 		}))
@@ -469,7 +475,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S slips a tentacle into %T's clothes, slipping it up into %This %Tvagina and wiggling it around!",
 			text_receiver = "%S slips a tentacle into your clothes, slipping it up into your %Tvagina and wiggling it around!",
 			sound = 21727,
-			requirements = {rtc.attackerIsTentacleFiend, rtc.victimVagina},
+			requirements = {getCondition("attackerIsTentacleFiend"), getCondition("victimVagina")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementCrit
 		}))
@@ -478,7 +484,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S slips a tentacle into %T's clothes, hooping it around %This nipples and tugs!",
 			text_receiver = "%S slips a tentacle into your clothes, hooping it around your nipples and tugs!",
 			sound = 21729,
-			requirements = {rtc.attackerIsTentacleFiend, rtc.victimBreasts},
+			requirements = {getCondition("attackerIsTentacleFiend"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticDefault
 		}))
@@ -489,7 +495,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S lashes %T's %Tgroin!",
 			text_receiver = "%S lashes your %Tgroin!",
 			sound = 3338,
-			requirements = {rtc.attackerIsLasher},
+			requirements = {getCondition("attackerIsLasher")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticDefault
 		}))
@@ -499,7 +505,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S lashes %T's %leftright %Tbreast!",
 			text_receiver = "%S lashes your %leftright %Tbreast!",
 			sound = 3338,
-			requirements = {rtc.attackerIsLasher, rtc.victimBreasts},
+			requirements = {getCondition("attackerIsLasher"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticDefault
 		}))
@@ -509,7 +515,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S lashes hard across %T's %Tgroin!",
 			text_receiver = "%S lashes hard across your %Tgroin!",
 			sound = 3338,
-			requirements = {rtc.attackerIsLasher},
+			requirements = {getCondition("attackerIsLasher")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -519,7 +525,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S slips a vine between %T's legs and tickles %This %Tgroin!",
 			text_receiver = "%S slips a vine between your legs, tickling your %Tgroin!",
 			sound = 21727,
-			requirements = {rtc.attackerIsVines},
+			requirements = {getCondition("attackerIsVines")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementDefault
 		}))
@@ -529,7 +535,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "A vine slips across %T's %Tbreasts wiggling against %This nipples!",
 			text_receiver = "A vine slips across your %Tbreasts, tickling your nipples!",
 			sound = 21727,
-			requirements = {rtc.attackerIsVines, rtc.victimBreasts},
+			requirements = {getCondition("attackerIsVines"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementDefault
 		}))
@@ -539,7 +545,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S lashes across both %T's %Tbreasts!",
 			text_receiver = "%S lashes across both your %Tbreasts!",
 			sound = 3338,
-			requirements = {rtc.attackerIsLasher, rtc.victimBreasts},
+			requirements = {getCondition("attackerIsLasher"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -549,7 +555,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S envelops %T's package with a vine, squeezing hard!",
 			text_receiver = "%S envelops your package with a vine, squeezing hard!",
 			sound = 25626,
-			requirements = {rtc.attackerIsVines, rtc.victimPenis},
+			requirements = {getCondition("attackerIsVines"), getCondition("victimPenis")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -559,7 +565,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S envelops %T's %Tbreasts with vines, squeezing hard!",
 			text_receiver = "%S envelops your %Tbreasts with vines, squeezing hard!",
 			sound = 25626,
-			requirements = {rtc.attackerIsVines, rtc.victimBreasts},
+			requirements = {getCondition("attackerIsVines"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -569,7 +575,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S lashes vines around %T's nipples and tugs back!",
 			text_receiver = "%S lashes vines around your nipples and tugs back!",
 			sound = 25626,
-			requirements = {rtc.attackerIsVines, rtc.victimBreasts},
+			requirements = {getCondition("attackerIsVines"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -579,7 +585,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S pushes a vine up between %T's legs, rigorously rubbing %This clit through %This clothes!",
 			text_receiver = "%S pushes a vine up between your legs, rigorously rubbing your clit through your clothes!",
 			sound = 21727,
-			requirements = {rtc.attackerIsVines, rtc.victimVagina},
+			requirements = {getCondition("attackerIsVines"), getCondition("victimVagina")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -589,7 +595,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S takes advantage of %T being knocked down and lashes hard across %This %Tgroin!",
 			text_receiver = "%S takes advantage of you being knocked down and lashes hard across your %Tgroin!",
 			sound = 3338,
-			requirements = {rtc.attackerIsVines, rtc.victimKnockedDown},
+			requirements = {getCondition("attackerIsVines"), getCondition("victimKnockedDown")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -599,7 +605,7 @@ aTable.rpTexts = function(self)
 			id = "SWING",
 			text_receiver = "Some ooze trickles into your cleavage.",
 			--sound = 3338,
-			requirements = {rtc.attackerIsOoze, rtc.victimBreasts},
+			requirements = {getCondition("attackerIsOoze"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = function()
 				ef.addExcitementDefault(self)
@@ -614,7 +620,7 @@ aTable.rpTexts = function(self)
 			id = "SWING",
 			text_receiver = "Some ooze trickles into your %Tundies.",
 			--sound = 3338,
-			requirements = {rtc.attackerIsOoze, rtc.targetWearsUnderwear},
+			requirements = {getCondition("attackerIsOoze"), getCondition("targetWearsUnderwear")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = function(self)
 				ef.addExcitementDefault(self)
@@ -636,21 +642,21 @@ aTable.rpTexts = function(self)
 					text_bystander = "The cold spell causes %T's nipples to harden!",
 					text_receiver = "The cold spell causes your nipples to harden!",
 					--sound = 48289,
-					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					requirements = {"spellAddOrTick", getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, RPText:new({
 					id = getsk("ice", "ice_common"),
 					text_receiver = "%spell chills your nipples!",
 					--sound = 48289,
-					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					requirements = {spellAddOrTick, getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, RPText:new({
 					id = getsk("ice", "ice_common"),
 					text_receiver = "%spell chills your %Tgroin!",
 					--sound = 48289,
-					requirements = {rtc.spellAddOrTick, rtc.victimPenis},
+					requirements = {spellAddOrTick, getCondition("victimPenis")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 
@@ -661,8 +667,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "The %spell shocks your nipples!",
 					sound = 35286,
 					requirements = {
-						rtc.spellAddOrTick,  -- OR
-						rtc.victimBreasts
+						spellAddOrTick,  -- OR
+						getCondition("victimBreasts")
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
@@ -671,8 +677,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "The %spell painfully shocks your %Tbreasts!",
 					sound = 35286,
 					requirements = {
-						rtc.spellAddOrTick,  -- OR
-						rtc.victimBreasts
+						spellAddOrTick,  -- OR
+						getCondition("victimBreasts")
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
@@ -686,8 +692,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "%spell causes your nipples to %harden!",
 					--sound = 35103,
 					requirements = {
-						rtc.spellAdd,
-						rtc.victimBreasts
+						getCondition("spellAdd"),
+						getCondition("victimBreasts")
 					},
 					fn = ef.addExcitementDefault
 				}))
@@ -697,8 +703,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "%spell causes your %Tpenis to %harden!",
 					--sound = 35103,
 					requirements = {
-						rtc.spellAdd,
-						rtc.victimPenis
+						getCondition("spellAdd"),
+						getCondition("victimPenis")
 					},
 					fn = ef.addExcitementDefault
 				}))
@@ -710,8 +716,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S uppercuts your %Tbreasts with enough force to knock you back!",
 					--sound = 35103,
 					requirements = {
-						rtc.spellTick,
-						rtc.victimBreasts
+						getCondition("spellTick"),
+						getCondition("victimBreasts")
 					},
 					fn = ef.addExcitementMasochisticCrit
 				}))
@@ -721,8 +727,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S uppercuts your %leftright %Tbreast, jiggling it around heavily as you stagger backwards!",
 					--sound = 35103,
 					requirements = {
-						rtc.spellTick,
-						rtc.victimBreasts
+						getCondition("spellTick"),
+						getCondition("victimBreasts")
 					},
 					fn = ef.addExcitementMasochisticCrit
 				}))
@@ -734,8 +740,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S's shield slams across your %Tbreasts!",
 					--sound = 35103,
 					requirements = {
-						rtc.spellTick,
-						rtc.victimBreasts
+						getCondition("spellTick"),
+						getCondition("victimBreasts")
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
@@ -746,7 +752,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "Hot steam blasts up across your %Tgroin!",
 					--sound = 35103,
 					requirements = {
-						rtc.spellTick
+						getCondition("spellTick")
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
@@ -759,9 +765,9 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S headbutts straight into your %Tbreasts!",
 					--sound = 35103,
 					requirements = {
-						rtc.spellTick,
-						rtc.victimBreasts,
-						rtc.attackerHumanoidish
+						getCondition("spellTick"),
+						getCondition("victimBreasts"),
+						getCondition("attackerHumanoidish")
 					},
 					fn = ef.addExcitementMasochisticCrit
 				}))
@@ -772,8 +778,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "Cold goo from the %spell trickles down over your %Tbreasts!",
 					--sound = 35103,
 					requirements = {
-						rtc.spellTick,
-						rtc.victimBreasts
+						getCondition("spellTick"),
+						getCondition("victimBreasts")
 					},
 					fn = ef.addExcitementDefault
 				}))
@@ -782,8 +788,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "Cold goo from the %spell trickles down into your %Tundies!",
 					--sound = 35103,
 					requirements = {
-						rtc.spellTick,
-						rtc.targetWearsUnderwear
+						getCondition("spellTick"),
+						getCondition("targetWearsUnderwear")
 					},
 					fn = ef.addExcitementDefault
 				}))
@@ -796,7 +802,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "%spell prods up between your buttcheeks, tickling your behind!",
 					sound = 48922,
 					requirements = {
-						rtc.spellTick
+						getCondition("spellTick")
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
@@ -806,8 +812,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "%spell lands a glancing blow between your legs, smacking your %Tbulge around!",
 					sound = 48922,
 					requirements = {
-						rtc.spellTick,
-						rtc.victimPenis
+						getCondition("spellTick"),
+						getCondition("victimPenis")
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
@@ -817,8 +823,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "%spell lands a glancing blow between your legs, firmly prodding up against your %Tgroin!",
 					sound = 48922,
 					requirements = {
-						rtc.spellTick,
-						rtc.victimVagina
+						getCondition("spellTick"),
+						getCondition("victimVagina")
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
@@ -831,7 +837,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S's %spell lashes across your %Tbutt!",
 					sound = 75769,
 					requirements = {
-						rtc.spellTick
+						getCondition("spellTick")
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
@@ -841,7 +847,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S's %spell lashes across your %Tgroin!",
 					sound = 75769,
 					requirements = {
-						rtc.spellTick
+						getCondition("spellTick")
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
@@ -851,8 +857,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S's %spell lashes across both of your %Tbreasts!",
 					sound = 75769,
 					requirements = {
-						rtc.spellTick,
-						rtc.victimBreasts
+						getCondition("spellTick"),
+						getCondition("victimBreasts")
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
@@ -862,8 +868,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S's %spell lashes across your %leftright %Tbreast!",
 					sound = 75769,
 					requirements = {
-						rtc.spellTick,
-						rtc.victimBreasts
+						getCondition("spellTick"),
+						getCondition("victimBreasts")
 					},
 					fn = ef.addExcitementMasochisticDefault
 				}))
@@ -875,8 +881,8 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S's %spell slams against your %Tbreasts!",
 					--sound = 35103,
 					requirements = {
-						rtc.spellTick,
-						rtc.victimBreasts
+						getCondition("spellTick"),
+						getCondition("victimBreasts")
 					},
 					fn = ef.addExcitementMasochisticCrit
 				}))
@@ -887,7 +893,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%spell spills onto %T's %Tbreasts!",
 					text_receiver = "Some of the %spell spills onto your %Tbreasts!",
 					sound = 1059,
-					requirements = {rtc.spellTick, rtc.victimBreasts},
+					requirements = {getCondition("spellTick"), getCondition("victimBreasts")},
 					fn = ef.addExcitementDefault
 				}))
 				table.insert(R, RPText:new({
@@ -895,7 +901,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%spell spills onto %T's %Tbreasts!",
 					text_receiver = "Some of the %spell spills onto your %Tbreasts!",
 					sound = 1059,
-					requirements = {rtc.spellAdd, rtc.victimBreasts},
+					requirements = {getCondition("spellAdd"), getCondition("victimBreasts")},
 					fn = ef.addExcitementDefault
 				}))
 
@@ -913,7 +919,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S's %spell hits %T's %leftright %Tbreast!",
 					text_receiver = "%S's %spell hits your %leftright %Tbreast!",
 					sound = 78936,
-					requirements = {rtc.victimBreasts},
+					requirements = {getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 
@@ -921,13 +927,13 @@ aTable.rpTexts = function(self)
 				table.insert(R, RPText:new({
 					id = getsk("slosh"),
 					text_receiver = "Liquid from the %spell trickles down between your %Tbreasts!",
-					requirements = {rtc.victimBreasts},
+					requirements = {getCondition("victimBreasts")},
 					fn = ef.addExcitementDefault
 				}))
 				table.insert(R, RPText:new({
 					id = getsk("slosh"),
 					text_receiver = "Liquid from the %spell pours into your %Tundies!",
-					requirements = {rtc.targetWearsUnderwear},
+					requirements = {getCondition("targetWearsUnderwear")},
 					fn = ef.addExcitementDefault
 				}))
 				table.insert(R, RPText:new({
@@ -940,7 +946,7 @@ aTable.rpTexts = function(self)
 				table.insert(R, RPText:new({
 					id = getsk("shards"),
 					text_receiver = "A pulsating crystal shard tumbles into your clothes, coming to a rest between your %Tbreasts!",
-					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					requirements = {spellAddOrTick, getCondition("victimBreasts")},
 					fn = function()
 						ef.addExcitementDefault();
 						DoEmote("LAUGH", "player");
@@ -950,7 +956,7 @@ aTable.rpTexts = function(self)
 				table.insert(R, RPText:new({
 					id = getsk("shards"),
 					text_receiver = "A pulsating crystal shard tumbles into your %Tundies, tickling your %Tgenitals!",
-					requirements = {rtc.spellAddOrTick, rtc.targetWearsUnderwear},
+					requirements = {spellAddOrTick, getCondition("targetWearsUnderwear")},
 					fn = function()
 						DoEmote("LAUGH", "player");
 						ef.addExcitementDefault();
@@ -960,7 +966,7 @@ aTable.rpTexts = function(self)
 				table.insert(R, RPText:new({
 					id = getsk("shards"),
 					text_receiver = "A crystal shard tumbles down your buttcrack, tickling your %Tbutt!",
-					requirements = {rtc.spellAddOrTick},
+					requirements = {spellAddOrTick},
 					fn = function()
 						DoEmote("LAUGH", "player");
 						ef.addExcitementDefault();
@@ -973,35 +979,35 @@ aTable.rpTexts = function(self)
 					id = "Bop Barrage",
 					text_bystander = "%S bops %T's %leftright %Tbreast!",
 					text_receiver = "%S bops your %leftright %Tbreast!",
-					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					requirements = {spellAddOrTick, getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, RPText:new({
 					id = "Bop Barrage",
 					text_bystander = "%S bops both %T's %Tbreasts!",
 					text_receiver = "%S bops both your %Tbreasts!",
-					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					requirements = {spellAddOrTick, getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, RPText:new({
 					id = "Bop Barrage",
 					text_bystander = "%S bops %T's bulge!",
 					text_receiver = "%S bops your bulge!",
-					requirements = {rtc.spellAddOrTick, rtc.targetWearsUnderwear, rtc.victimPenis},
+					requirements = {spellAddOrTick, getCondition("targetWearsUnderwear"), getCondition("victimPenis")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, RPText:new({
 					id = "Big Bop",
 					text_bystander = "%S bops %T's %Tbreasts with enough force to knock %Thim down!",
 					text_receiver = "%S bops your %Tbreasts with enough force to knock you down!",
-					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					requirements = {spellAddOrTick, getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochisticCrit
 				}))
 				table.insert(R, RPText:new({
 					id = "Big Bop",
 					text_bystander = "%S bops %T's bulge with enough force to knock %Thim to the ground!",
 					text_receiver = "%S bops your bulge with enough force to knock you to the ground!",
-					requirements = {rtc.spellAddOrTick, rtc.targetWearsUnderwear, rtc.victimPenis},
+					requirements = {spellAddOrTick, getCondition("targetWearsUnderwear"), getCondition("victimPenis")},
 					fn = ef.addExcitementMasochisticCrit
 				}))
 				
@@ -1009,13 +1015,13 @@ aTable.rpTexts = function(self)
 				table.insert(R, RPText:new({
 					id = "Dancing Thorns",
 					text_receiver = "A dancing thorn pricks your %leftright %Tbreast!",
-					requirements = {rtc.spellAddOrTick, rtc.victimBreasts},
+					requirements = {spellAddOrTick, getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, RPText:new({
 					id = "Dancing Thorns",
 					text_receiver = "A dancing thorn pricks your %Tbutt!",
-					requirements = {rtc.spellAddOrTick},
+					requirements = {spellAddOrTick},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 
@@ -1025,21 +1031,21 @@ aTable.rpTexts = function(self)
 					id = getsk("insects"),
 					text_receiver = "An insect gets into your chestpiece and bites your %leftright nipple!",
 					--sound = 35103,
-					requirements = {rtc.spellTick, rtc.victimBreasts},
+					requirements = {getCondition("spellTick"), getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, RPText:new({
 					id = getsk("insects"),
 					text_receiver = "An insect gets into your pants and bites your %Tpenis!",
 					--sound = 35103,
-					requirements = {rtc.spellTick, rtc.victimPenis},
+					requirements = {getCondition("spellTick"), getCondition("victimPenis")},
 					fn = ef.addExcitementMasochisticCrit
 				}))
 				table.insert(R, RPText:new({
 					id = getsk("insects"),
 					text_receiver = "An insect gets into your chestpiece and skitters across your %Tvagina!",
 					--sound = 35103,
-					requirements = {rtc.spellTick, rtc.victimVagina},
+					requirements = {getCondition("spellTick"), getCondition("victimVagina")},
 					fn = ef.addExcitementDefault
 				}))
 
@@ -1049,7 +1055,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S bonks %T's %leftright %Tbreast!",
 					text_receiver = "%S bonks your %leftright %Tbreast!",
 					sound = 33927,
-					requirements = {rtc.victimBreasts, rtc.spellAdd},
+					requirements = {getCondition("victimBreasts"), getCondition("spellAdd")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, RPText:new({
@@ -1057,7 +1063,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S bonks across both of %T's %Tbreasts!",
 					text_receiver = "%S bonks across both of your %Tbreasts!",
 					sound = 33927,
-					requirements = {rtc.victimBreasts, rtc.spellAdd},
+					requirements = {getCondition("victimBreasts"), getCondition("spellAdd")},
 					fn = ef.addExcitementMasochisticCrit
 				}))
 				
@@ -1066,7 +1072,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S bonks %T's %Tgroin!",
 					text_receiver = "%S bonks your %Tgroin!",
 					sound = 33927,
-					requirements = {rtc.spellAdd},
+					requirements = {getCondition("spellAdd")},
 					fn = ef.addExcitementMasochisticCrit
 				}))
 
@@ -1075,14 +1081,14 @@ aTable.rpTexts = function(self)
 					id = "Shoot",
 					text_receiver = "%S's projectile bounces off your chestplate!",
 					sound = 57073,
-					requirements = {rtc.spellTick, rtc.chestPlate, rtc.victimBreasts},
+					requirements = {getCondition("spellTick"), getCondition("chestPlate"), getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochistic
 				}))
 				table.insert(R, RPText:new({
 					id = "Shoot",
 					text_receiver = "%S shot bounces off your crotchplate!",
 					sound = 57073,
-					requirements = {rtc.spellTick, rtc.crotchPlate},
+					requirements = {getCondition("spellTick"), getCondition("crotchPlate")},
 					fn = ef.addExcitementMasochistic
 				}))
 
@@ -1092,7 +1098,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S's whip cracks across %T's %leftright %Tbreast!",
 					text_receiver = "%S's whip cracks across your %leftright %Tbreast!",
 					sound = 3338,
-					requirements = {rtc.spellTick, rtc.victimBreasts},
+					requirements = {getCondition("spellTick"), getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, RPText:new({
@@ -1100,7 +1106,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S's whip cracks across %T's %Tbreasts!",
 					text_receiver = "%S's whip cracks across your %Tbreasts!",
 					sound = 3338,
-					requirements = {rtc.spellTick, rtc.victimBreasts},
+					requirements = {getCondition("spellTick"), getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 				table.insert(R, RPText:new({
@@ -1108,7 +1114,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S's whip cracks across %T's %Tgroin!",
 					text_receiver = "%S's whip cracks across your %Tgroin!",
 					sound = 3338,
-					requirements = {rtc.spellTick},
+					requirements = {getCondition("spellTick")},
 					fn = ef.addExcitementMasochisticDefault
 				}))
 
@@ -1136,7 +1142,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "Daglop grabs a hold of %T's %Tundies from behind, giving %Thim a wedgie!",
 					text_receiver = "Daglop grabs a hold of the back of your %Tundies, giving you a wedgie!",
 					sound = 25626,
-					requirements = {rtc.targetWearsUnderwear},
+					requirements = {getCondition("targetWearsUnderwear")},
 					fn = ef.addExcitementMasochistic
 				}));
 				table.insert(R, RPText:new({
@@ -1170,7 +1176,7 @@ aTable.rpTexts = function(self)
 					sound = 770,
 					text_bystander = true,
 					text_receiver = "Daglop: Big butts are bound to be beaten for motivation!",
-					requirements = {rtc.largeButt}
+					requirements = {getCondition("largeButt")}
 				}));
 
 				table.insert(R, RPText:new({
@@ -1178,7 +1184,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "Daglop grabs a hold of and squeezes %T's %Tbreasts!",
 					text_receiver = "Daglop grabs a hold of and squeezes your %Tbreasts!",
 					sound = 25626,
-					requirements = {rtc.victimBreasts},
+					requirements = {getCondition("victimBreasts")},
 					fn = ef.addExcitementMasochistic
 				}));
 				table.insert(R, RPText:new({
@@ -1195,7 +1201,7 @@ aTable.rpTexts = function(self)
 					sound = 770,
 					text_bystander = true,
 					text_receiver = "Daglop: Why don't I hold onto these big things so you don't get back problems?",
-					requirements = {rtc.largeBreasts}
+					requirements = {getCondition("largeBreasts")}
 				}));
 
 				table.insert(R, RPText:new({
@@ -1241,7 +1247,7 @@ aTable.rpTexts = function(self)
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and starts tickling against %This %Tbutt!",
 				text_receiver = "A vine from the roots slips inside your clothes and starts tickling your %Tbutt!",
 				sound = 48289,
-				requirements = {rtc.spellAdd},
+				requirements = {getCondition("spellAdd")},
 				-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 				fn = ef.addExcitementDefault
 			}))
@@ -1250,7 +1256,7 @@ aTable.rpTexts = function(self)
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and squeezes %This %Tpenis!",
 				text_receiver = "A vine from the roots slips inside your clothes and squeezes your %Tpenis!",
 				sound = 48289,
-				requirements = {rtc.spellAdd, rtc.victimPenis},
+				requirements = {getCondition("spellAdd"), getCondition("victimPenis")},
 				-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 				fn = ef.addExcitementDefault
 			}))
@@ -1259,7 +1265,7 @@ aTable.rpTexts = function(self)
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and up inside %This %Tvagina where it wiggles about!",
 				text_receiver = "A vine from the roots slips inside your clothes and up inside your %Tvagina where it wiggles about!",
 				sound = 48289,
-				requirements = {rtc.spellAdd, rtc.victimVagina},
+				requirements = {getCondition("spellAdd"), getCondition("victimVagina")},
 				fn = ef.addExcitementCrit
 			}))
 			table.insert(R, RPText:new({
@@ -1267,7 +1273,7 @@ aTable.rpTexts = function(self)
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and wraps around %This %Tbreasts, squeezing them rigorously!",
 				text_receiver = "A vine from the roots slips inside your clothes and wraps around your %Tbreasts, squeezing them rigorously!",
 				sound = 48289,
-				requirements = {rtc.spellAdd, rtc.victimBreasts},
+				requirements = {getCondition("spellAdd"), getCondition("victimBreasts")},
 				fn = ef.addExcitementMasochisticCrit
 			}))
 	--
@@ -1305,7 +1311,7 @@ aTable.rpTexts = function(self)
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo tickles your %Tvagina!",
 			sound = 48289,
-			requirements = {rtc.victimVagina},
+			requirements = {getCondition("victimVagina")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementCrit
 		}))
@@ -1313,7 +1319,7 @@ aTable.rpTexts = function(self)
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo tickles your %Tpenis!",
 			sound = 48289,
-			requirements = {rtc.victimPenis},
+			requirements = {getCondition("victimPenis")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementCrit
 		}))
@@ -1321,7 +1327,7 @@ aTable.rpTexts = function(self)
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo tickles your clit!",
 			sound = 48289,
-			requirements = {rtc.victimVagina},
+			requirements = {getCondition("victimVagina")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementCrit
 		}))
@@ -1329,7 +1335,7 @@ aTable.rpTexts = function(self)
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo tickles your %leftright nipple!",
 			sound = 48289,
-			requirements = {rtc.victimBreasts},
+			requirements = {getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementDefault
 		}))
@@ -1337,7 +1343,7 @@ aTable.rpTexts = function(self)
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo wraps around your %Tbreasts, squeezing both!",
 			sound = 18711,
-			requirements = {rtc.victimBreasts},
+			requirements = {getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticDefault
 		}))
@@ -1345,7 +1351,7 @@ aTable.rpTexts = function(self)
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo wraps around your nipples, pulling your %Tbreasts together!",
 			sound = 18711,
-			requirements = {rtc.victimBreasts},
+			requirements = {getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementMasochisticCrit
 		}))
@@ -1353,7 +1359,7 @@ aTable.rpTexts = function(self)
 			id = "FX_OozeInClothesTick",
 			text_receiver = "The living goo prods inside your %Tvagina, swirling a tendril around!",
 			sound = 21727,
-			requirements = {rtc.victimVagina},
+			requirements = {getCondition("victimVagina")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = ef.addExcitementCrit
 		}))
@@ -1378,8 +1384,8 @@ aTable.rpTexts = function(self)
 			sound = 48315,
 			text_receiver = "%S whispers: Soon you'll be choking on my fel empowered bull cock!",
 			requirements = {
-				rtc.attackerIsFeltotemMale,
-				rtc.maleWhispers,					-- User allows whispers from male
+				getCondition("attackerIsFeltotemMale"),
+				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
 		table.insert(R, RPText:new({
@@ -1388,9 +1394,9 @@ aTable.rpTexts = function(self)
 			sound = 48315,
 			text_receiver = "%S whispers: Ever had fel infused bull dick shoved in your %Tvagina? You'll soon find out what that feels like!",
 			requirements = {
-				rtc.victimVagina,
-				rtc.attackerIsFeltotemMale,
-				rtc.maleWhispers,					-- User allows whispers from male
+				getCondition("victimVagina"),
+				getCondition("attackerIsFeltotemMale"),
+				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
 		table.insert(R, RPText:new({
@@ -1399,9 +1405,9 @@ aTable.rpTexts = function(self)
 			sound = 48315,
 			text_receiver = "%S whispers: Ever had fel infused bull dick shoved in your %Tbutt? You'll soon find out what that feels like!",
 			requirements = {
-				rtc.victimPenis,
-				rtc.attackerIsFeltotemMale,
-				rtc.maleWhispers,					-- User allows whispers from male
+				getCondition("victimPenis"),
+				getCondition("attackerIsFeltotemMale"),
+				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
 		table.insert(R, RPText:new({
@@ -1410,9 +1416,9 @@ aTable.rpTexts = function(self)
 			sound = 48315,
 			text_receiver = "%S whispers: Why don't skip directly to the point where I pin you to the ground and pound your %Tbutt relentlessy?",
 			requirements = {
-				rtc.victimPenis,
-				rtc.attackerIsFeltotemMale,
-				rtc.maleWhispers,					-- User allows whispers from male
+				getCondition("victimPenis"),
+				getCondition("attackerIsFeltotemMale"),
+				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
 		table.insert(R, RPText:new({
@@ -1421,9 +1427,9 @@ aTable.rpTexts = function(self)
 			sound = 48315,
 			text_receiver = "%S whispers: Why don't skip directly to the point where I pin you to the ground and pound your %Tvagina relentlessy?",
 			requirements = {
-				rtc.victimVagina,
-				rtc.attackerIsFeltotemMale,
-				rtc.maleWhispers,					-- User allows whispers from male
+				getCondition("victimVagina"),
+				getCondition("attackerIsFeltotemMale"),
+				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
 		table.insert(R, RPText:new({
@@ -1432,9 +1438,9 @@ aTable.rpTexts = function(self)
 			sound = 48315,
 			text_receiver = "%S whispers: Nice %Tbreasts. Can't wait to stick my fel empowered %Spenis between them!",
 			requirements = {
-				rtc.victimBreasts,
-				rtc.attackerIsFeltotemMale,
-				rtc.maleWhispers,					-- User allows whispers from male
+				getCondition("victimBreasts"),
+				getCondition("attackerIsFeltotemMale"),
+				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
 		table.insert(R, RPText:new({
@@ -1443,8 +1449,8 @@ aTable.rpTexts = function(self)
 			sound = 48315,
 			text_receiver = "%S whispers: I will have my way with you before handing you to my demon masters!",
 			requirements = {
-				rtc.attackerIsFeltotemMale,
-				rtc.maleWhispers,					-- User allows whispers from male
+				getCondition("attackerIsFeltotemMale"),
+				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
 		

@@ -18,7 +18,12 @@ aTable.actions = function(self)
 		texture = "ability_paladin_handoflight",
 		--cooldown = 1.5,
 		cast_sound_success = 57179,
-		allow_instance = true,
+		conditions = {
+			Condition.get("melee_range"),
+		},
+		not_defaults = {
+			"not_in_instance"
+		},
 		max_distance = Action.MELEE_RANGE,
 		fn_send = Action.sendRPText,
 		fn_receive = function(self, sender, target, args)
@@ -38,11 +43,14 @@ aTable.actions = function(self)
 		texture = "ability_mount_rocketmount",
 		cast_time = 20,
 		charges = 0,
-		self_cast_only = true,
 		cast_sound_start = 43508,
 		cast_sound_loop = 50858,
 		rarity = 3,
-		allow_caster_moving = false,
+		conditions = {
+			Condition.get("sender_not_moving"),
+			Condition.get("only_selfcast"),
+		},
+		not_defaults = {},
 		fn_cast = function(self)
 			local _, text = self:sendRPText("player", "player", false);
 			Timer.clear(self.interval)
@@ -69,10 +77,13 @@ aTable.actions = function(self)
 		cast_time = 20,
 		charges = 0,
 		rarity = 3,
-		self_cast_only = true,
 		cast_sound_start = 39653,
 		cast_sound_loop = 39638,
-		allow_caster_moving = false,
+		conditions = {
+			Condition.get("sender_not_moving"),
+			Condition.get("only_selfcast"),
+		},
+		not_defaults = {},
 		fn_cast = function(self)
 			local _, text = self:sendRPText("player", "player", false);
 			Timer.clear(self.interval)
@@ -98,10 +109,13 @@ aTable.actions = function(self)
 		cast_time = 20,
 		charges = 0,
 		rarity = 3,
-		self_cast_only = true,
 		cast_sound_start = 85131,
 		cast_sound_loop = 85132,
-		allow_caster_moving = false,
+		conditions = {
+			Condition.get("sender_not_moving"),
+			Condition.get("only_selfcast"),
+		},
+		not_defaults = {},
 		fn_cast = function(self)
 			local _, text = self:sendRPText("player", "player", false);
 			Timer.clear(self.interval)
@@ -130,9 +144,13 @@ aTable.actions = function(self)
 		max_charges = 100,
 		cast_sound_start = 1185,
 		cast_sound_loop = 47693,
-		allow_caster_moving = false,
-		allow_targ_moving = false,
-		target_has_underwear = true,
+		conditions = {
+			Condition.get("target_not_moving"),
+			Condition.get("sender_not_moving"),
+			Condition.get("only_selfcast"),
+			Condition.get("targetWearsUnderwear"),
+		},
+		not_defaults = {},
 		fn_send = Action.sendRPText,
 		fn_receive = function(self, sender, target, args)
 			self:receiveRPText(sender, target, args) -- Default behavior
@@ -150,8 +168,10 @@ aTable.actions = function(self)
 		cooldown = 6,
 		charges=0,
 		rarity=3,
-		max_distance = Action.MELEE_RANGE,
-		party_restricted = false,
+		conditions = {
+			Condition.get("melee_range"),
+		},
+		not_defaults = {},
 		fn_send = function(self, sender, target, suppressErrors)
 			local race = UnitRace(target)
 			local gender = UnitSex(target)
