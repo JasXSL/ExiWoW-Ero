@@ -5,7 +5,9 @@ aTable.spellBindings = function(self)
 
 	local out = {};
 	local sb = require("SpellBinding");
+	local RPText = require("RPText");
 	local spellKits = ExiWoW.LibAssets.spell_kits;
+	local ef = ExiWoW.LibAssets.effects;
 	local Timer = Timer;
 	
 	-- Binds a custom function which is always raised
@@ -53,6 +55,30 @@ aTable.spellBindings = function(self)
 		end,
 		onRemove = function(self, data)
 			Timer.clear(self.custom.timer_speech);
+		end
+	}))
+
+	-- Shattering Song
+	table.insert(out, sb:new({
+		name = "Shattering Song",
+		always_run = true,
+		custom = {
+			added = 0
+		},
+		onAdd = function(self, data)
+			local pre = self.custom.added;
+			self.custom.added = self.custom.added+1;
+			
+			if pre < 1 then
+				RPText.trigger("Shattering Song", ExiWoW.ME, ExiWoW.ME)
+				ef.toggleVibHubProgram(self, "SHATTERING_SONG", 300);
+			end
+		end,
+		onRemove = function(self, data)
+			self.custom.added = self.custom.added-1;
+			if self.custom.added <= 0 then
+				ef.toggleVibHubProgram(self, "SHATTERING_SONG");
+			end
 		end
 	}))
 

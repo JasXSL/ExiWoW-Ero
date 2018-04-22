@@ -1224,6 +1224,14 @@ aTable.rpTexts = function(self)
 					requirements = {}
 				}));
 
+			-- Shattering song
+				table.insert(R, RPText:new({
+					id = "Shattering Song",
+					text_receiver = "The shattering song causes your equipment to vibrate heavily!",
+					fn = ef.addExcitementDefault,
+					requirements = {}
+				}));
+
 				
 		-- DRUID --
 
