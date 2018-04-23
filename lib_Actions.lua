@@ -6,9 +6,9 @@ aTable.actions = function(self)
 	local out = {}
 	
 	local libAssets = ExiWoW.LibAssets;
-	local ef = libAssets.effects;
 	local Action = require("Action");
 	local Effect = require("Effect");
+	local Func = require("Func");
 
 	-- Fondle (Public) --
 	table.insert(out, Action:new({
@@ -29,7 +29,7 @@ aTable.actions = function(self)
 		fn_receive = function(self, sender, target, args)
 			self:receiveRPText(sender, target, args) -- Default behavior
 			-- Custom actions
-			libAssets.effects.addExcitementDefault();
+			Func.get("addExcitementDefault")();
 			return true
 		end
 	}));
@@ -55,7 +55,7 @@ aTable.actions = function(self)
 			local _, text = self:sendRPText("player", "player", false);
 			Timer.clear(self.interval)
 			self.interval = Timer.set(function()
-				libAssets.effects.addExcitementDefault(self, true)
+				Func.get("addExcitementDefault")(self, true)
 			end, 1, 30)
 			text(self, true, {receiver=true});
 			ef:toggleVibHubProgram("BUZZROCKET", 20);
@@ -88,7 +88,7 @@ aTable.actions = function(self)
 			local _, text = self:sendRPText("player", "player", false);
 			Timer.clear(self.interval)
 			self.interval = Timer.set(function()
-				libAssets.effects.addExcitementDefault(self, true)
+				Func.get("addExcitementDefault")(self, true);
 			end, 1, 30)
 			text(self, true, {receiver=true});
 			ef:toggleVibHubProgram("JADE_ROD", 20)
@@ -120,7 +120,7 @@ aTable.actions = function(self)
 			local _, text = self:sendRPText("player", "player", false);
 			Timer.clear(self.interval)
 			self.interval = Timer.set(function()
-				libAssets.effects.addExcitementDefault(self, true)
+				Func.get("addExcitementDefault")(self, true);
 			end, 1, 30)
 			text(self, true, {receiver=true});
 			ef:toggleVibHubProgram("SHARAS_FEL_ROD", 20)
@@ -176,14 +176,14 @@ aTable.actions = function(self)
 			local race = UnitRace(target)
 			local gender = UnitSex(target)
 			return self:sendRPText(sender, target, suppressErrors, function(se, success)
-					if success and not UnitIsUnit(target, "player") then
-					libAssets.effects:critSound(race, gender)
+				if success and not UnitIsUnit(target, "player") then
+					Func.get("critSound")(race, gender);
 				end
 			end);
 		end,
 		fn_receive = function(self, sender, target, args)
 			DoEmote("GASP");
-			libAssets.effects.addExcitementMasochisticCrit();
+			Func.get("addExcitementMasochisticCrit")();
 			self:receiveRPText(sender, target, args);
 			return true
 		end
@@ -191,19 +191,6 @@ aTable.actions = function(self)
 
 	return out;
 
-
-	--[[
-
-	function(self)
-			
-			local _, text = self:sendRPText("player", "player", false);
-			Timer.clear(self.interval)
-			self.interval = Timer.set(function()
-				ExiWoW.ME:addExcitement(0.05)
-			end, 1, 30)
-			
-		end
-	]]
 end
 
 
