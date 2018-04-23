@@ -13,8 +13,6 @@ lib_Functions.lua
 lib_RPText.lua
 # Add custom actions
 lib_Actions.lua
-# Add custom spell bindings
-lib_SpellBindings.lua
 # Custom effects
 lib_Effects.lua
 # Custom underwear

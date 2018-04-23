@@ -11,31 +11,15 @@ aTable.rpTexts = function(self)
 	local Func = require("Func");
 
 	local ty = Condition.Types;			-- Local filter types
-	
-	-- Shortcuts for the templates library
-	-- It's recommended to use templates if one is available, you can also use lib_Assets to extend the templates library
-	local assetLib = ExiWoW.LibAssets;
-	local spellKits = assetLib.spell_kits;		-- RP Text spell kits library
-	-- Gets a spell kit condition formated for RP texts
-	local getsk = function(...)
-		local kits = {...};
-		local out = {};
-		for _,v in pairs(kits) do
-			if type(spellKits[v]) == "table" then
-				for k,t in pairs(spellKits[v]) do
-					out[k] = t;
-				end
-			end
-		end
-		return out;
-	end
 
 
 	local function getCondition(id)
-		return Database.getID("Condition", id);
+		local out = Database.getID("Condition", id);
+		if not out then print("Condition not found in lib_RPText:", id) end
+		return out;
 	end
 	
-	local spellAddOrTick = Database.getIDs("Condition", {spellAdd=true, spellTick=true});
+	local spellAddOrTick = Database.getIDs("Condition", {is_spell_add=true, is_spell_tick=true});
 
 -- ACTIONS
 	-- Fondle --
@@ -639,73 +623,77 @@ aTable.rpTexts = function(self)
 
 			-- Ice spells
 				table.insert(R, RPText:new({
-					id = getsk("ice", "ice_common"),
 					text_bystander = "The cold spell causes %T's nipples to harden!",
 					text_receiver = "The cold spell causes your nipples to harden!",
-					--sound = 48289,
-					requirements = {"spellAddOrTick", getCondition("victimBreasts")},
+					requirements = {
+						spellAddOrTick, 
+						getCondition("victimBreasts"),
+						getCondition("ts_cold"),
+					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("ice", "ice_common"),
 					text_receiver = "%spell chills your nipples!",
-					--sound = 48289,
-					requirements = {spellAddOrTick, getCondition("victimBreasts")},
+					requirements = {
+						spellAddOrTick, 
+						getCondition("victimBreasts"),
+						getCondition("ts_cold"),
+					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("ice", "ice_common"),
 					text_receiver = "%spell chills your %Tgroin!",
-					--sound = 48289,
-					requirements = {spellAddOrTick, getCondition("victimPenis")},
+					requirements = {
+						spellAddOrTick, 
+						getCondition("victimPenis"),
+						getCondition("ts_cold"),
+					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 
 			-- Lightning
 				
 				table.insert(R, RPText:new({
-					id = getsk("electric", "electric_common"),
 					text_receiver = "The %spell shocks your nipples!",
 					sound = 35286,
 					requirements = {
 						spellAddOrTick,  -- OR
-						getCondition("victimBreasts")
+						getCondition("victimBreasts"),
+						getCondition("ts_electric"),
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("electric"),
 					text_receiver = "The %spell painfully shocks your %Tbreasts!",
 					sound = 35286,
 					requirements = {
 						spellAddOrTick,  -- OR
-						getCondition("victimBreasts")
+						getCondition("victimBreasts"),
+						getCondition("ts_electric"),
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 
 
-			-- Basilisk stares
+			-- Petrifying (basilisk) spells
 				
 				table.insert(R, RPText:new({
-					id = getsk("basilisk"),
 					text_bystander = "%spell causes %T's nipples to %harden!",
 					text_receiver = "%spell causes your nipples to %harden!",
-					--sound = 35103,
 					requirements = {
-						getCondition("spellAdd"),
-						getCondition("victimBreasts")
+						getCondition("is_spell_add"),
+						getCondition("victimBreasts"),
+						getCondition("ts_petrify"),
 					},
 					fn = Func.get("addExcitement")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("basilisk"),
 					text_bystander = "%spell causes %T's %Tpenis to %harden!",
 					text_receiver = "%spell causes your %Tpenis to %harden!",
-					--sound = 35103,
 					requirements = {
-						getCondition("spellAdd"),
-						getCondition("victimPenis")
+						getCondition("is_spell_add"),
+						getCondition("victimPenis"),
+						getCondition("ts_petrify"),
 					},
 					fn = Func.get("addExcitement")
 				}))
@@ -717,7 +705,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S uppercuts your %Tbreasts with enough force to knock you back!",
 					--sound = 35103,
 					requirements = {
-						getCondition("spellTick"),
+						getCondition("is_spell_tick"),
 						getCondition("victimBreasts")
 					},
 					fn = Func.get("addExcitementMasochisticCrit")
@@ -728,7 +716,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "%S uppercuts your %leftright %Tbreast, jiggling it around heavily as you stagger backwards!",
 					--sound = 35103,
 					requirements = {
-						getCondition("spellTick"),
+						getCondition("is_spell_tick"),
 						getCondition("victimBreasts")
 					},
 					fn = Func.get("addExcitementMasochisticCrit")
@@ -736,24 +724,22 @@ aTable.rpTexts = function(self)
 
 			-- Shield bash
 				table.insert(R, RPText:new({
-					id = getsk("shield_bash"),
 					text_bystander = "%S's shield slams across %T's %Tbreasts!",
 					text_receiver = "%S's shield slams across your %Tbreasts!",
-					--sound = 35103,
 					requirements = {
-						getCondition("spellTick"),
-						getCondition("victimBreasts")
+						getCondition("is_spell_tick"),
+						getCondition("victimBreasts"),
+						getCondition("ts_shield_bash"),
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 
 			-- Steam below
 				table.insert(R, RPText:new({
-					id = getsk("steam_below"),
-					text_receiver = "Hot steam blasts up across your %Tgroin!",
-					--sound = 35103,
+					text_receiver = "Hot steam blasts across your %Tgroin!",
 					requirements = {
-						getCondition("spellTick")
+						getCondition("is_spell_tick"),
+						getCondition("ts_steam_below"),
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
@@ -764,9 +750,8 @@ aTable.rpTexts = function(self)
 					id = "Headbutt",
 					text_bystander = "%S headbutts straight into %T's %Tbreasts!",
 					text_receiver = "%S headbutts straight into your %Tbreasts!",
-					--sound = 35103,
 					requirements = {
-						getCondition("spellTick"),
+						getCondition("is_spell_tick"),
 						getCondition("victimBreasts"),
 						getCondition("attackerHumanoidish")
 					},
@@ -779,7 +764,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "Cold goo from the %spell trickles down over your %Tbreasts!",
 					--sound = 35103,
 					requirements = {
-						getCondition("spellTick"),
+						getCondition("is_spell_tick"),
 						getCondition("victimBreasts")
 					},
 					fn = Func.get("addExcitement")
@@ -789,7 +774,7 @@ aTable.rpTexts = function(self)
 					text_receiver = "Cold goo from the %spell trickles down into your %Tundies!",
 					--sound = 35103,
 					requirements = {
-						getCondition("spellTick"),
+						getCondition("is_spell_tick"),
 						getCondition("targetWearsUnderwear")
 					},
 					fn = Func.get("addExcitement")
@@ -798,34 +783,34 @@ aTable.rpTexts = function(self)
 
 			-- Ground spike
 				table.insert(R, RPText:new({
-					id = getsk("groundSpike"),
 					text_bystander = "%spell prods up between %T's buttcheeks, striking a glancing blow!",
 					text_receiver = "%spell prods up between your buttcheeks, tickling your behind!",
 					sound = 48922,
 					requirements = {
-						getCondition("spellTick")
+						getCondition("is_spell_tick"),
+						getCondition("ts_ground_spike")
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("groundSpike"),
 					text_bystander = "%spell lands a glancing blow between %T's legs, smacking %This %Tbulge around!",
 					text_receiver = "%spell lands a glancing blow between your legs, smacking your %Tbulge around!",
 					sound = 48922,
 					requirements = {
-						getCondition("spellTick"),
-						getCondition("victimPenis")
+						getCondition("is_spell_tick"),
+						getCondition("victimPenis"),
+						getCondition("ts_ground_spike")
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("groundSpike"),
 					text_bystander = "%spell lands a glancing blow between %T's legs, firmly prodding up against %This %Tgroin!",
 					text_receiver = "%spell lands a glancing blow between your legs, firmly prodding up against your %Tgroin!",
 					sound = 48922,
 					requirements = {
-						getCondition("spellTick"),
-						getCondition("victimVagina")
+						getCondition("is_spell_tick"),
+						getCondition("victimVagina"),
+						getCondition("ts_ground_spike")
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
@@ -833,76 +818,58 @@ aTable.rpTexts = function(self)
 
 			-- Magic whips
 				table.insert(R, RPText:new({
-					id = getsk("magicWhip"),
 					text_bystander = "%S's %spell lashes across %T's %Tbutt!",
 					text_receiver = "%S's %spell lashes across your %Tbutt!",
 					sound = 75769,
 					requirements = {
-						getCondition("spellTick")
+						getCondition("is_spell_tick"),
+						getCondition("ts_magic_whip")
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("magicWhip"),
 					text_bystander = "%S's %spell lashes across %T's %Tgroin!",
 					text_receiver = "%S's %spell lashes across your %Tgroin!",
 					sound = 75769,
 					requirements = {
-						getCondition("spellTick")
+						getCondition("is_spell_tick"),
+						getCondition("ts_magic_whip")
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("magicWhip"),
 					text_bystander = "%S's %spell lashes across both of %T's %Tbreasts!",
 					text_receiver = "%S's %spell lashes across both of your %Tbreasts!",
 					sound = 75769,
 					requirements = {
-						getCondition("spellTick"),
-						getCondition("victimBreasts")
+						getCondition("is_spell_tick"),
+						getCondition("victimBreasts"),
+						getCondition("ts_magic_whip")
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("magicWhip"),
 					text_bystander = "%S's %spell lashes across %T's %leftright %Tbreast!",
 					text_receiver = "%S's %spell lashes across your %leftright %Tbreast!",
 					sound = 75769,
 					requirements = {
-						getCondition("spellTick"),
-						getCondition("victimBreasts")
+						getCondition("is_spell_tick"),
+						getCondition("victimBreasts"),
+						getCondition("ts_magic_whip")
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 
-			-- Shield bash
-				table.insert(R, RPText:new({
-					id = "Shield Bash",
-					text_bystander = "%S's %spell slams against %T's %Tbreasts!",
-					text_receiver = "%S's %spell slams against your %Tbreasts!",
-					--sound = 35103,
-					requirements = {
-						getCondition("spellTick"),
-						getCondition("victimBreasts")
-					},
-					fn = Func.get("addExcitementMasochisticCrit")
-				}))
 
 			-- Spillable
 				table.insert(R, RPText:new({
-					id = getsk("spillable"),
 					text_bystander = "%spell spills onto %T's %Tbreasts!",
 					text_receiver = "Some of the %spell spills onto your %Tbreasts!",
 					sound = 1059,
-					requirements = {getCondition("spellTick"), getCondition("victimBreasts")},
-					fn = Func.get("addExcitement")
-				}))
-				table.insert(R, RPText:new({
-					id = getsk("spillable_add"),
-					text_bystander = "%spell spills onto %T's %Tbreasts!",
-					text_receiver = "Some of the %spell spills onto your %Tbreasts!",
-					sound = 1059,
-					requirements = {getCondition("spellAdd"), getCondition("victimBreasts")},
+					requirements = {
+						getCondition("victimBreasts"),
+						getCondition("ts_spillable"),
+					},
 					fn = Func.get("addExcitement")
 				}))
 
@@ -926,28 +893,34 @@ aTable.rpTexts = function(self)
 
 			-- Slosh
 				table.insert(R, RPText:new({
-					id = getsk("slosh"),
 					text_receiver = "Liquid from the %spell trickles down between your %Tbreasts!",
-					requirements = {getCondition("victimBreasts")},
+					requirements = {
+						getCondition("victimBreasts"), 
+						getCondition("ts_slosh")
+					},
 					fn = Func.get("addExcitement")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("slosh"),
 					text_receiver = "Liquid from the %spell pours into your %Tundies!",
-					requirements = {getCondition("targetWearsUnderwear")},
+					requirements = {
+						getCondition("targetWearsUnderwear"),
+						getCondition("ts_slosh")
+					},
 					fn = Func.get("addExcitement")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("slosh"),
-					text_receiver = "Liquid from the %spell seeps into your clothes.",
-					requirements = {}
+					text_receiver = "Liquid from the %spell seeps into your outfit.",
+					requirements = {getCondition("ts_slosh")}
 				}))
 
 			-- Small Shards
 				table.insert(R, RPText:new({
-					id = getsk("shards"),
 					text_receiver = "A pulsating crystal shard tumbles into your clothes, coming to a rest between your %Tbreasts!",
-					requirements = {spellAddOrTick, getCondition("victimBreasts")},
+					requirements = {
+						spellAddOrTick, 
+						getCondition("victimBreasts"),
+						getCondition("ts_shards")
+					},
 					fn = function()
 						Func.get("addExcitement")();
 						DoEmote("LAUGH", "player");
@@ -955,9 +928,12 @@ aTable.rpTexts = function(self)
 					end
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("shards"),
 					text_receiver = "A pulsating crystal shard tumbles into your %Tundies, tickling your %Tgenitals!",
-					requirements = {spellAddOrTick, getCondition("targetWearsUnderwear")},
+					requirements = {
+						spellAddOrTick, 
+						getCondition("targetWearsUnderwear"),
+						getCondition("ts_shards")
+					},
 					fn = function()
 						DoEmote("LAUGH", "player");
 						Func.get("addExcitement")();
@@ -965,9 +941,11 @@ aTable.rpTexts = function(self)
 					end
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("shards"),
 					text_receiver = "A crystal shard tumbles down your buttcrack, tickling your %Tbutt!",
-					requirements = {spellAddOrTick},
+					requirements = {
+						spellAddOrTick,
+						getCondition("ts_shards")
+					},
 					fn = function()
 						DoEmote("LAUGH", "player");
 						Func.get("addExcitement")();
@@ -1029,24 +1007,30 @@ aTable.rpTexts = function(self)
 
 			-- Insect swarm
 				table.insert(R, RPText:new({
-					id = getsk("insects"),
 					text_receiver = "An insect gets into your chestpiece and bites your %leftright nipple!",
-					--sound = 35103,
-					requirements = {getCondition("spellTick"), getCondition("victimBreasts")},
+					requirements = {
+						getCondition("is_spell_tick"), 
+						getCondition("victimBreasts"),
+						getCondition("ts_insects")
+					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("insects"),
 					text_receiver = "An insect gets into your pants and bites your %Tpenis!",
-					--sound = 35103,
-					requirements = {getCondition("spellTick"), getCondition("victimPenis")},
+					requirements = {
+						getCondition("is_spell_tick"), 
+						getCondition("victimPenis"),
+						getCondition("ts_insects")
+					},
 					fn = Func.get("addExcitementMasochisticCrit")
 				}))
 				table.insert(R, RPText:new({
-					id = getsk("insects"),
-					text_receiver = "An insect gets into your chestpiece and skitters across your %Tvagina!",
-					--sound = 35103,
-					requirements = {getCondition("spellTick"), getCondition("victimVagina")},
+					text_receiver = "An insect gets into your pants and skitters across your %Tvagina!",
+					requirements = {
+						getCondition("is_spell_tick"), 
+						getCondition("victimVagina"),
+						getCondition("ts_insects")
+					},
 					fn = Func.get("addExcitement")
 				}))
 
@@ -1056,7 +1040,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S bonks %T's %leftright %Tbreast!",
 					text_receiver = "%S bonks your %leftright %Tbreast!",
 					sound = 33927,
-					requirements = {getCondition("victimBreasts"), getCondition("spellAdd")},
+					requirements = {getCondition("victimBreasts"), getCondition("is_spell_add")},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
@@ -1064,7 +1048,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S bonks across both of %T's %Tbreasts!",
 					text_receiver = "%S bonks across both of your %Tbreasts!",
 					sound = 33927,
-					requirements = {getCondition("victimBreasts"), getCondition("spellAdd")},
+					requirements = {getCondition("victimBreasts"), getCondition("is_spell_add")},
 					fn = Func.get("addExcitementMasochisticCrit")
 				}))
 				
@@ -1073,7 +1057,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S bonks %T's %Tgroin!",
 					text_receiver = "%S bonks your %Tgroin!",
 					sound = 33927,
-					requirements = {getCondition("spellAdd")},
+					requirements = {getCondition("is_spell_add")},
 					fn = Func.get("addExcitementMasochisticCrit")
 				}))
 
@@ -1082,14 +1066,14 @@ aTable.rpTexts = function(self)
 					id = "Shoot",
 					text_receiver = "%S's projectile bounces off your chestplate!",
 					sound = 57073,
-					requirements = {getCondition("spellTick"), getCondition("chestPlate"), getCondition("victimBreasts")},
+					requirements = {getCondition("is_spell_tick"), getCondition("chestPlate"), getCondition("victimBreasts")},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
 					id = "Shoot",
 					text_receiver = "%S shot bounces off your crotchplate!",
 					sound = 57073,
-					requirements = {getCondition("spellTick"), getCondition("crotchPlate")},
+					requirements = {getCondition("is_spell_tick"), getCondition("crotchPlate")},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 
@@ -1099,7 +1083,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S's whip cracks across %T's %leftright %Tbreast!",
 					text_receiver = "%S's whip cracks across your %leftright %Tbreast!",
 					sound = 3338,
-					requirements = {getCondition("spellTick"), getCondition("victimBreasts")},
+					requirements = {getCondition("is_spell_tick"), getCondition("victimBreasts")},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
@@ -1107,7 +1091,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S's whip cracks across %T's %Tbreasts!",
 					text_receiver = "%S's whip cracks across your %Tbreasts!",
 					sound = 3338,
-					requirements = {getCondition("spellTick"), getCondition("victimBreasts")},
+					requirements = {getCondition("is_spell_tick"), getCondition("victimBreasts")},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
@@ -1115,7 +1099,7 @@ aTable.rpTexts = function(self)
 					text_bystander = "%S's whip cracks across %T's %Tgroin!",
 					text_receiver = "%S's whip cracks across your %Tgroin!",
 					sound = 3338,
-					requirements = {getCondition("spellTick")},
+					requirements = {getCondition("is_spell_tick")},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 
@@ -1244,37 +1228,46 @@ aTable.rpTexts = function(self)
 
 			-- Entangling Roots
 			table.insert(R, RPText:new({
-				id = getsk("roots"),
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and starts tickling against %This %Tbutt!",
 				text_receiver = "A vine from the roots slips inside your clothes and starts tickling your %Tbutt!",
 				sound = 48289,
-				requirements = {getCondition("spellAdd")},
-				-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+				requirements = {
+					getCondition("is_spell_add"),
+					getCondition("ts_roots")
+				},
 				fn = Func.get("addExcitement")
 			}))
 			table.insert(R, RPText:new({
-				id = getsk("roots"),
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and squeezes %This %Tpenis!",
 				text_receiver = "A vine from the roots slips inside your clothes and squeezes your %Tpenis!",
 				sound = 48289,
-				requirements = {getCondition("spellAdd"), getCondition("victimPenis")},
-				-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+				requirements = {
+					getCondition("is_spell_add"), 
+					getCondition("victimPenis"),
+					getCondition("ts_roots")
+				},
 				fn = Func.get("addExcitement")
 			}))
 			table.insert(R, RPText:new({
-				id = getsk("roots"),
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and up inside %This %Tvagina where it wiggles about!",
 				text_receiver = "A vine from the roots slips inside your clothes and up inside your %Tvagina where it wiggles about!",
 				sound = 48289,
-				requirements = {getCondition("spellAdd"), getCondition("victimVagina")},
+				requirements = {
+					getCondition("is_spell_add"), 
+					getCondition("victimVagina"),
+					getCondition("ts_roots")
+				},
 				fn = Func.get("addExcitementCrit")
 			}))
 			table.insert(R, RPText:new({
-				id = getsk("roots"),
 				text_bystander = "A vine from %S's roots slips inside %T's clothes and wraps around %This %Tbreasts, squeezing them rigorously!",
 				text_receiver = "A vine from the roots slips inside your clothes and wraps around your %Tbreasts, squeezing them rigorously!",
 				sound = 48289,
-				requirements = {getCondition("spellAdd"), getCondition("victimBreasts")},
+				requirements = {
+					getCondition("is_spell_add"), 
+					getCondition("victimBreasts"),
+					getCondition("ts_roots")
+				},
 				fn = Func.get("addExcitementMasochisticCrit")
 			}))
 	--
@@ -1385,7 +1378,7 @@ aTable.rpTexts = function(self)
 			sound = 48315,
 			text_receiver = "%S whispers: Soon you'll be choking on my fel empowered bull cock!",
 			requirements = {
-				getCondition("attackerIsFeltotemMale"),
+				getCondition("attackerIsFeltotem"),
 				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
@@ -1396,7 +1389,7 @@ aTable.rpTexts = function(self)
 			text_receiver = "%S whispers: Ever had fel infused bull dick shoved in your %Tvagina? You'll soon find out what that feels like!",
 			requirements = {
 				getCondition("victimVagina"),
-				getCondition("attackerIsFeltotemMale"),
+				getCondition("attackerIsFeltotem"),
 				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
@@ -1407,7 +1400,7 @@ aTable.rpTexts = function(self)
 			text_receiver = "%S whispers: Ever had fel infused bull dick shoved in your %Tbutt? You'll soon find out what that feels like!",
 			requirements = {
 				getCondition("victimPenis"),
-				getCondition("attackerIsFeltotemMale"),
+				getCondition("attackerIsFeltotem"),
 				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
@@ -1418,7 +1411,7 @@ aTable.rpTexts = function(self)
 			text_receiver = "%S whispers: Why don't skip directly to the point where I pin you to the ground and pound your %Tbutt relentlessy?",
 			requirements = {
 				getCondition("victimPenis"),
-				getCondition("attackerIsFeltotemMale"),
+				getCondition("attackerIsFeltotem"),
 				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
@@ -1429,7 +1422,7 @@ aTable.rpTexts = function(self)
 			text_receiver = "%S whispers: Why don't skip directly to the point where I pin you to the ground and pound your %Tvagina relentlessy?",
 			requirements = {
 				getCondition("victimVagina"),
-				getCondition("attackerIsFeltotemMale"),
+				getCondition("attackerIsFeltotem"),
 				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
@@ -1440,7 +1433,7 @@ aTable.rpTexts = function(self)
 			text_receiver = "%S whispers: Nice %Tbreasts. Can't wait to stick my fel empowered %Spenis between them!",
 			requirements = {
 				getCondition("victimBreasts"),
-				getCondition("attackerIsFeltotemMale"),
+				getCondition("attackerIsFeltotem"),
 				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))
@@ -1450,7 +1443,7 @@ aTable.rpTexts = function(self)
 			sound = 48315,
 			text_receiver = "%S whispers: I will have my way with you before handing you to my demon masters!",
 			requirements = {
-				getCondition("attackerIsFeltotemMale"),
+				getCondition("attackerIsFeltotem"),
 				getCondition("maleWhispers"),					-- User allows whispers from male
 			},
 		}))

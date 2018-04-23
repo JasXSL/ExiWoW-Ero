@@ -4,10 +4,10 @@ local require = ExiWoW.require
 aTable.assets = function(self)
 	-- Use this if you want to extend the default triggers, such as electric/frost spells etc
 	-- Feel free to supply any interesting triggers you find to the official project!
-	local zones = ExiWoW.LibAssets.zones
 	local RPText = require("RPText");
-
+	print("Todo: Convert loot in lib_Assets.lua")
 	-- Add loot
+	--[[
 	local loot = ExiWoW.LibAssets.loot;
 	table.insert(loot, {
 		zone = "Netherstorm",
@@ -153,6 +153,7 @@ aTable.assets = function(self)
 			}
 		}
 	})
+	]]
 
 	-- This will cause the property to self delete, it's not needed. 
 	return nil

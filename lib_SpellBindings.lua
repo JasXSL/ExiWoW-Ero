@@ -4,12 +4,13 @@ local require = ExiWoW.require
 aTable.spellBindings = function(self)
 
 	local out = {};
-	local sb = require("SpellBinding");
 	local RPText = require("RPText");
 	local spellKits = ExiWoW.LibAssets.spell_kits;
 	local ef = ExiWoW.LibAssets.effects;
 	local Timer = Timer;
 	
+	print("Todo: Replace spellbinding with spell in lib_SpellBindings.lua in ero")
+	--[[
 	-- Binds a custom function which is always raised
 	table.insert(out, sb:new({
 		name = {["Shoulder Demon"]=true, ["Request the Master Call on You"] = true},
@@ -81,7 +82,7 @@ aTable.spellBindings = function(self)
 			end
 		end
 	}))
-
+]]
 	return out;
 
 end
