@@ -3,12 +3,11 @@ local require = ExiWoW.require
 
 aTable.effects = function(self)
 
-	local ef = ExiWoW.LibAssets.effects
 	local Effect = require("Effect");
 	local Timer = require("Timer");
 	local Action = require("Action");
 	local RPText = require("RPText");
-
+	local Func = require("Func");
 	local out = {};
 
 	-- These are Effect effect definitions
@@ -22,10 +21,10 @@ aTable.effects = function(self)
 		name = "Vibrating Shard",
 		description = "A vibrating shard is lodged between your buttcheeks!",
 		onAdd = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE", 11);
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE", 11);
 		end,
 		onRemove = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE");
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE");
 		end
 	}));
 
@@ -39,10 +38,10 @@ aTable.effects = function(self)
 		name = "Vibrating Shard",
 		description = "A vibrating shard is lodged between your breasts!",
 		onAdd = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE", 11);
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE", 11);
 		end,
 		onRemove = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE");
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE");
 		end
 	}));
 	table.insert(out, Effect:new({
@@ -55,10 +54,10 @@ aTable.effects = function(self)
 		name = "Vibrating Shard",
 		description = "A vibrating shard is stuck in your underwear!",
 		onAdd = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE", 11);
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE", 11);
 		end,
 		onRemove = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE");
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE");
 		end
 	}));
 	
@@ -74,7 +73,7 @@ aTable.effects = function(self)
 		description = "Living ooze has made it into your clothes! Right click to remove it.",
 		onAdd = function(self, binding, fromReload)
 			self.rightClicked = false
-			ef:toggleVibHubProgram("IDLE_OOZE", 600)
+			Func.get("toggleVibHubProgram")("IDLE_OOZE", 600)
 			if not fromReload then
 				RPText.trigger("FX_OozeInClothesAdd", ExiWoW.ME, ExiWoW.ME)
 			end
@@ -85,12 +84,12 @@ aTable.effects = function(self)
 			end
 		end,
 		onRemove = function(self)
-			ef:toggleVibHubProgram("IDLE_OOZE")
+			Func.get("toggleVibHubProgram")("IDLE_OOZE")
 			
 			if not self.rightClicked then
 				RPText.trigger("FX_OozeInClothesFade", ExiWoW.ME, ExiWoW.ME)
 			end
-			--ef:toggleVibHubProgram("SMALL_TICKLE");
+			--Func.get("toggleVibHubProgram")("SMALL_TICKLE");
 		end,
 		onRightClick = function(self, data)
 			self.rightClicked = true
@@ -136,14 +135,14 @@ aTable.effects = function(self)
 		sound_loop = 25152,
 		onAdd = function(self, binding, fromReload)
 			self.rightClicked = false
-			ef:toggleVibHubProgram("PULSATING_MUSHROOM", math.huge)
+			Func.get("toggleVibHubProgram")("PULSATING_MUSHROOM", math.huge)
 			self.interval = Timer.set(function()
 				ExiWoW.ME:addExcitement(0.01)
 			end, 2, math.huge)
 		end,
 		onRemove = function(self)
 			Timer.clear(self.interval);
-			ef:toggleVibHubProgram("PULSATING_MUSHROOM")
+			Func.get("toggleVibHubProgram")("PULSATING_MUSHROOM")
 			if not self.rightClicked then
 				RPText.trigger("FX_PULSATING_MUSHROOM_REM", ExiWoW.ME, ExiWoW.ME)
 			end
@@ -189,14 +188,14 @@ aTable.effects = function(self)
 		name = "Pulsating Mushroom",
 		description = "Your underwear are alive.",
 		onAdd = function(self, binding, fromReload)
-			ef:toggleVibHubProgram("PULSATING_MUSHROOM_SMALL", math.huge)
+			Func.get("toggleVibHubProgram")("PULSATING_MUSHROOM_SMALL", math.huge)
 			self.interval = Timer.set(function()
 				ExiWoW.ME:addExcitement(0.01)
 			end, 1, math.huge)
 		end,
 		onRemove = function(self)
 			Timer.clear(self.interval);
-			ef:toggleVibHubProgram("PULSATING_MUSHROOM_SMALL")
+			Func.get("toggleVibHubProgram")("PULSATING_MUSHROOM_SMALL")
 		end
 	}));
 
