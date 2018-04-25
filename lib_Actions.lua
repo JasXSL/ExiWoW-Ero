@@ -1,61 +1,76 @@
 local aName, aTable = ...;
+local require = ExiWoW.require;
+
 aTable.actions = function(self)
 
 	local out = {}
-	local ef = ExiWoW.LibAssets.effects;
+	
+	local libAssets = ExiWoW.LibAssets;
+	local Action = require("Action");
+	local Effect = require("Effect");
+	local Func = require("Func");
+	local toggleVibHubProgram = Func.get("toggleVibHubProgram");
 
 	-- Fondle (Public) --
-	table.insert(out, ExiWoW.Action:new({
+	table.insert(out, Action:new({
 		id = "FONDLE",
 		name = "Fondle",
 		description = "Fondle a player.",
 		texture = "ability_paladin_handoflight",
 		--cooldown = 1.5,
 		cast_sound_success = 57179,
-		allow_instance = true,
-		max_distance = ExiWoW.Action.MELEE_RANGE,
-		fn_send = ExiWoW.Action.sendRPText,
+		conditions = {
+			Condition.get("melee_range"),
+		},
+		not_defaults = {
+			"not_in_instance"
+		},
+		max_distance = Action.MELEE_RANGE,
+		fn_send = Action.sendRPText,
 		fn_receive = function(self, sender, target, args)
 			self:receiveRPText(sender, target, args) -- Default behavior
 			-- Custom actions
-			ExiWoW.LibAssets.effects.addExcitementDefault();
+			Func.get("addExcitementDefault")();
 			return true
 		end
 	}));
 
 
 	-- Goblin Buzzrocket (Item) --
-	table.insert(out, ExiWoW.Action:new({
+	table.insert(out, Action:new({
 		id = "GOBLIN_BUZZROCKET",
 		name = "Experimental Buzzrocket",
 		description = "An experimental goblin buzzrocket to enjoy some me-time with. The rocket fuel makes it hightly volatile.",
 		texture = "ability_mount_rocketmount",
 		cast_time = 20,
 		charges = 0,
-		self_cast_only = true,
 		cast_sound_start = 43508,
 		cast_sound_loop = 50858,
 		rarity = 3,
-		allow_caster_moving = false,
+		conditions = {
+			Condition.get("sender_not_moving"),
+			Condition.get("only_selfcast"),
+		},
+		not_defaults = {},
 		fn_cast = function(self)
 			local _, text = self:sendRPText("player", "player", false);
-			ExiWoW.Timer:clear(self.interval)
-			self.interval = ExiWoW.Timer:set(function()
-				ExiWoW.LibAssets.effects.addExcitementDefault(self, true)
+			Timer.clear(self.interval)
+			self.interval = Timer.set(function()
+				Func.get("addExcitementDefault")(self, true)
 			end, 1, 30)
 			text(self, true, {receiver=true});
-			ef:toggleVibHubProgram("BUZZROCKET", 20);
+			toggleVibHubProgram("BUZZROCKET", 20);
 		end,
 		fn_done = function(self, success)
-			ExiWoW.Timer:clear(self.interval)
-			ef:toggleVibHubProgram("BUZZROCKET");
+			Timer.clear(self.interval)
+			toggleVibHubProgram("BUZZROCKET");
 			return true
 		end
 	}));
 
 
 	-- Jade rod (Item) --
-	table.insert(out, ExiWoW.Action:new({
+	table.insert(out, Action:new({
 		id = "JADE_ROD",
 		name = "Jade Rod",
 		description = "A smooth jade rod to play with.",
@@ -63,28 +78,31 @@ aTable.actions = function(self)
 		cast_time = 20,
 		charges = 0,
 		rarity = 3,
-		self_cast_only = true,
 		cast_sound_start = 39653,
 		cast_sound_loop = 39638,
-		allow_caster_moving = false,
+		conditions = {
+			Condition.get("sender_not_moving"),
+			Condition.get("only_selfcast"),
+		},
+		not_defaults = {},
 		fn_cast = function(self)
 			local _, text = self:sendRPText("player", "player", false);
-			ExiWoW.Timer:clear(self.interval)
-			self.interval = ExiWoW.Timer:set(function()
-				ExiWoW.LibAssets.effects.addExcitementDefault(self, true)
+			Timer.clear(self.interval)
+			self.interval = Timer.set(function()
+				Func.get("addExcitementDefault")(self, true);
 			end, 1, 30)
 			text(self, true, {receiver=true});
-			ef:toggleVibHubProgram("JADE_ROD", 20)
+			toggleVibHubProgram("JADE_ROD", 20)
 		end,
 		fn_done = function(self, success)
-			ExiWoW.Timer:clear(self.interval)
-			ef:toggleVibHubProgram("JADE_ROD")
+			Timer.clear(self.interval)
+			toggleVibHubProgram("JADE_ROD")
 			return true
 		end
 	}));
 
 	-- Shara's Fel Rod (Item) --
-	table.insert(out, ExiWoW.Action:new({
+	table.insert(out, Action:new({
 		id = "SHARAS_FEL_ROD",
 		name = "Shara's Fel Rod",
 		description = "A barely polished rod of fel iron with glowing green runes. Looks powerful, but not very pleasurable.",
@@ -92,28 +110,31 @@ aTable.actions = function(self)
 		cast_time = 20,
 		charges = 0,
 		rarity = 3,
-		self_cast_only = true,
 		cast_sound_start = 85131,
 		cast_sound_loop = 85132,
-		allow_caster_moving = false,
+		conditions = {
+			Condition.get("sender_not_moving"),
+			Condition.get("only_selfcast"),
+		},
+		not_defaults = {},
 		fn_cast = function(self)
 			local _, text = self:sendRPText("player", "player", false);
-			ExiWoW.Timer:clear(self.interval)
-			self.interval = ExiWoW.Timer:set(function()
-				ExiWoW.LibAssets.effects.addExcitementDefault(self, true)
+			Timer.clear(self.interval)
+			self.interval = Timer.set(function()
+				Func.get("addExcitementDefault")(self, true);
 			end, 1, 30)
 			text(self, true, {receiver=true});
-			ef:toggleVibHubProgram("SHARAS_FEL_ROD", 20)
+			toggleVibHubProgram("SHARAS_FEL_ROD", 20)
 		end,
 		fn_done = function(self, success)
-			ExiWoW.Timer:clear(self.interval)
-			ef:toggleVibHubProgram("SHARAS_FEL_ROD")
+			Timer.clear(self.interval)
+			toggleVibHubProgram("SHARAS_FEL_ROD")
 			return true
 		end
 	}));
 
 	-- Pulsating mushroom consumable
-	table.insert(out, ExiWoW.Action:new({
+	table.insert(out, Action:new({
 		id = "PULSATING_MUSHROOM",
 		name = "Pulsating Mushroom",
 		description = "Stick a pulsating mushroom into your target's underwear. It will remain until manually removed.",
@@ -124,19 +145,47 @@ aTable.actions = function(self)
 		max_charges = 100,
 		cast_sound_start = 1185,
 		cast_sound_loop = 47693,
-		allow_caster_moving = false,
-		allow_targ_moving = false,
-		target_has_underwear = true,
-		fn_send = ExiWoW.Action.sendRPText,
+		conditions = {
+			Condition.get("target_not_moving"),
+			Condition.get("sender_not_moving"),
+			Condition.get("targetWearsUnderwear"),
+		},
+		not_defaults = {},
+		fn_send = Action.sendRPText,
 		fn_receive = function(self, sender, target, args)
 			self:receiveRPText(sender, target, args) -- Default behavior
-			ExiWoW.Effect:run("PULSATING_MUSHROOM")
+			Effect.run("PULSATING_MUSHROOM")
+			return true
+		end
+	}));
+
+	-- PULSATING_MANA_GEM consumable
+	table.insert(out, Action:new({
+		id = "PULSATING_MANA_GEM",
+		name = "Pulsating Mana Gem",
+		description = "Slip a pulsating mana gem into your target's underwear. Nightborne feel double the intensity.",
+		texture = "inv_leycrystalmedium",
+		cast_time = 2,
+		charges = 0,
+		rarity = 3,
+		max_charges = 50,
+		cast_sound_loop = 6425,
+		conditions = {
+			Condition.get("target_not_moving"),
+			Condition.get("sender_not_moving"),
+			Condition.get("targetWearsUnderwear"),
+		},
+		not_defaults = {},
+		fn_send = Action.sendRPText,
+		fn_receive = function(self, sender, target, args)
+			self:receiveRPText(sender, target, args) -- Default behavior
+			Effect.run("PULSATING_MANA_GEM")
 			return true
 		end
 	}));
 
 	-- Headmistress' paddle
-	table.insert(ExiWoW.R.actions, ExiWoW.Action:new({
+	table.insert(out, Action:new({
 		id = "HEADMISTRESS_PADDLE",
 		name = "Headmistress' Paddle",
 		description = "Whap your target across their rear.",
@@ -144,20 +193,22 @@ aTable.actions = function(self)
 		cooldown = 6,
 		charges=0,
 		rarity=3,
-		max_distance = ExiWoW.Action.MELEE_RANGE,
-		party_restricted = false,
+		conditions = {
+			Condition.get("melee_range"),
+		},
+		not_defaults = {},
 		fn_send = function(self, sender, target, suppressErrors)
 			local race = UnitRace(target)
 			local gender = UnitSex(target)
 			return self:sendRPText(sender, target, suppressErrors, function(se, success)
-					if success and not UnitIsUnit(target, "player") then
-					ExiWoW.LibAssets.effects:critSound(race, gender)
+				if success and not UnitIsUnit(target, "player") then
+					Func.get("critSound")(race, gender);
 				end
 			end);
 		end,
 		fn_receive = function(self, sender, target, args)
 			DoEmote("GASP");
-			ExiWoW.LibAssets.effects.addExcitementMasochisticCrit();
+			Func.get("addExcitementMasochisticCrit")();
 			self:receiveRPText(sender, target, args);
 			return true
 		end
@@ -165,19 +216,6 @@ aTable.actions = function(self)
 
 	return out;
 
-
-	--[[
-
-	function(self)
-			
-			local _, text = self:sendRPText("player", "player", false);
-			ExiWoW.Timer:clear(self.interval)
-			self.interval = ExiWoW.Timer:set(function()
-				ExiWoW.ME:addExcitement(0.05)
-			end, 1, 30)
-			
-		end
-	]]
 end
 
 

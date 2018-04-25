@@ -1,9 +1,12 @@
 local aName, aTable = ...;
+local require = ExiWoW.require
+
 aTable.underwear = function(self)
 
+	local Underwear = require("Underwear");
+
 	local out = {}
-	local uw = ExiWoW.Underwear;
-	table.insert(out, uw:new({
+	table.insert(out, Underwear:new({
 		id = "MUSHROOM_UNDERWEAR",
 		name = "Mushroom Underwear",
 		icon = "Inv_misc_herb_ghostmushroomcap",

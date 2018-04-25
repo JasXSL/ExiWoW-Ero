@@ -8,6 +8,7 @@ frame:SetScript("OnEvent", function(self, event, prefix, message, channel, sende
 	
 	if event == "ADDON_LOADED" then
 
+		
 		if ExiWoW and not INI then
 			INI = true;
 			-- Build the actual libraries
@@ -16,7 +17,7 @@ frame:SetScript("OnEvent", function(self, event, prefix, message, channel, sende
 					aTable[i] = f();
 				end
 			end
-			ExiWoW.Extension:import(aTable);
+			ExiWoW.require("Extension").import(aTable);
 		end
 
 	end

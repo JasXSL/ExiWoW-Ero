@@ -1,10 +1,17 @@
 local aName, aTable = ...;
+local require = ExiWoW.require
+
 aTable.effects = function(self)
 
-	local ef = ExiWoW.LibAssets.effects
+	local Effect = require("Effect");
+	local Timer = require("Timer");
+	local Action = require("Action");
+	local RPText = require("RPText");
+	local Func = require("Func");
+	local out = {};
 
 	-- These are Effect effect definitions
-	table.insert(ExiWoW.R.effects, ExiWoW.Effect:new({
+	table.insert(out, Effect:new({
 		id = "debuffShardTickleButt",
 		detrimental = true,
 		duration = 10,
@@ -14,14 +21,14 @@ aTable.effects = function(self)
 		name = "Vibrating Shard",
 		description = "A vibrating shard is lodged between your buttcheeks!",
 		onAdd = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE", 11);
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE", 11);
 		end,
 		onRemove = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE");
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE");
 		end
 	}));
 
-	table.insert(ExiWoW.R.effects, ExiWoW.Effect:new({
+	table.insert(out, Effect:new({
 		id = "debuffShardTickleBreasts",
 		detrimental = true,
 		duration = 10,
@@ -31,13 +38,13 @@ aTable.effects = function(self)
 		name = "Vibrating Shard",
 		description = "A vibrating shard is lodged between your breasts!",
 		onAdd = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE", 11);
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE", 11);
 		end,
 		onRemove = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE");
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE");
 		end
 	}));
-	table.insert(ExiWoW.R.effects, ExiWoW.Effect:new({
+	table.insert(out, Effect:new({
 		id = "debuffShardTickleGroin",
 		detrimental = true,
 		duration = 10,
@@ -47,15 +54,15 @@ aTable.effects = function(self)
 		name = "Vibrating Shard",
 		description = "A vibrating shard is stuck in your underwear!",
 		onAdd = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE", 11);
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE", 11);
 		end,
 		onRemove = function()
-			ef:toggleVibHubProgram("SMALL_TICKLE");
+			Func.get("toggleVibHubProgram")("SMALL_TICKLE");
 		end
 	}));
 	
-	-- /run ExiWoW.Effect:run("oozeInClothes")
-	table.insert(ExiWoW.R.effects, ExiWoW.Effect:new({
+	-- /run Effect.run("oozeInClothes")
+	table.insert(out, Effect:new({
 		id = "oozeInClothes",
 		detrimental = true,
 		duration = 600,
@@ -66,23 +73,23 @@ aTable.effects = function(self)
 		description = "Living ooze has made it into your clothes! Right click to remove it.",
 		onAdd = function(self, binding, fromReload)
 			self.rightClicked = false
-			ef:toggleVibHubProgram("IDLE_OOZE", 600)
+			Func.get("toggleVibHubProgram")("IDLE_OOZE", 600)
 			if not fromReload then
-				ExiWoW.RPText:trigger("FX_OozeInClothesAdd", ExiWoW.ME, ExiWoW.ME)
+				RPText.trigger("FX_OozeInClothesAdd", ExiWoW.ME, ExiWoW.ME)
 			end
 		end,
 		onTick = function(self)
 			if math.random() < 0.35 then
-				ExiWoW.RPText:trigger("FX_OozeInClothesTick", ExiWoW.ME, ExiWoW.ME)
+				RPText.trigger("FX_OozeInClothesTick", ExiWoW.ME, ExiWoW.ME)
 			end
 		end,
 		onRemove = function(self)
-			ef:toggleVibHubProgram("IDLE_OOZE")
+			Func.get("toggleVibHubProgram")("IDLE_OOZE")
 			
 			if not self.rightClicked then
-				ExiWoW.RPText:trigger("FX_OozeInClothesFade", ExiWoW.ME, ExiWoW.ME)
+				RPText.trigger("FX_OozeInClothesFade", ExiWoW.ME, ExiWoW.ME)
 			end
-			--ef:toggleVibHubProgram("SMALL_TICKLE");
+			--Func.get("toggleVibHubProgram")("SMALL_TICKLE");
 		end,
 		onRightClick = function(self, data)
 			self.rightClicked = true
@@ -90,7 +97,7 @@ aTable.effects = function(self)
 			local id = data.id
 
 			-- Create a custom removal action
-			local remAction =  ExiWoW.Action:new({
+			local remAction =  Action:new({
 				id = "_",
 				self_only = true,
 				name = "Remove Goo",
@@ -104,20 +111,20 @@ aTable.effects = function(self)
 				-- Handle the receiving end here
 				fn_send = function(self, sender, target, suppressErrors)
 		
-					ExiWoW.RPText:trigger("FX_OozeInClothesRem", ExiWoW.ME, ExiWoW.ME)
-					ExiWoW.Effect:rem(id)
+					RPText.trigger("FX_OozeInClothesRem", ExiWoW.ME, ExiWoW.ME)
+					Effect.rem(id)
 
 					return false
 				end
 			})
-			ExiWoW.Action:useOnTarget(remAction, "player")
+			Action.useOnTarget(remAction, "player")
 			
 			return false
 		end
 	}));
 
-	-- /run ExiWoW.Effect:run("PULSATING_MUSHROOM")
-	table.insert(ExiWoW.R.effects, ExiWoW.Effect:new({
+	-- /run Effect.run("PULSATING_MUSHROOM")
+	table.insert(out, Effect:new({
 		id = "PULSATING_MUSHROOM",
 		detrimental = true,
 		duration = 0,
@@ -128,16 +135,16 @@ aTable.effects = function(self)
 		sound_loop = 25152,
 		onAdd = function(self, binding, fromReload)
 			self.rightClicked = false
-			ef:toggleVibHubProgram("PULSATING_MUSHROOM", math.huge)
-			self.interval = ExiWoW.Timer:set(function()
+			Func.get("toggleVibHubProgram")("PULSATING_MUSHROOM", math.huge)
+			self.interval = Timer.set(function()
 				ExiWoW.ME:addExcitement(0.01)
 			end, 2, math.huge)
 		end,
 		onRemove = function(self)
-			ExiWoW.Timer:clear(self.interval);
-			ef:toggleVibHubProgram("PULSATING_MUSHROOM")
+			Timer.clear(self.interval);
+			Func.get("toggleVibHubProgram")("PULSATING_MUSHROOM")
 			if not self.rightClicked then
-				ExiWoW.RPText:trigger("FX_PULSATING_MUSHROOM_REM", ExiWoW.ME, ExiWoW.ME)
+				RPText.trigger("FX_PULSATING_MUSHROOM_REM", ExiWoW.ME, ExiWoW.ME)
 			end
 		end,
 		onRightClick = function(self, data)
@@ -146,7 +153,7 @@ aTable.effects = function(self)
 			local id = data.id
 
 			-- Create a custom removal action
-			local remAction =  ExiWoW.Action:new({
+			local remAction =  Action:new({
 				id = "_",
 				self_only = true,
 				name = "Remove Mushroom",
@@ -160,19 +167,52 @@ aTable.effects = function(self)
 				-- Handle the receiving end here
 				fn_send = function(self, sender, target, suppressErrors)
 		
-					ExiWoW.RPText:trigger("FX_PULSATING_MUSHROOM_REM", ExiWoW.ME, ExiWoW.ME)
-					ExiWoW.Effect:rem(id)
+					RPText.trigger("FX_PULSATING_MUSHROOM_REM", ExiWoW.ME, ExiWoW.ME)
+					Effect.rem(id)
 
 					return false
 				end
 			})
-			ExiWoW.Action:useOnTarget(remAction, "player")
+			Action.useOnTarget(remAction, "player")
 			
 			return false
 		end
 	}));
 
-	table.insert(ExiWoW.R.effects, ExiWoW.Effect:new({
+	-- PULSATING_MANA_GEM
+	table.insert(out, Effect:new({
+		id = "PULSATING_MANA_GEM",
+		detrimental = true,
+		duration = 10,
+		max_stacks = 1,
+		texture = "Interface/Icons/inv_leycrystalmedium",
+		name = "Pulsating Mana Gem",
+		description = "Someone stuck a pulsating mana gem in your clothes!",
+		sound_loop = 75484,
+		onAdd = function(self, binding, fromReload)
+			local isNightborne = UnitRace("player") == "Nightborne";
+			local program = "PULSATING_MANA_GEM";
+			if isNightborne then program = program.."_NIGHTBORNE"; end
+			Func.get("toggleVibHubProgram")(program, math.huge);
+			self.interval = Timer.set(function()
+				local amount = 0.03;
+				if isNightborne then 
+					amount = amount*2; 
+					Func.get("painSound")(self);
+				end
+				ExiWoW.ME:addExcitement(amount);
+			end, 2, math.huge)
+		end,
+		onRemove = function(self)
+			local isNightborne = UnitRace("player") == "Nightborne";
+			local program = "PULSATING_MANA_GEM";
+			if isNightborne then program = program.."_NIGHTBORNE"; end
+			Timer.clear(self.interval);
+			Func.get("toggleVibHubProgram")(program);
+		end,
+	}));
+
+	table.insert(out, Effect:new({
 		id = "MUSHROOM_UNDERWEAR",
 		detrimental = true,
 		duration = 0,
@@ -181,17 +221,16 @@ aTable.effects = function(self)
 		name = "Pulsating Mushroom",
 		description = "Your underwear are alive.",
 		onAdd = function(self, binding, fromReload)
-			ef:toggleVibHubProgram("PULSATING_MUSHROOM_SMALL", math.huge)
-			self.interval = ExiWoW.Timer:set(function()
+			Func.get("toggleVibHubProgram")("PULSATING_MUSHROOM_SMALL", math.huge)
+			self.interval = Timer.set(function()
 				ExiWoW.ME:addExcitement(0.01)
 			end, 1, math.huge)
 		end,
 		onRemove = function(self)
-			ExiWoW.Timer:clear(self.interval);
-			ef:toggleVibHubProgram("PULSATING_MUSHROOM_SMALL")
+			Timer.clear(self.interval);
+			Func.get("toggleVibHubProgram")("PULSATING_MUSHROOM_SMALL")
 		end
 	}));
 
-	-- This will cause the property to self delete, it's not needed. 
-	return nil
+	return out
 end

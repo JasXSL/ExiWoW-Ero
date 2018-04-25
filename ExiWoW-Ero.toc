@@ -5,16 +5,18 @@
 
 index.lua
 
-# Extend standard assets
-lib_Assets.lua
 
+# Functions
+lib_Functions.lua
 # Add custom RP texts
 lib_RPText.lua
 # Add custom actions
 lib_Actions.lua
-# Add custom spell bindings
-lib_SpellBindings.lua
 # Custom effects
 lib_Effects.lua
 # Custom underwear
 lib_Underwear.lua
+# Add loot
+lib_Loot.lua
+# Spells
+lib_Spells.lua
