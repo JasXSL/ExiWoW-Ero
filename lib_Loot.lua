@@ -156,6 +156,53 @@ aTable.loot = function(self)
 	}))
 
 
+
+	-- World containers
+	-- World containers
+
+	-- Pulsating mana gem
+		-- Shard (25%)
+		table.insert(loot, Loot:new({
+			conditions = {
+				evtIsWorldContainer,
+				Condition:new({type=ty.RTYPE_NAME, data="Ancient Mana Shard", sender=true}),
+			},
+			items = {
+				Item:new({
+					type = "Charges",
+					id = "PULSATING_MANA_GEM",
+					quant = 1,
+					chance = 1,
+					sound = 1221,
+					text = RPText:new({
+						text_receiver = "You found a pulsating mana gem!"
+					})
+				})
+			}
+		}))
+
+		-- Chunk (50%)
+		table.insert(loot, Loot:new({
+			conditions = {
+				evtIsWorldContainer,
+				Condition:new({type=ty.RTYPE_NAME, data="Ancient Mana Chunk", sender=true}),
+			},
+			items = {
+				Item:new({
+					type = "Charges",
+					id = "PULSATING_MANA_GEM",
+					quant = 1,
+					quantRand = 3,
+					chance = 1,
+					sound = 1221,
+					text = RPText:new({
+						text_receiver = "You found %Q pulsating mana gem%Qs!"
+					})
+				})
+			}
+		}))
+
+
 	-- This will cause the property to self delete, it's not needed. 
 	return loot
 end

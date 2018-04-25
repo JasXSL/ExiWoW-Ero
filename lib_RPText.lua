@@ -281,6 +281,21 @@ aTable.rpTexts = function(self)
 			text_receiver = "You remove the pulsating mushroom from your %Tundies!",
 			sound = 73580
 		}))
+
+	-- Pulsating mana gem
+		table.insert(R, RPText:new({
+			id = "PULSATING_MANA_GEM",
+			sound = 1204,
+			text_bystander = "%S sticks a pulsating mana gem into %T's %Tundies!",
+			text_sender = "You stick your pulsating mana gem into %T's %Tundies!",
+			text_receiver = "%S sticks a pulsating mana gem into your %Tundies!",
+		}))
+		table.insert(R, RPText:new({
+			id = "PULSATING_MANA_GEM",
+			sound = 1204,
+			text_bystander = "%T sticks a pulsating mana gem into %This %Tundies!",
+			text_receiver = "You stick a pulsating mana gem into your %Tundies!",
+		}))
 		
 	-- HEADMISTRESS_PADDLE
 		table.insert(R, RPText:new({

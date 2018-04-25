@@ -179,6 +179,39 @@ aTable.effects = function(self)
 		end
 	}));
 
+	-- PULSATING_MANA_GEM
+	table.insert(out, Effect:new({
+		id = "PULSATING_MANA_GEM",
+		detrimental = true,
+		duration = 10,
+		max_stacks = 1,
+		texture = "Interface/Icons/inv_leycrystalmedium",
+		name = "Pulsating Mana Gem",
+		description = "Someone stuck a pulsating mana gem in your clothes!",
+		sound_loop = 75484,
+		onAdd = function(self, binding, fromReload)
+			local isNightborne = UnitRace("player") == "Nightborne";
+			local program = "PULSATING_MANA_GEM";
+			if isNightborne then program = program.."_NIGHTBORNE"; end
+			Func.get("toggleVibHubProgram")(program, math.huge)
+			self.interval = Timer.set(function()
+				local amount = 0.03;
+				if isNightborne then 
+					amount = amount*2; 
+					Func.get("painSound")(self);
+				end
+				ExiWoW.ME:addExcitement(amount);
+			end, 2, math.huge)
+		end,
+		onRemove = function(self)
+			local isNightborne = UnitRace("player") == "Nightborne";
+			local program = "PULSATING_MANA_GEM";
+			if isNightborne then program = program.."_NIGHTBORNE"; end
+			Timer.clear(self.interval);
+			Func.get("toggleVibHubProgram")(program);
+		end,
+	}));
+
 	table.insert(out, Effect:new({
 		id = "MUSHROOM_UNDERWEAR",
 		detrimental = true,

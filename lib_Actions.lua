@@ -147,7 +147,6 @@ aTable.actions = function(self)
 		conditions = {
 			Condition.get("target_not_moving"),
 			Condition.get("sender_not_moving"),
-			Condition.get("only_selfcast"),
 			Condition.get("targetWearsUnderwear"),
 		},
 		not_defaults = {},
@@ -155,6 +154,31 @@ aTable.actions = function(self)
 		fn_receive = function(self, sender, target, args)
 			self:receiveRPText(sender, target, args) -- Default behavior
 			Effect.run("PULSATING_MUSHROOM")
+			return true
+		end
+	}));
+
+	-- PULSATING_MANA_GEM consumable
+	table.insert(out, Action:new({
+		id = "PULSATING_MANA_GEM",
+		name = "Pulsating Mana Gem",
+		description = "Slip a pulsating mana gem into your target's underwear. Nightborne feel double the intensity.",
+		texture = "inv_leycrystalmedium",
+		cast_time = 2,
+		charges = 0,
+		rarity = 3,
+		max_charges = 50,
+		cast_sound_loop = 6425,
+		conditions = {
+			Condition.get("target_not_moving"),
+			Condition.get("sender_not_moving"),
+			Condition.get("targetWearsUnderwear"),
+		},
+		not_defaults = {},
+		fn_send = Action.sendRPText,
+		fn_receive = function(self, sender, target, args)
+			self:receiveRPText(sender, target, args) -- Default behavior
+			Effect.run("PULSATING_MANA_GEM")
 			return true
 		end
 	}));
