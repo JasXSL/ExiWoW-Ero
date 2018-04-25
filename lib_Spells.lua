@@ -7,11 +7,10 @@ aTable.spells = function(self)
 	local RPText = require("RPText");
 	local Spell = require("Spell");
 	local spellKits = ExiWoW.LibAssets.spell_kits;
-	local ef = ExiWoW.LibAssets.effects;
 	local Timer = Timer;
 	local Event = require("Event");
 	local evtype = Event.Types;
-
+	local Func = require("Func");
 
 
 	-- Binds a custom function which is always raised
@@ -80,14 +79,14 @@ aTable.spells = function(self)
 				
 				if pre < 1 then
 					RPText.trigger("Shattering Song", ExiWoW.ME, ExiWoW.ME)
-					ef.toggleVibHubProgram(self, "SHATTERING_SONG", 300);
+					Func.get("toggleVibHubProgram")("SHATTERING_SONG", 300);
 				end
 			end
 			-- Spell removed
 			if event == evtype.SPELL_REM then
 				self.custom.added = self.custom.added-1;
 				if self.custom.added <= 0 then
-					ef.toggleVibHubProgram(self, "SHATTERING_SONG");
+					Func.get("toggleVibHubProgram")(self, "SHATTERING_SONG");
 				end
 			end
 		end

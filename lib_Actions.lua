@@ -9,6 +9,7 @@ aTable.actions = function(self)
 	local Action = require("Action");
 	local Effect = require("Effect");
 	local Func = require("Func");
+	local toggleVibHubProgram = Func.get("toggleVibHubProgram");
 
 	-- Fondle (Public) --
 	table.insert(out, Action:new({
@@ -58,11 +59,11 @@ aTable.actions = function(self)
 				Func.get("addExcitementDefault")(self, true)
 			end, 1, 30)
 			text(self, true, {receiver=true});
-			ef:toggleVibHubProgram("BUZZROCKET", 20);
+			toggleVibHubProgram("BUZZROCKET", 20);
 		end,
 		fn_done = function(self, success)
 			Timer.clear(self.interval)
-			ef:toggleVibHubProgram("BUZZROCKET");
+			toggleVibHubProgram("BUZZROCKET");
 			return true
 		end
 	}));
@@ -91,11 +92,11 @@ aTable.actions = function(self)
 				Func.get("addExcitementDefault")(self, true);
 			end, 1, 30)
 			text(self, true, {receiver=true});
-			ef:toggleVibHubProgram("JADE_ROD", 20)
+			toggleVibHubProgram("JADE_ROD", 20)
 		end,
 		fn_done = function(self, success)
 			Timer.clear(self.interval)
-			ef:toggleVibHubProgram("JADE_ROD")
+			toggleVibHubProgram("JADE_ROD")
 			return true
 		end
 	}));
@@ -123,11 +124,11 @@ aTable.actions = function(self)
 				Func.get("addExcitementDefault")(self, true);
 			end, 1, 30)
 			text(self, true, {receiver=true});
-			ef:toggleVibHubProgram("SHARAS_FEL_ROD", 20)
+			toggleVibHubProgram("SHARAS_FEL_ROD", 20)
 		end,
 		fn_done = function(self, success)
 			Timer.clear(self.interval)
-			ef:toggleVibHubProgram("SHARAS_FEL_ROD")
+			toggleVibHubProgram("SHARAS_FEL_ROD")
 			return true
 		end
 	}));

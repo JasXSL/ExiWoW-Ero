@@ -193,7 +193,7 @@ aTable.effects = function(self)
 			local isNightborne = UnitRace("player") == "Nightborne";
 			local program = "PULSATING_MANA_GEM";
 			if isNightborne then program = program.."_NIGHTBORNE"; end
-			Func.get("toggleVibHubProgram")(program, math.huge)
+			Func.get("toggleVibHubProgram")(program, math.huge);
 			self.interval = Timer.set(function()
 				local amount = 0.03;
 				if isNightborne then 
