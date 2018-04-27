@@ -75,19 +75,19 @@ aTable.effects = function(self)
 			self.rightClicked = false
 			Func.get("toggleVibHubProgram")("IDLE_OOZE", 600)
 			if not fromReload then
-				RPText.trigger("FX_OozeInClothesAdd", ExiWoW.ME, ExiWoW.ME)
+				RPText.trigger("FX_OozeInClothesAdd", "player", "player", ExiWoW.ME, ExiWoW.ME)
 			end
 		end,
 		onTick = function(self)
 			if math.random() < 0.35 then
-				RPText.trigger("FX_OozeInClothesTick", ExiWoW.ME, ExiWoW.ME)
+				RPText.trigger("FX_OozeInClothesTick", "player", "player", ExiWoW.ME, ExiWoW.ME)
 			end
 		end,
 		onRemove = function(self)
 			Func.get("toggleVibHubProgram")("IDLE_OOZE")
 			
 			if not self.rightClicked then
-				RPText.trigger("FX_OozeInClothesFade", ExiWoW.ME, ExiWoW.ME)
+				RPText.trigger("FX_OozeInClothesFade", "player", "player", ExiWoW.ME, ExiWoW.ME)
 			end
 			--Func.get("toggleVibHubProgram")("SMALL_TICKLE");
 		end,
@@ -111,7 +111,7 @@ aTable.effects = function(self)
 				-- Handle the receiving end here
 				fn_send = function(self, sender, target, suppressErrors)
 		
-					RPText.trigger("FX_OozeInClothesRem", ExiWoW.ME, ExiWoW.ME)
+					RPText.trigger("FX_OozeInClothesRem", "player", "player", ExiWoW.ME, ExiWoW.ME)
 					Effect.rem(id)
 
 					return false

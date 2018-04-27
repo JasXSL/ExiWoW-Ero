@@ -9,6 +9,7 @@ aTable.rpTexts = function(self)
 	local Effect = require("Effect");
 	local Database = require("Database");
 	local Func = require("Func");
+	local Timer = require("Timer");
 
 	local ty = Condition.Types;			-- Local filter types
 
