@@ -446,7 +446,7 @@ aTable.rpTexts = function(self)
 			text_bystander = "%S's stinger tickles between %T's legs!",
 			text_receiver = "%S's stinger tickles between your legs!",
 			--sound = 57787,
-			requirements = {getCondition("attackerIsWasp"), getCondition("rand50")},
+			requirements = {getCondition("attackerIsWasp")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = Func.get("addExcitementMasochisticCrit")
 		}))
@@ -668,7 +668,6 @@ aTable.rpTexts = function(self)
 				}))
 
 			-- Lightning
-				
 				table.insert(R, RPText:new({
 					text_receiver = "The %spell shocks your nipples!",
 					sound = 35286,
@@ -1077,6 +1076,15 @@ aTable.rpTexts = function(self)
 					fn = Func.get("addExcitementMasochisticCrit")
 				}))
 
+			-- Kick
+				table.insert(R, RPText:new({
+					id = "Kick",
+					text_bystander = "%S kicks %T right in %This %Tgroin!",
+					text_receiver = "%S kicks you right in the %Tgroin!",
+					requirements = {getCondition("rand20")},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}))
+
 			-- Shoot
 				table.insert(R, RPText:new({
 					id = "Shoot",
@@ -1380,6 +1388,41 @@ aTable.rpTexts = function(self)
 			requirements = {},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = Func.get("addExcitementCrit")
+		}))
+
+	-- Mossy vine
+
+		table.insert(R, RPText:new({
+			text_receiver = "A mossy vine shattered from the %S falls into your cleavage!",
+			sound = 21727,
+			requirements = {getCondition("is_monster_kill"), getCondition("attackerIsBogshambler"), getCondition("victimBreasts"), getCondition("rand30")},
+			fn = function(self)
+				Effect.run("MossyVine");
+			end
+		}))
+		table.insert(R, RPText:new({
+			id = "FX_MossyVine_tick",
+			text_receiver = "The vine wraps around and squeezes your %Tbreasts rigidly!",
+			sound = 18711,
+			requirements = {},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochistic")
+		}))
+		table.insert(R, RPText:new({
+			id = "FX_MossyVine_tick",
+			text_receiver = "The vine wraps around and tugs at your %leftright nipple!",
+			sound = 18711,
+			requirements = {},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitement")
+		}))
+		table.insert(R, RPText:new({
+			id = "FX_MossyVine_tick",
+			text_receiver = "The vine wraps around your nipples, tugging your %Tbreasts together!",
+			sound = 18711,
+			requirements = {},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochistic")
 		}))
 
 	--

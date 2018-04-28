@@ -185,6 +185,7 @@ aTable.effects = function(self)
 		detrimental = true,
 		duration = 10,
 		max_stacks = 1,
+		ticking = 2,
 		texture = "Interface/Icons/inv_leycrystalmedium",
 		name = "Pulsating Mana Gem",
 		description = "Someone stuck a pulsating mana gem in your clothes!",
@@ -194,22 +195,41 @@ aTable.effects = function(self)
 			local program = "PULSATING_MANA_GEM";
 			if isNightborne then program = program.."_NIGHTBORNE"; end
 			Func.get("toggleVibHubProgram")(program, math.huge);
-			self.interval = Timer.set(function()
-				local amount = 0.03;
-				if isNightborne then 
-					amount = amount*2; 
-					Func.get("painSound")(self);
-				end
-				ExiWoW.ME:addExcitement(amount);
-			end, 2, math.huge)
+		end,
+		onTick = function()
+			local amount = 0.03;
+			if UnitRace("player") == "Nightborne" then 
+				amount = amount*2; 
+				Func.get("painSound")(self);
+			end
+			ExiWoW.ME:addExcitement(amount);
 		end,
 		onRemove = function(self)
 			local isNightborne = UnitRace("player") == "Nightborne";
 			local program = "PULSATING_MANA_GEM";
 			if isNightborne then program = program.."_NIGHTBORNE"; end
-			Timer.clear(self.interval);
 			Func.get("toggleVibHubProgram")(program);
 		end,
+	}));
+
+	-- MossyVine
+	table.insert(out, Effect:new({
+		id = "MossyVine",
+		detrimental = true,
+		duration = 20,
+		max_stacks = 1,
+		ticking = 2,
+		texture = "Interface/Icons/inv_misc_herb_evergreenmoss",
+		name = "Mossy Vine",
+		description = "A mossy vine is wriggling between your breasts!",
+		sound_loop = 25152,
+		onAdd = function(self, binding, fromReload)end,
+		onTick = function()
+			if math.random() < 0.5 then
+				RPText.trigger("FX_MossyVine_tick", "player", "player", ExiWoW.ME, ExiWoW.ME);
+			end
+		end,
+		onRemove = function(self)end,
 	}));
 
 	table.insert(out, Effect:new({
