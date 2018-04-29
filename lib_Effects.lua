@@ -99,15 +99,24 @@ aTable.effects = function(self)
 			-- Create a custom removal action
 			local remAction =  Action:new({
 				id = "_",
-				self_only = true,
 				name = "Remove Goo",
 				description = "Removes the living goo from your clothes.",
 				texture = "ability_bossfelmagnaron_handempowered",
 				cooldown = 0,
 				cast_sound_loop = 79252,
-				allow_caster_moving = false,
 				cast_time = 5,
-				allow_targ_combat = false,
+				description = "Fondle a player.",
+				texture = "ability_paladin_handoflight",
+				--cooldown = 1.5,
+				cast_sound_success = 57179,
+				conditions = {
+					Condition.get("is_self"),
+					Condition.get("sender_no_combat"),
+					Condition.get("sender_not_moving"),
+				},
+				not_defaults = {
+					"not_in_instance"
+				},
 				-- Handle the receiving end here
 				fn_send = function(self, sender, target, suppressErrors)
 		
@@ -155,15 +164,20 @@ aTable.effects = function(self)
 			-- Create a custom removal action
 			local remAction =  Action:new({
 				id = "_",
-				self_only = true,
 				name = "Remove Mushroom",
 				description = "Removes the mushroom from your clothes.",
 				texture = "ability_bossfelmagnaron_handempowered",
 				cooldown = 0,
 				cast_sound_loop = 79252,
-				allow_caster_moving = false,
 				cast_time = 1.5,
-				allow_targ_combat = false,
+				conditions = {
+					Condition.get("is_self"),
+					Condition.get("sender_no_combat"),
+					Condition.get("sender_not_moving"),
+				},
+				not_defaults = {
+					"not_in_instance"
+				},
 				-- Handle the receiving end here
 				fn_send = function(self, sender, target, suppressErrors)
 		
