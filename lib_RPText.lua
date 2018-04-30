@@ -633,6 +633,74 @@ aTable.rpTexts = function(self)
 			end
 		}))
 
+	-- Fistfighters, not large
+		
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S twists %T's %leftright nipple!",
+			text_receiver = "%S twists your %leftright nipple!",
+			sound = 25626,
+			requirements = {
+				getCondition("attackerNotLarge"), 
+				getCondition("victimBreasts"),
+				getCondition("attackerIsFistfighter"),
+				getCondition("chestLightArmor"),
+			},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochisticCrit")
+		}))
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S twists %T's nipples!",
+			text_receiver = "%S twists your nipples!",
+			sound = 25626,
+			requirements = {
+				getCondition("attackerNotLarge"), 
+				getCondition("victimBreasts"),
+				getCondition("attackerIsFistfighter"),
+				getCondition("chestLightArmor"),
+			},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochisticCrit")
+		}))
+		table.insert(R, RPText:new({
+			id = "SWING",
+			text_bystander = "%S smacks %T's %Tgroin from below!",
+			text_receiver = "%S smacks your %Tgroin from below!",
+			sound = 3338,
+			requirements = {
+				getCondition("attackerIsSmall"),
+				getCondition("attackerIsFistfighter"),
+			},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochistic")
+		}))
+		table.insert(R, RPText:new({
+			id = "SWING",
+			text_bystander = "%S reaches between %T's legs and throws a slap against %This %Tbutt from below!",
+			text_receiver = "%S reaches between your legs and throws a slap against your %Tbutt from below!",
+			sound = 3338,
+			requirements = {
+				getCondition("attackerIsSmall"),
+				getCondition("attackerIsFistfighter"),
+			},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochistic")
+		}))
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S throws a punch from below right at %T's %Tgroin!",
+			text_receiver = "%S throws a punch from below right at your %Tgroin!",
+			sound = 83716,
+			requirements = {
+				getCondition("attackerIsSmall"),
+				getCondition("attackerIsFistfighter"),
+			},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochisticCrit")
+		}))
+
+
 -- SPELLS --
 
 		-- GENERIC / NPC --
@@ -1246,7 +1314,14 @@ aTable.rpTexts = function(self)
 					fn = Func.get("addExcitement"),
 					requirements = {}
 				}));
-
+			-- Quill barb
+				table.insert(R, RPText:new({
+					id = "Quill Barb",
+					text_bystander = "%S pricks %T's %Tbutt with a %spell!",
+					text_receiver = "%S pricks your %Tbutt with the %spell!",
+					fn = Func.get("addExcitementMasochistic"),
+					requirements = {}
+				}));
 				
 		-- DRUID --
 
