@@ -664,12 +664,37 @@ aTable.rpTexts = function(self)
 			fn = Func.get("addExcitementMasochisticCrit")
 		}))
 		table.insert(R, RPText:new({
-			id = "SWING",
+			id = "SWING_CRIT",
+			text_bystander = "%S slaps %T's %Tbreasts!",
+			text_receiver = "%S slaps your %Tbreasts!",
+			sound = 25626,
+			requirements = {
+				getCondition("attackerNotLarge"), 
+				getCondition("victimBreasts"),
+				getCondition("attackerIsFistfighter"),
+			},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochisticCrit")
+		}))
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
 			text_bystander = "%S smacks %T's %Tgroin from below!",
 			text_receiver = "%S smacks your %Tgroin from below!",
 			sound = 3338,
 			requirements = {
 				getCondition("attackerIsSmall"),
+				getCondition("attackerIsFistfighter"),
+			},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochistic")
+		}))
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S reaches in between %T's legs and squeezes %This %Tgroin!",
+			text_receiver = "%S reaches in between your legs and squeezes your %Tgroin!",
+			sound = 25626,
+			requirements = {
+				getCondition("attackerNotLarge"),
 				getCondition("attackerIsFistfighter"),
 			},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
@@ -755,6 +780,27 @@ aTable.rpTexts = function(self)
 						getCondition("ts_electric"),
 					},
 					fn = Func.get("addExcitementMasochistic")
+				}))
+				table.insert(R, RPText:new({
+					text_receiver = "%spell crackles through your chestpiece!",
+					sound = 35286,
+					requirements = {
+						spellAddOrTick,  -- OR
+						getCondition("victimBreasts"),
+						getCondition("ts_electric"),
+						getCondition("chestHeavyArmor"),
+					},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}))
+				table.insert(R, RPText:new({
+					text_receiver = "%spell crackles through your crotchpiece!",
+					sound = 35286,
+					requirements = {
+						spellAddOrTick,  -- OR
+						getCondition("ts_electric"),
+						getCondition("legsHeavyArmor"),
+					},
+					fn = Func.get("addExcitementMasochisticCrit")
 				}))
 
 
