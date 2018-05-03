@@ -20,3 +20,5 @@ lib_Underwear.lua
 lib_Loot.lua
 # Spells
 lib_Spells.lua
+#Quests
+lib_Quests.lua

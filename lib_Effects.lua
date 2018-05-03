@@ -8,6 +8,7 @@ aTable.effects = function(self)
 	local Action = require("Action");
 	local RPText = require("RPText");
 	local Func = require("Func");
+	local Event = require("Event");
 	local out = {};
 
 	-- These are Effect effect definitions
@@ -225,6 +226,46 @@ aTable.effects = function(self)
 			Func.get("toggleVibHubProgram")(program);
 		end,
 	}));
+
+
+
+
+	table.insert(out, Effect:new({
+		id = "VINE_SQUIRM",
+		detrimental = true,
+		duration = 15,
+		max_stacks = 1,
+		ticking = 2,
+		texture = "Interface/Icons/spell_nature_magicimmunity",
+		name = "Squirming Thong",
+		description = "Your vine thong is squirming!",
+		sound_loop = 25152,
+		onAdd = function(self, binding, fromReload)
+			Effect.remByTagsNotThis(self, "VINE_THONG");
+			Func.get("toggleVibHubProgram")("VINE_THONG", math.huge);
+			local function onUnderwearChange()
+				if not ExiWoW.ME:getUnderwear() or ExiWoW.ME:getUnderwear().id ~= "EVERLIVING_VINE_THONG" then
+					Effect.remByID("VINE_SQUIRM");
+				end
+			end
+			self.onUnderwearEquip = Event.on(Event.Types.ACTION_UNDERWEAR_EQUIP, onUnderwearChange);
+			self.onUnderwearRemove = Event.on(Event.Types.ACTION_UNDERWEAR_UNEQUIP, onUnderwearChange);
+			
+		end,
+		onTick = function()
+			local amount = 0.03;
+			ExiWoW.ME:addExcitement(amount);
+		end,
+		onRemove = function(self)
+			if self.onUnderwearEquip then Event.off(self.onUnderwearEquip); end
+			if self.onUnderwearRemove then Event.off(self.onUnderwearRemove); end
+			Func.get("toggleVibHubProgram")("VINE_THONG");
+		end,
+		tags = {"VINE_THONG"}
+	}));
+
+
+
 
 	-- MossyVine
 	table.insert(out, Effect:new({

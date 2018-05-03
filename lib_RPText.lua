@@ -101,6 +101,20 @@ aTable.rpTexts = function(self)
 				
 			}))
 
+	-- VINE_SQUIRM --
+		table.insert(R, RPText:new({
+			id = "VINE_SQUIRM",
+			sound = 2579,
+			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
+			text_sender = "You cast cast a squirm spell at %T's %Tundies!",
+			text_receiver = "%S casts a spell at you, making your %Tundies start to squirm!",
+		}))
+		table.insert(R, RPText:new({
+			id = "VINE_SQUIRM",
+			sound = 2579,
+			text_receiver = "You cast a spell on your %Tundies, making them start squirming!",
+		}))
+
 	-- Throw sand --
 		table.insert(R, RPText:new({
 			id = "THROW_SAND",
@@ -1628,6 +1642,22 @@ aTable.rpTexts = function(self)
 			},
 		}))
 		
+
+-- Quest triggers
+		-- UNDERVINE_1
+			table.insert(R, RPText:new({
+				id = "BONESLIME_PROC",
+				text_receiver = "Warm slime seeps into your %Tundies, lubricating the withered vines!",
+				fn = Func.get("addExcitement"),
+				requirements = {}
+			}));
+
+			table.insert(R, RPText:new({
+				id = "QUILLBARB_PROC",
+				text_receiver = "The Quill Barb smacks against your %Tgroin before being absorbed by the %Tundies!",
+				fn = Func.get("addExcitementMasochisticCrit"),
+				requirements = {}
+			}));
 
 
 

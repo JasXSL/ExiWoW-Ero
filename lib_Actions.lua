@@ -10,6 +10,7 @@ aTable.actions = function(self)
 	local Effect = require("Effect");
 	local Func = require("Func");
 	local toggleVibHubProgram = Func.get("toggleVibHubProgram");
+	local Condition = require("Condition");
 
 	-- Fondle (Public) --
 	table.insert(out, Action:new({
@@ -133,6 +134,9 @@ aTable.actions = function(self)
 		end
 	}));
 
+	
+
+
 	-- Pulsating mushroom consumable
 	table.insert(out, Action:new({
 		id = "PULSATING_MUSHROOM",
@@ -210,6 +214,33 @@ aTable.actions = function(self)
 			DoEmote("GASP");
 			Func.get("addExcitementMasochisticCrit")();
 			self:receiveRPText(sender, target, args);
+			return true
+		end
+	}));
+
+	-- Vine Squirm (Learned action) --
+	table.insert(out, Action:new({
+		id = "VINE_SQUIRM",
+		name = "Vine Squirm",
+		description = "Makes the target's Everliving Vine Thong squirm against their groin, provided they're wearing one.",
+		texture = "inv_misc_herb_nightmarevine",
+		cast_time = 2,
+		charges = 0,
+		rarity = 3,
+		cooldown = 3,
+		cast_sound_success = 47759,
+		cast_sound_loop = 27,
+		conditions = {
+			Condition:new({id="vineThongCheck", type=Condition.Types.RTYPE_UNDIES, data={["EVERLIVING_VINE_THONG"]=true}}),
+			Condition.get("melee_range"),
+			Condition.get("sender_not_moving"),
+		},
+		not_defaults = {},
+		fn_send = Action.sendRPText,
+		fn_receive = function(self, sender, target, args)
+			self:receiveRPText(sender, target, args) -- Default behavior
+			--TODO: Run effect
+			Effect.run("VINE_SQUIRM");
 			return true
 		end
 	}));

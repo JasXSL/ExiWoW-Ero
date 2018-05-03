@@ -19,6 +19,26 @@ aTable.underwear = function(self)
 		tags = {},
 	}));
 
+	table.insert(out, Underwear:new({
+		id = "WITHERED_VINE_THONG",
+		name = "Withered Vine Thong",
+		icon = "spell_nature_naturetouchdecay",
+		description = "A thong of dying vines. Not very fashionable.",
+		--flavor = "It wiggles!",
+		rarity = 2,
+		tags = {},
+	}));
+
+	table.insert(out, Underwear:new({
+		id = "EVERLIVING_VINE_THONG",
+		name = "Everliving Vine Thong",
+		icon = "spell_nature_magicimmunity",
+		description = "A thong woven of everliving green vines.",
+		flavor = "Favored by druids of Val'sharah!",
+		rarity = 4,
+		tags = {},
+	}));
+
 
 	-- This will cause the property to self delete, it's not needed. 
 	return out
