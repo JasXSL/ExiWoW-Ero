@@ -227,12 +227,12 @@ aTable.actions = function(self)
 		cast_time = 2,
 		charges = 0,
 		rarity = 3,
-		cooldown = 3,
+		cooldown = 120,
 		cast_sound_success = 47759,
 		cast_sound_loop = 27,
 		conditions = {
 			Condition:new({id="vineThongCheck", type=Condition.Types.RTYPE_UNDIES, data={["EVERLIVING_VINE_THONG"]=true}}),
-			Condition.get("melee_range"),
+			Condition.get("caster_range"),
 			Condition.get("sender_not_moving"),
 		},
 		not_defaults = {},
@@ -241,6 +241,41 @@ aTable.actions = function(self)
 			self:receiveRPText(sender, target, args) -- Default behavior
 			--TODO: Run effect
 			Effect.run("VINE_SQUIRM");
+			return true
+		end
+	}));
+
+	-- Vine Squirm (Learned action) --
+	table.insert(out, Action:new({
+		id = "VINE_THRASH",
+		name = "Vine Thrash",
+		description = "Makes the target's Everliving Vine Thong do evil things to the wearer, provided they're wearing one.",
+		texture = "ability_hunter_onewithnature",
+		cast_time = 2,
+		charges = 0,
+		rarity = 3,
+		cooldown = 15,
+		cast_sound_success = 47759,
+		cast_sound_loop = 27,
+		conditions = {
+			Condition:new({id="vineThongCheck", type=Condition.Types.RTYPE_UNDIES, data={["EVERLIVING_VINE_THONG"]=true}}),
+			Condition.get("caster_range"),
+			Condition.get("sender_not_moving"),
+		},
+		not_defaults = {},
+		fn_send = function(self, sender, target, suppressErrors)
+			local race = UnitRace(target)
+			local gender = UnitSex(target)
+			return self:sendRPText(sender, target, suppressErrors, function(se, success)
+				if success and not UnitIsUnit(target, "player") then
+					Func.get("critSound")(race, gender)
+				end
+			end);
+		end,
+		fn_receive = function(self, sender, target, args)
+			self:receiveRPText(sender, target, args); -- Default behavior
+			Func.get("addExcitementCrit")();
+			DoEmote("gasp", "player");
 			return true
 		end
 	}));

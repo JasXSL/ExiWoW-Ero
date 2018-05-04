@@ -115,6 +115,81 @@ aTable.rpTexts = function(self)
 			text_receiver = "You cast a spell on your %Tundies, making them start squirming!",
 		}))
 
+	-- VINE_THRASH --
+		table.insert(R, RPText:new({
+			id = "VINE_THRASH",
+			sound = 21727,
+			text_receiver = "You cast a spell on your %Tundies, causing a vine to prod into and tickle the inside of your %Tbutt!",
+		}));
+		table.insert(R, RPText:new({
+			id = "VINE_THRASH",
+			sound = 21727,
+			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
+			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing a vine to prod into and tickle the inside of %This %Tbutt!",
+			text_receiver = "%S casts a spell at your %Tundies, causing a vine to prod into and tickle the inside of your %Tbutt!",
+		}));
+
+		table.insert(R, RPText:new({
+			id = "VINE_THRASH",
+			sound = 21727,
+			text_receiver = "You cast a spell on your %Tundies, causing a few vines to slip inside your %Tvagina, tickling %This inside!",
+			requirements = {getCondition("victimVagina")},
+		}));
+		table.insert(R, RPText:new({
+			id = "VINE_THRASH",
+			sound = 21727,
+			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
+			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing a few vines to slip inside %This %Tvagina, tickling your inside!",
+			text_receiver = "%S casts a spell at your %Tundies, causing a few vines to slip inside your %Tvagina, tickle the inside!",
+			requirements = {getCondition("victimVagina")},
+		}));
+
+		table.insert(R, RPText:new({
+			id = "VINE_THRASH",
+			sound = 21727,
+			text_receiver = "You cast a spell on your %Tundies, causing a thick vine to start thrusting rapidly inside your %Tvagina!",
+			requirements = {getCondition("victimVagina")},
+		}));
+		table.insert(R, RPText:new({
+			id = "VINE_THRASH",
+			sound = 21727,
+			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
+			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing a thick vine to start thrusting rapidly inside your %Tvagina!",
+			text_receiver = "%S casts a spell at your %Tundies, causing a thick vine to start thrusting rapidly inside %This %Tvagina!",
+			requirements = {getCondition("victimVagina")},
+		}));
+
+		table.insert(R, RPText:new({
+			id = "VINE_THRASH",
+			sound = 21727,
+			text_receiver = "You cast a spell on your %Tundies, causing multiple vines to restrain your genitals, squeezing painfully!",
+			requirements = {getCondition("victimPenis")},
+		}));
+		table.insert(R, RPText:new({
+			id = "VINE_THRASH",
+			sound = 21727,
+			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
+			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing multiple vines to restrain %This genitals, squeezing painfully!",
+			text_receiver = "%S casts a spell at your %Tundies, causing multiple vines to restrain your genitals, squeezing painfully!",
+			requirements = {getCondition("victimPenis")},
+		}));
+
+		table.insert(R, RPText:new({
+			id = "VINE_THRASH",
+			sound = 21727,
+			text_receiver = "You cast a spell on your %Tundies, causing multiple vines to envelop and rapidly tug at your %Tpenis!",
+			requirements = {getCondition("victimPenis")},
+		}));
+		table.insert(R, RPText:new({
+			id = "VINE_THRASH",
+			sound = 21727,
+			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
+			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing multiple vines to envelop and rapidly tug at %This %Tpenis!",
+			text_receiver = "%S casts a spell at your %Tundies, causing multiple vines to envelop and rapidly tug at your %Tpenis!",
+			requirements = {getCondition("victimPenis")},
+		}));
+		
+
 	-- Throw sand --
 		table.insert(R, RPText:new({
 			id = "THROW_SAND",
@@ -1137,13 +1212,13 @@ aTable.rpTexts = function(self)
 				table.insert(R, RPText:new({
 					id = "Dancing Thorns",
 					text_receiver = "A dancing thorn pricks your %leftright %Tbreast!",
-					requirements = {spellAddOrTick, getCondition("victimBreasts")},
+					requirements = {spellAddOrTick, getCondition("victimBreasts"), Condition:new({type=Condition.Types.RTYPE_ON_QUEST, inverse=true, data={"UNDERVINE_1"}})},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 				table.insert(R, RPText:new({
 					id = "Dancing Thorns",
 					text_receiver = "A dancing thorn pricks your %Tbutt!",
-					requirements = {spellAddOrTick},
+					requirements = {spellAddOrTick, Condition:new({type=Condition.Types.RTYPE_ON_QUEST, inverse=true, data={"UNDERVINE_1"}})},
 					fn = Func.get("addExcitementMasochistic")
 				}))
 

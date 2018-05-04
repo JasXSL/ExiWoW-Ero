@@ -307,7 +307,6 @@ aTable.quests = function(self)
 				name = "Deliver Honey to Grizzleback",
 				num = 1,
 				onObjectiveEnable = function(self)
-					-- Todo: Bind
 					self:on(Event.Types.GOSSIP_SHOW, function()
 						if UnitName("target") == "Old Grizzleback" then
 							UI.talkbox.set(Talkbox:new({
@@ -341,6 +340,130 @@ aTable.quests = function(self)
 			}
 		},
 		end_events = true
+	}));
+
+	-- Undervine 3 (breadcrumb quest)
+	table.insert(out, Quest:new({
+		id = "UNDERVINE_3",
+		name = "Mischief, naturally!",
+		start_text = {
+			"Ooh, I sense someone with an interesting garment. Come over here by the gazebo for a moment!",
+		},
+		journal_entry = {
+			"Azalea by the gazebo in Lorlathil wants to talk to you.",
+			"She has offered to make your Everliving Vine Thong more spritely if you exact revenge on Callista Swiftglaive who is the armorsmith in Lorlathil.\n\n"..
+				"To do so, you must go find dark tentacle powder that some of the Darkfiend Tormentors in Sleeper's Barrow to the south might be carrying. "..
+				"Then hide it in the plate panties located somewhere in Callista's house, probably her drawer."
+			,
+		},
+		end_journal = "Return to Azalea",
+		questgiver = 13672,
+		end_text = {
+			"Ahaha! This is going to be so good. Next time she complains about muddy hooves I will be all like 'WOOSH!' and the tentacles will all come to life! Ehehe I can NOT wait to see the look on her face!",
+			"Good job! Here is the spell if you too want to make some mischief!",
+		},
+		rewards = {
+			Reward:new({
+				id = "VINE_THRASH",
+				type = "Charges",
+				quant = math.huge
+			})
+		},
+		objectives = {
+			Objective:new({
+				id = "talkToAzalea",
+				name = "Talk to Azalea",
+				num = 1,
+				onObjectiveEnable = function(self)
+					-- Success
+					self:on(Event.Types.GOSSIP_SHOW, function()
+						if UnitName("target") == "Azalea" then
+							UI.talkbox.set(Talkbox:new({
+								lines = {
+									"That vine thong you're wearing. I have seen other adventurers with it, and I think it is time for some mischief.",
+									"You may know how to make it squirm a little, but we can use some wild magic to REALLY make it go!",
+									"I will teach you a spell if you help me play a little prank.",
+									"Callista Swiftglaive, the armorsmith here in Lorlathil had the nerve to kick me out of her house JUST because my hooves were a little muddy.",
+									"She is wearing that skimpy chestplace and I KNOW she has plate panties to go with them somewhere.",
+									"Go to Sleeper's Barrow to the south where the satyr are summoning their tentacle fiends, hunt them until you find some tentacle powder.",
+									"Go to Callista's shack and place the seed in her panties, my nature magic will take care of the rest."
+								},
+								displayInfo = 13672,
+								title = "",
+								onComplete = function()
+									self:add(1);
+								end
+							}));
+						end
+					end);
+				end,
+				onObjectiveDisable = function(self)
+				end
+			}),	
+			Objective:new({
+				id = "darkTentaclePowder",
+				name = "Dark Tentacle Powder Bag",
+				num = 1,				-- Num of name to do to complete it
+				onObjectiveEnable = function(self)
+					self:on(Event.Types.MONSTER_KILL, function(data)
+						if data.name == "Darkfiend Tormentor" and math.random() < 0.25 then
+							PlaySound(1187, "1187");
+							RPText.print("You found a small bag of dark tentacle powder on the satyr!");
+							self:add(1);
+						end
+					end);
+				end,		-- Raised when objective is activated
+				onObjectiveDisable = function(self)
+				end	-- Raised when objective is completed or disabled
+			}),	
+			Objective:new({
+				id = "sprinklePowder",
+				name = "Powder Sprinkled in Callista's Plate Panties",
+				num = 1,				-- Num of name to do to complete it
+				onObjectiveEnable = function(self)
+					self:on(Event.Types.POINT_REACHED, function()
+						if GetQuestsCompleted()[43176] then
+							UI.talkbox.set(Talkbox:new({
+								lines = {
+									"This is the drawer holding Callista's plate panties.",
+									function()
+										DoEmote("KNEEL", "none");
+										PlaySound(1277, "SFX");
+										return "[You quickly sprinkle the powder into them and put them back]";
+									end
+								},
+								onComplete = function()
+									self:add(1);
+								end,
+								displayInfo = "player",
+								title = "",
+							}));
+						end
+					end, {zone="Val'sharah", sub="Lorlathil", x=54.42, y=71.89, dist=0.05});
+				end,
+				onObjectiveDisable = function(self)
+				end
+			}),	
+		},		-- You can wrap objectives in {} to create packages
+		start_events = {
+			{
+				event = Event.Types.POINT_REACHED,
+				data = {zone="Val'sharah", sub="Lorlathil"},
+				fn = function(self, data)
+					if Quest.isCompleted("UNDERVINE_2") then
+						return true;
+					end
+				end
+			}
+		},
+		end_events = {
+			{
+				event = Event.Types.GOSSIP_SHOW,
+				fn = function(self, data)
+					return UnitName("target") == "Azalea";
+				end
+			}
+		}
 	}));
 
 	-- This will cause the property to self delete, it's not needed. 
