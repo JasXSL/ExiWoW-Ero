@@ -86,7 +86,7 @@ aTable.spells = function(self)
 			if event == evtype.SPELL_REM then
 				self.custom.added = self.custom.added-1;
 				if self.custom.added <= 0 then
-					Func.get("toggleVibHubProgram")(self, "SHATTERING_SONG");
+					Func.get("toggleVibHubProgram")("SHATTERING_SONG");
 				end
 			end
 		end

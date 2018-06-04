@@ -29,7 +29,7 @@ aTable.actions = function(self)
 		max_distance = Action.MELEE_RANGE,
 		fn_send = Action.sendRPText,
 		fn_receive = function(self, sender, target, args)
-			self:receiveRPText(sender, target, args) -- Default behavior
+			self:receiveRPText(sender, target, args); -- Default behavior
 			-- Custom actions
 			Func.get("addExcitementDefault")();
 			return true
@@ -206,7 +206,7 @@ aTable.actions = function(self)
 			local gender = UnitSex(target)
 			return self:sendRPText(sender, target, suppressErrors, function(se, success)
 				if success and not UnitIsUnit(target, "player") then
-					Func.get("critSound")(race, gender);
+					Func.get("critSound")(self, race, gender);
 				end
 			end);
 		end,
@@ -268,7 +268,7 @@ aTable.actions = function(self)
 			local gender = UnitSex(target)
 			return self:sendRPText(sender, target, suppressErrors, function(se, success)
 				if success and not UnitIsUnit(target, "player") then
-					Func.get("critSound")(race, gender)
+					Func.get("critSound")(self, race, gender)
 				end
 			end);
 		end,
