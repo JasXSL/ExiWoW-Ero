@@ -23,6 +23,43 @@ aTable.rpTexts = function(self)
 	local spellAddOrTick = Database.getIDs("Condition", {is_spell_add=true, is_spell_tick=true});
 
 -- ACTIONS
+	-- Arousal reaching cap --
+		table.insert(R, RPText:new({
+			id = "_EX_CAP_",
+			text_receiver = "You feel a growing tingle in your nether regions!",
+			requirements = {},
+		}));
+
+	-- Orgasm --
+		table.insert(R, RPText:new({
+			id = "_EX_RESET_",
+			text_receiver = "A wave of pleasure washes over you as you reach orgasm!",
+			text_bystander = "%A moans loudly!",
+			requirements = {},
+		}));
+		table.insert(R, RPText:new({
+			id = "_EX_RESET_",
+			text_receiver = "You feel a throbbing in your %Tgenitals as you reach orgasm!",
+			text_bystander = "%A moans loudly!",
+			requirements = {
+				getCondition("victimVagina")
+			},
+		}));
+		table.insert(R, RPText:new({
+			id = "_EX_RESET_",
+			text_receiver = "You feel your %Tgenitals throb as you reach orgasm!",
+			text_bystander = "%A moans loudly!",
+			requirements = {getCondition("victimPenis")},
+		}));
+		table.insert(R, RPText:new({
+			id = "_EX_RESET_",
+			text_receiver = "You feel your %Tgenitals throb as you cum in your %Tundies!",
+			text_bystander = "%A moans loudly!",
+			requirements = {getCondition("victimPenis"), getCondition("targetWearsUnderwear")},
+		}));
+		
+
+
 	-- Fondle --
 	-- You can set text_sender to nil to set self_cast_only to true
 
@@ -132,7 +169,7 @@ aTable.rpTexts = function(self)
 		table.insert(R, RPText:new({
 			id = "VINE_THRASH",
 			sound = 21727,
-			text_receiver = "You cast a spell on your %Tundies, causing a few vines to slip inside your %Tvagina, tickling %This inside!",
+			text_receiver = "You cast a spell on your %Tundies, causing a few vines to slip inside your %Tvagina, tickling your inside!",
 			requirements = {getCondition("victimVagina")},
 		}));
 		table.insert(R, RPText:new({
