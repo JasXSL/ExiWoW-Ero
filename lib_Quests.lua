@@ -14,6 +14,7 @@ aTable.quests = function(self)
 	local Condition = require("Condition");
 	local Talkbox = require("Talkbox");
 
+
 	local out = {}
 
 	-- Undervine 0
@@ -342,7 +343,7 @@ aTable.quests = function(self)
 		end_events = true
 	}));
 
-	-- Undervine 3 (breadcrumb quest)
+	-- Undervine 3
 	table.insert(out, Quest:new({
 		id = "UNDERVINE_3",
 		name = "Mischief, naturally!",
@@ -461,6 +462,204 @@ aTable.quests = function(self)
 				event = Event.Types.GOSSIP_SHOW,
 				fn = function(self, data)
 					return UnitName("target") == "Azalea";
+				end
+			}
+		}
+	}));
+
+
+
+
+
+	-- Highmountain 1
+	table.insert(out, Quest:new({
+		id = "HIGHMOUNTAIN_1",
+		name = "For relaxation... obviously",
+		start_text = {
+			"Greetings traveler. I have received a task from Ebonhorn, but I need someone adventurous and on good standing with Mayla to help me.",
+			"You see, with the Legion and everything going on here recently, Ebonhorn is worried that Mayla is getting too stressed. He wants me to craft a totem to help her... relax.",
+			"There are two problems, but let us focus on the first. In order to make the totem, I need certain reagents. This is where you come in. I need three materials:",
+			"A sturdy log from an ettin to the south.\nA charm of arousal from one of the Crawliac harpies.\nA Rumblerock from the drogbar in Rockcrawler Chasm.",
+			"Want to help me help your friend?"
+		},
+		journal_entry = {
+			"Slyhoof the Shameless Shaman near the eastern exist to Thunder Totem needs help crafting a totem of relaxation for Mayla. He needs 3 reagents to craft it.\n\n"..
+				"1. A sturdy log from an ettin south of Thunder Totem.\n"..
+				"2. A charm of arousal from any crawliac harpy in Highmountain.\n"..
+				"3. A Rumblerock form the drogbar in Rockcrawler Chasm, north of Skyhorn."
+		},
+		end_journal = "Return to Slyhoof",
+		questgiver = 66237,
+		end_text = {
+			"Excellent. I believe this should do the trick. There is only one small problem...",
+		},
+		rewards = {
+			--[[
+			Reward:new({
+				id = "VINE_THRASH",
+				type = "Charges",
+				quant = math.huge
+			})
+			]]
+		},
+		objectives = {
+			{
+				Objective:new({
+					id = "sturdyLog",
+					name = "Sturdy Log",
+					num = 1,
+					onObjectiveEnable = function(self)
+						self:on(Event.Types.MONSTER_KILL, function(data)
+							if data.name:find("Hill Ettin") then
+								PlaySound(1199, "SFX");
+								RPText.print("You found a sturdy log on the ettin!");
+								self:add(1);
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				}),	
+				Objective:new({
+					id = "rumblerock",
+					name = "Rumblerock",
+					num = 1,
+					onObjectiveEnable = function(self)
+						self:on(Event.Types.MONSTER_KILL, function(data)
+							if data.name:find("Deeprock ") and math.random() < 0.15 then
+								PlaySound(1194, "SFX");
+								RPText.print("You found a rumbling rock on the dead drogbar!");
+								self:add(1);
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				}),	
+				Objective:new({
+					id = "arousalCharm",
+					name = "Charm of Arousal",
+					num = 1,
+					onObjectiveEnable = function(self)
+						self:on(Event.Types.MONSTER_KILL, function(data)
+							if data.name:find("Crawliac ") and math.random() < 0.15 then
+								PlaySound(1204, "SFX");
+								RPText.print("You find a sparkling charm on the harpy, this must be the Charm of Arousal!");
+								self:add(1);
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				}),	
+			}
+		},		-- You can wrap objectives in {} to create packages
+		start_events = {
+			{
+				event = Event.Types.POINT_REACHED,
+				data = {zone="Thunder Totem", x=60.96, y=59.19, dist=1.86},
+				fn = function(self, data)
+					local comp = GetQuestsCompleted();
+					if comp[39780] then
+						return true;
+					end
+				end
+			}
+		},
+		end_events = {
+			{
+				event = Event.Types.POINT_REACHED,
+				data = {zone="Thunder Totem", x=60.96, y=59.19, dist=1.86},
+				fn = function(self, data)
+					return true;
+				end
+			}
+		}
+	}));
+
+	table.insert(out, Quest:new({
+		id = "HIGHMOUNTAIN_2",
+		name = "Since You're Friends",
+		start_text = {
+			"I have made the Groin Rumble Totem, packs quite a punch too. Only problem is if I go down there and stick it between Mayla's legs, the guards will arrest me.",
+			"You two are good friends though, so I don't think she'll mind.",
+			"Let me know how it goes, and I might carve up a little something for you too."
+		},
+		journal_entry = {
+			"Slyhoof the Shameless Shaman near the eastern exist to Thunder Totem wants you to use his Groin Rumble Totem on Mayla at the bottom of Thunder Totem."
+		},
+		end_journal = "Return to Slyhoof",
+		questgiver = 66237,
+		end_text = {
+			Talkbox.Line:new({text = "Did she enjoy my handywork?", animation=65, animLength=1.8}),
+			Talkbox.Line:new({text = "Excellent! I had enough reagents for an extra totem. Enjoy your reward!", animation=64, animLength=1.8})
+		},
+		rewards = {
+			Reward:new({
+				id = "GROIN_RUMBLE_TOTEM",
+				type = "Charges",
+				quant = math.huge
+			})
+		},
+		objectives = {
+
+			Objective:new({
+				id = "totemUsed",
+				name = "Totem Used on Mayla",
+				num = 1,
+				onObjectiveEnable = function(self)
+					-- Success
+					self:on(Event.Types.POINT_REACHED, function()
+
+						UI.talkbox.set(Talkbox:new({
+							lines = {
+								Talkbox.Line:new({text = "What can I do for you, champion?\n\n[Push the totem between her legs]", animation = 65, animLength = 1.7}),
+								Talkbox.Line:new({
+									text = function()
+										local _, snd = PlaySound(23269, "SFX");
+										Timer.set(function()
+											StopSound(snd, 2000);
+										end, 1);
+										return "\n\n\n      [Mayla gasps]"
+									end, 
+									animation = 64, 
+									animLength = 1.7
+								}),
+								Talkbox.Line:new({text = "Well now. When Ebonhorn spoke about it, I never suspected such... intensity. Very well. Let them know I'll accept this gift.", animation=83, animLength=4})
+							},
+							displayInfo = 63703,
+							title = "",
+							onComplete = function()
+								self:add(1);
+							end
+						}));
+						
+					end, {zone="Thunder Totem", sub="Hall of Chieftains", x=54.91, y=63.26, dist=1});
+				end,
+				onObjectiveDisable = function(self)
+				end
+			}),
+
+
+		},		-- You can wrap objectives in {} to create packages
+		start_events = {
+			{
+				event = Event.Types.POINT_REACHED,
+				data = {zone="Thunder Totem", sub="", x=60.96, y=59.19, dist=1.86},
+				fn = function(self, data)
+					local comp = GetQuestsCompleted();
+					if comp[39780] then
+						return true;
+					end
+				end
+			}
+		},
+		end_events = {
+			{
+				event = Event.Types.POINT_REACHED,
+				data = {zone="Thunder Totem", sub="", x=60.96, y=59.19, dist=1.86},
+				fn = function(self, data)
+					return true;
 				end
 			}
 		}

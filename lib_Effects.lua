@@ -307,5 +307,59 @@ aTable.effects = function(self)
 		end
 	}));
 
+
+	table.insert(out, Effect:new({
+		id = "GROIN_RUMBLE_TOTEM",
+		detrimental = true,
+		duration = 300,
+		max_stacks = 1,
+		texture = "Interface/Icons/spell_nature_tremortotem",
+		name = "Rumble Totem",
+		description = "You are being stimulated by a rumble totem.",
+		sound_loop = 23269,
+		onAdd = function(self, binding, fromReload)
+			Func.get("toggleVibHubProgram")("GROIN_RUMBLE_TOTEM", math.huge)
+			self.interval = Timer.set(function()
+				ExiWoW.ME:addExcitement(0.02)
+			end, 2, math.huge)
+		end,
+		onRemove = function(self)
+			Timer.clear(self.interval);
+			Func.get("toggleVibHubProgram")("GROIN_RUMBLE_TOTEM")
+			PlaySound(2555, "SFX");
+		end,
+		onRightClick = function(self, data)
+			local effect = data.effect;
+			local id = data.id;
+
+			-- Create a custom removal action
+			local remAction =  Action:new({
+				id = "_",
+				name = "Remove Totem",
+				description = "Removes the rumble totem stimulating you.",
+				texture = "spell_nature_tremortotem",
+				cooldown = 0,
+				cast_sound = 1198,
+				cast_time = 1.5,
+				conditions = {
+					Condition.get("is_self"),
+					Condition.get("sender_no_combat"),
+					Condition.get("sender_not_moving"),
+				},
+				not_defaults = {
+					"not_in_instance"
+				},
+				-- Handle the receiving end here
+				fn_send = function(self, sender, target, suppressErrors)
+					Effect.rem(id);
+					return false
+				end
+			})
+			Action.useOnTarget(remAction, "player")
+			
+			return false
+		end
+	}));
+
 	return out
 end

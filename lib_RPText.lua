@@ -34,13 +34,13 @@ aTable.rpTexts = function(self)
 		table.insert(R, RPText:new({
 			id = "_EX_RESET_",
 			text_receiver = "A wave of pleasure washes over you as you reach orgasm!",
-			text_bystander = "%A moans loudly!",
+			text_bystander = "%S moans loudly!",
 			requirements = {},
 		}));
 		table.insert(R, RPText:new({
 			id = "_EX_RESET_",
 			text_receiver = "You feel a throbbing in your %Tgenitals as you reach orgasm!",
-			text_bystander = "%A moans loudly!",
+			text_bystander = "%S moans loudly!",
 			requirements = {
 				getCondition("victimVagina")
 			},
@@ -48,14 +48,57 @@ aTable.rpTexts = function(self)
 		table.insert(R, RPText:new({
 			id = "_EX_RESET_",
 			text_receiver = "You feel your %Tgenitals throb as you reach orgasm!",
-			text_bystander = "%A moans loudly!",
+			text_bystander = "%S moans loudly!",
 			requirements = {getCondition("victimPenis")},
 		}));
 		table.insert(R, RPText:new({
 			id = "_EX_RESET_",
 			text_receiver = "You feel your %Tgenitals throb as you cum in your %Tundies!",
-			text_bystander = "%A moans loudly!",
+			text_bystander = "%S moans loudly!",
 			requirements = {getCondition("victimPenis"), getCondition("targetWearsUnderwear")},
+		}));
+		
+
+	-- Groin tremble totem --
+		-- Target
+		table.insert(R, RPText:new({
+			id = "GROIN_RUMBLE_TOTEM",
+			text_bystander = "%S sticks %Shis groin rumble totem into %T's %Tundies!",
+			text_sender = "You stick your groin rumble totem into %T's %Tundies!",
+			text_receiver = "%S sticks %Shis groin rumble totem into your %Tundies!",
+			requirements = {getCondition("targetWearsUnderwear")},
+		}));
+		table.insert(R, RPText:new({
+			id = "GROIN_RUMBLE_TOTEM",
+			text_bystander = "%S sticks %Shis groin rumble totem into %Shis %Tundies!",
+			text_receiver = "You stick your groin rumble totem into your %Tundies!",
+			requirements = {getCondition("targetWearsUnderwear")},
+		}));
+		table.insert(R, RPText:new({
+			id = "GROIN_RUMBLE_TOTEM",
+			text_bystander = "%S sticks %Shis groin rumble totem into %Shis %Tvagina!",
+			text_receiver = "You stick your groin rumble totem into your %Tvagina!",
+			requirements = {getCondition("targetNoUnderwear"), getCondition("victimVagina")},
+		}));
+		table.insert(R, RPText:new({
+			id = "GROIN_RUMBLE_TOTEM",
+			text_bystander = "%S sticks %Shis groin rumble totem into %T's %Tvagina!",
+			text_sender = "You stick your groin rumble totem into %T's %Tvagina!",
+			text_receiver = "%S sticks %Shis groin rumble totem into your %Tvagina!",
+			requirements = {getCondition("targetNoUnderwear"), getCondition("victimVagina")},
+		}));
+		table.insert(R, RPText:new({
+			id = "GROIN_RUMBLE_TOTEM",
+			text_bystander = "%S sticks %Shis groin rumble totem into %Shis %Tbutt!",
+			text_receiver = "You stick your groin rumble totem into your %Tbutt!",
+			requirements = {getCondition("targetNoUnderwear")},
+		}));
+		table.insert(R, RPText:new({
+			id = "GROIN_RUMBLE_TOTEM",
+			text_bystander = "%S sticks %Shis groin rumble totem into %T's %Tbutt!",
+			text_sender = "You stick your groin rumble totem into %T's %Tbutt!",
+			text_receiver = "%S sticks %Shis groin rumble totem into your %Tbutt!",
+			requirements = {getCondition("targetNoUnderwear")},
 		}));
 		
 
@@ -176,8 +219,8 @@ aTable.rpTexts = function(self)
 			id = "VINE_THRASH",
 			sound = 21727,
 			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
-			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing a few vines to slip inside %This %Tvagina, tickling your inside!",
-			text_receiver = "%S casts a spell at your %Tundies, causing a few vines to slip inside your %Tvagina, tickle the inside!",
+			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing a few vines to slip inside %This %Tvagina, tickling %This inside!",
+			text_receiver = "%S casts a spell at your %Tundies, causing a few vines to slip inside your %Tvagina, tickling your inside!",
 			requirements = {getCondition("victimVagina")},
 		}));
 

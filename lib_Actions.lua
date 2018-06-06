@@ -134,6 +134,31 @@ aTable.actions = function(self)
 		end
 	}));
 
+	-- Groin Rumble Totem (Item) --
+	table.insert(out, Action:new({
+		id = "GROIN_RUMBLE_TOTEM",
+		name = "Groin Tremble Totem",
+		description = "Stick in your target's pants to stimulate them for 5 minutes or until they remove it. Weaker than a regular Tremble Totem, but still pretty powerful.",
+		texture = "spell_nature_tremortotem",
+		cast_time = 0,
+		charges = 0,
+		rarity = 3,
+		cooldown = 120,
+		cast_sound_start = 1217,
+		--cast_sound_loop = 85132,
+		conditions = {
+			Condition.get("sender_not_moving"),
+			Condition.get("melee_range"),
+		},
+		not_defaults = {},
+		fn_send = Action.sendRPText,
+		fn_receive = function(self, sender, target, args)
+			self:receiveRPText(sender, target, args); -- Default behavior
+			Effect.run("GROIN_RUMBLE_TOTEM");
+			return true;
+		end
+	}));
+
 	
 
 
