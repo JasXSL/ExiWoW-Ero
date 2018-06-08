@@ -949,7 +949,20 @@ aTable.rpTexts = function(self)
 						getCondition("ts_electric"),
 					},
 					fn = Func.get("addExcitementMasochistic")
-				}))
+				}));
+				table.insert(R, RPText:new({
+					text_receiver = "The %spell painfully shocks your exposed chest!",
+					sound = 35286,
+					requirements = {
+						spellAddOrTick,  -- OR
+						getCondition("noChest"),
+						getCondition("noTabard"),
+						getCondition("noShirt"),
+						getCondition("ts_electric"),
+					},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}));
+				
 				table.insert(R, RPText:new({
 					text_receiver = "%spell crackles through your chestpiece!",
 					sound = 35286,
@@ -1537,6 +1550,160 @@ aTable.rpTexts = function(self)
 					fn = Func.get("addExcitementMasochistic"),
 					requirements = {}
 				}));
+
+			-- Icky ink
+				table.insert(R, RPText:new({
+					id = "Icky Ink",
+					text_bystander = "%S slips a tentacle into %T's %Tundies, squirting icky ink inside!",
+					text_receiver = "%S slips a tentacle into your %Tundies, squirting icky ink inside!",
+					fn = Func.get("addExcitement"),
+					sound = 18133,
+					requirements = {
+						getCondition("is_spell_add"),
+						getCondition("targetWearsUnderwear")
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Icky Ink",
+					sound = 18133,
+					text_bystander = "%S slithers a tentacle into %T's %Tbutt, squirting a load of icky ink inside %Thim!",
+					text_receiver = "%S slithers a tentacle into your %Tbutt, squirting a load of icky ink inside!",
+					fn = Func.get("addExcitementCrit"),
+					requirements = {
+						getCondition("is_spell_add"),
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Icky Ink",
+					sound = 18133,
+					text_bystander = "%S slithers a tentacle into %T's %Tvagina, squirting a load of icky ink inside %Thim!",
+					text_receiver = "%S slithers a tentacle into your %Tvagina, squirting a load of icky ink inside!",
+					fn = Func.get("addExcitementCrit"),
+					requirements = {
+						getCondition("is_spell_add"),
+						getCondition("victimVagina")
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Icky Ink",
+					sound = 18133,
+					text_bystander = "%S squirts a wad of icky ink that splashes across %T's %Tbreasts!",
+					text_receiver = "%S squirts a wad of icky ink that splashes across your %Tbreasts!",
+					fn = Func.get("addExcitement"),
+					requirements = {
+						getCondition("is_spell_add"),
+						getCondition("victimBreasts")
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Icky Ink",
+					sound = 18133,
+					text_bystander = "%S slips a tentacle down the back of %T's %Tundies, slithering up inside %This %Tvagina, squirting icky ink into %Thim!",
+					text_receiver = "%S slips a tentacle down the back of your %Tundies, slithering up inside your %Tvagina, squirting icky ink inside you!",
+					fn = Func.get("addExcitementCrit"),
+					requirements = {
+						getCondition("is_spell_add"),
+						getCondition("targetWearsUnderwear"),
+						getCondition("victimVagina")
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Icky Ink",
+					sound = 18133,
+					text_bystander = "%S shoves a tentacle into %T's mouth, forcing a load of icky ink down %This throat!",
+					text_receiver = "%S shoves a tentacle into your mouth, forcing a load of icky ink down your throat!",
+					fn = Func.get("addExcitement"),
+					requirements = {
+						getCondition("is_spell_add"),
+					}
+				}));
+
+			-- Shadow Manacles + Willbreaker combo
+				table.insert(R, RPText:new({
+					id = "Willbreaker",
+					sound = 83716,
+					text_bystander = "%S makes the shadow manacles spread %T's legs, then throws a punch at %T's exposed %Tgroin!",
+					text_receiver = "%S makes the shadow manacles spread your legs, then throws a punch at your exposed %Tgroin!",
+					fn = Func.get("addExcitementMasochisticCrit"),
+					requirements = {
+						getCondition("hasShadowManacles"),
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Willbreaker",
+					sound = 3338,
+					text_bystander = "%S makes the shadow manaces bend %T's forward, then throws a forceful slap at %This exposed %Tbutt!",
+					text_receiver = "%S makes the shadow manacles bend you forward, then throws a forceful slap at your exposed %Tbutt!",
+					fn = Func.get("addExcitementMasochisticCrit"),
+					requirements = {
+						getCondition("hasShadowManacles"),
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Willbreaker",
+					sound = 32071,
+					text_bystander = "%S grabs a hold of the shackled %Trace's %Tundies from the front, forcefully pulling up!",
+					text_receiver = "While you're shackled, %S grabs a hold of your %Tundies from the front, forcefully pulling up!",
+					fn = Func.get("addExcitementMasochisticCrit"),
+					requirements = {
+						getCondition("targetWearsUnderwear"),
+						getCondition("hasShadowManacles"),
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Willbreaker",
+					sound = 32071,
+					text_bystander = "%S grabs a hold of the shackled %Trace's nipples, twisting and pulling!",
+					text_receiver = "While you're shackled, %S grabs a hold of your nipples, painfully twisting and pulling!",
+					fn = Func.get("addExcitementMasochisticCrit"),
+					requirements = {
+						getCondition("hasShadowManacles"),
+						getCondition("victimBreasts")
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Willbreaker",
+					sound = 36957,
+					text_bystander = "The shadow manacles wrap around %T's %Tbreasts painfully tight!",
+					text_receiver = "The shadow manacles wrap around your %Tbreasts painfully tight!",
+					fn = Func.get("addExcitementMasochisticCrit"),
+					requirements = {
+						getCondition("hasShadowManacles"),
+						getCondition("victimBreasts")
+					}
+				}));
+
+				table.insert(R, RPText:new({
+					id = "Willbreaker",
+					sound = 36957,
+					text_bystander = "The shadow manacles wrap around %T's %Tgroin painfully tight!",
+					text_receiver = "The shadow manacles wrap around your %Tgroin painfully tight!",
+					fn = Func.get("addExcitementMasochisticCrit"),
+					requirements = {
+						getCondition("hasShadowManacles"),
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Willbreaker",
+					sound = 36957,
+					text_bystander = "The shadow manacles lashes %T's %Tgroin!",
+					text_receiver = "The shadow manacles lashes your %Tgroin!",
+					fn = Func.get("addExcitementMasochisticCrit"),
+					requirements = {
+						getCondition("hasShadowManacles"),
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Willbreaker",
+					sound = 36957,
+					text_bystander = "The shadow manacles lashes %T's %Tbutt!",
+					text_receiver = "The shadow manacles lashes your %Tbutt!",
+					fn = Func.get("addExcitementMasochisticCrit"),
+					requirements = {
+						getCondition("hasShadowManacles"),
+					}
+				}));
+				
 				
 		-- DRUID --
 

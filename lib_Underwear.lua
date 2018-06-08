@@ -4,6 +4,8 @@ local require = ExiWoW.require
 aTable.underwear = function(self)
 
 	local Underwear = require("Underwear");
+	local Event = require("Event");
+	local Effect = require("Effect");
 
 	local out = {}
 	table.insert(out, Underwear:new({
@@ -39,6 +41,25 @@ aTable.underwear = function(self)
 		tags = {},
 	}));
 
+	table.insert(out, Underwear:new({
+		id = "THONG_OF_VALOR",
+		name = "Thong of Valor",
+		icon = "70_inscription_vantus_rune_odyn",
+		description = "A thong adorned with golden borders, with a glowing rune in the front. Arouses the wearer while they are in combat.",
+		flavor = "Prove your valor!",
+		rarity = 4,
+		tags = {},
+		on_equip = function(self)
+			self:bind(Event.Types.ENTER_COMBAT, function()
+				Effect.get("THONG_OF_VALOR"):add();
+			end);
+			self:bind(Event.Types.EXIT_COMBAT, function()
+				Effect.remByID("THONG_OF_VALOR");
+			end);
+		end
+	}));
+
+	
 
 	-- This will cause the property to self delete, it's not needed. 
 	return out

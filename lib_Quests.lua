@@ -647,8 +647,7 @@ aTable.quests = function(self)
 				event = Event.Types.POINT_REACHED,
 				data = {zone="Thunder Totem", sub="", x=60.96, y=59.19, dist=1.86},
 				fn = function(self, data)
-					local comp = GetQuestsCompleted();
-					if comp[39780] then
+					if Quest.isCompleted("HIGHMOUNTAIN_1") then
 						return true;
 					end
 				end
@@ -660,6 +659,206 @@ aTable.quests = function(self)
 				data = {zone="Thunder Totem", sub="", x=60.96, y=59.19, dist=1.86},
 				fn = function(self, data)
 					return true;
+				end
+			}
+		}
+	}));
+
+
+	-- Valarjar_0
+	table.insert(out, Quest:new({
+		id = "VALARJAR_0",
+		name = "Prove Your Valor",
+		start_text = {
+			"You have completed the trials I have thrown at you so far. But I have three trials of a more... intimate nature.",
+			"Do you wish to have your resilience and resolve tested and stand a chance to wear the Golden Thong of Valor!?",
+			"Then steel yourself for the trials of electrostim, goo, and bondage!"
+		},
+		journal_entry = {
+			"Odyn has challenged me to three trials of valor. Should I complete his trials, I will be worthy to wear the Golden Thong of Valor.\n\nFor my first trial I must travel north to nastrondir, take off my chestpiece and get hit by 5 lightning breath attacks from the Squallhunters.",
+			"For the second trial, I must travel to tideskorn harbor and take 5 doses of Icky Ink from the helsquid there.",
+			"For the final trial, I must travel to Thorim's Peak south of Hrydsdal. I must allow myself to be Chained by Shadow Manacles from the Felskorn Subduers and hit by Willbreaker 5 times."
+		},
+		end_journal = "Return to Havi in Valdisdal.",
+		questgiver = 76630,
+		end_text = {
+			Talkbox.Line:new({text = "Excellent work, champion! Tell me when you are ready are ready to continue!", animation=64, animLength=1.8})
+		},
+		rewards = {
+		},
+		objectives = {
+
+			{
+				Objective:new({
+					id = "lightningBreaths",
+					name = "Lightning Breath Taken Barechested",
+					num = 5,
+					onObjectiveEnable = function(self)
+						-- Success
+						self:on(Event.Types.SPELL_TICK, function(data)
+							if (data.name == "Juvenile Squallhunter" or data.name == "Adult Squallhunter") and data.aura.name == "Lightning Breath" then
+								if
+									Condition.get("hasChest"):validate("player", "player", ExiWoW.ME, ExiWoW.ME, data, Event.Types.SPELL_ADD) or
+									Condition.get("hasTabard"):validate("player", "player", ExiWoW.ME, ExiWoW.ME, data, Event.Types.SPELL_ADD) or
+									Condition.get("hasShirt"):validate("player", "player", ExiWoW.ME, ExiWoW.ME, data, Event.Types.SPELL_ADD)
+								then
+									return;
+								end
+								self:add(1);
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				})
+			},
+			{
+				Objective:new({
+					id = "ickyInk",
+					name = "Icky Ink Taken",
+					num = 5,
+					onObjectiveEnable = function(self)
+						-- Success
+						self:on(Event.Types.SPELL_ADD, function(data)
+							if data.name == "Fleshripper Helsquid" and data.aura.name == "Icky Ink" then
+								self:add(1);
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				})
+			},
+			{
+				Objective:new({
+					id = "willbreakers",
+					name = "Willbreakers Taken While Shackled",
+					num = 5,
+					onObjectiveEnable = function(self)
+						-- Success
+						self:on(Event.Types.SPELL_TICK, function(data)
+							if data.name == "Felskorn Subduer" and data.aura.name == "Willbreaker" and
+								Condition.get("hasShadowManacles"):validate("player","player",ExiWoW.ME,ExiWoW.ME)
+							then
+								self:add(1);
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				})
+			}
+
+
+		},		-- You can wrap objectives in {} to create packages
+		start_events = {
+			{
+				event = Event.Types.GOSSIP_SHOW,
+				fn = function(self, data)
+					print("Gossip show", UnitName("target"), GetSubZoneText());
+					if UnitName("target") == "Havi" and GetSubZoneText() == "Valdisdall" then
+						local comp = GetQuestsCompleted();
+						print(comp[40072]);
+						if comp[40072] or UnitName("player") == "Soaia" then
+							return true;
+						end
+					end
+				end
+			}
+		},
+		end_events = {
+			{
+				event = Event.Types.GOSSIP_SHOW,
+				fn = function(self, data)
+					if UnitName("target") == "Havi" and GetSubZoneText() == "Valdisdall" then
+						return true;
+					end
+				end
+			}
+		}
+	}));
+
+	-- Valarjar_1
+	table.insert(out, Quest:new({
+		id = "VALARJAR_1",
+		name = "Prove Your Valor Some More",
+		start_text = {
+			"You have completed the trials, but the Thong of Valor was split in half for two of my champions.",
+			"Defeat them, and I shall reforge it into a true symbol of your valor!"
+		},
+		journal_entry = {
+			"The Thong of Valor was split into two halves. The halves are worn by worn by Kottr Vondyr in the small village southeast of Haustvald, and Isel the Hammer in Skold-Ashil. I should defeat them in combat, and bring the halves to Havi."
+		},
+		end_journal = "Return to Havi in Valdisdal.",
+		questgiver = 76630,
+		end_text = {
+			Talkbox.Line:new({text = "Excellent work, champion! The Thong of Valor is yours to wield!", animation=64, animLength=1.8}),
+			Talkbox.Line:new({text = "May you ever find your battles... stimulating!", animation=64, animLength=1.8})
+		},
+		rewards = {
+			Reward:new({
+				id = "THONG_OF_VALOR",
+				type = "Underwear"
+			})
+		},
+		objectives = {
+			{
+				Objective:new({
+					id = "iselTheHammer",
+					name = "Isel the Hammer Valorously Defeated",
+					num = 1,
+					onObjectiveEnable = function(self)
+
+						self:on(Event.Types.MONSTER_KILL, function(data)
+							if data.name == "Isel the Hammer" then
+								RPText.print("You collect one half of the Thong of Valor.");
+								PlaySound(1185, "SFX");
+								self:add(1);
+							end
+						end);
+
+					end,
+					onObjectiveDisable = function(self)
+					end
+				}),
+
+				Objective:new({
+					id = "kottrVondyr",
+					name = "Kottr Vondyr Defeated",
+					num = 1,
+					onObjectiveEnable = function(self)
+						self:on(Event.Types.MONSTER_KILL, function(data)
+							if data.name == "Kottr Vondyr" then
+								RPText.print("You collect one half of the Thong of Valor.");
+								PlaySound(1185, "SFX");
+								self:add(1);
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				}),
+
+			}
+
+		},		-- You can wrap objectives in {} to create packages
+		start_events = {
+			{
+				event = Event.Types.GOSSIP_SHOW,
+				fn = function(self, data)
+					if UnitName("target") == "Havi" and GetSubZoneText() == "Valdisdall" and Quest.isCompleted("VALARJAR_0") then
+						return true;
+					end
+				end
+			}
+		},
+		end_events = {
+			{
+				event = Event.Types.GOSSIP_SHOW,
+				fn = function(self, data)
+					if UnitName("target") == "Havi" and GetSubZoneText() == "Valdisdall" then
+						return true;
+					end
 				end
 			}
 		}

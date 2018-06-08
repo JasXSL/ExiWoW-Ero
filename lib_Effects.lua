@@ -287,6 +287,7 @@ aTable.effects = function(self)
 		onRemove = function(self)end,
 	}));
 
+	-- Mushroom underwear
 	table.insert(out, Effect:new({
 		id = "MUSHROOM_UNDERWEAR",
 		detrimental = true,
@@ -307,7 +308,29 @@ aTable.effects = function(self)
 		end
 	}));
 
+	-- Thong of valor
+	table.insert(out, Effect:new({
+		id = "THONG_OF_VALOR",
+		detrimental = true,
+		duration = 0,
+		max_stacks = 1,
+		texture = "Interface/Icons/70_inscription_vantus_rune_odyn",
+		name = "Thong of Valor",
+		description = "Runic magic amplified by combat pulses through your groin.",
+		onAdd = function(self, binding, fromReload)
+			Func.get("toggleVibHubProgram")("THONG_OF_VALOR", math.huge)
+			self.interval = Timer.set(function()
+				ExiWoW.ME:addExcitement(0.025)
+			end, 1, math.huge)
+		end,
+		onRemove = function(self)
+			Timer.clear(self.interval);
+			Func.get("toggleVibHubProgram")("THONG_OF_VALOR")
+		end
+	}));
+	
 
+	-- Groin rumble totem
 	table.insert(out, Effect:new({
 		id = "GROIN_RUMBLE_TOTEM",
 		detrimental = true,
