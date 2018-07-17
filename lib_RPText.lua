@@ -1703,6 +1703,22 @@ aTable.rpTexts = function(self)
 						getCondition("hasShadowManacles"),
 					}
 				}));
+
+			-- Kick
+				table.insert(R, RPText:new({
+					id = "Opportunistic Strike",
+					text_bystander = "Seizing an opportunity, %S grabs a hold of and twists %T's %leftright nipple!",
+					text_receiver = "Seizing an opportunity, %S grabs a hold of and twists your %leftright nipple!",
+					requirements = {getCondition("attackerHumanoidish"), getCondition("victimBreasts"), getCondition("chestLightArmor")},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}))
+				table.insert(R, RPText:new({
+					id = "Opportunistic Strike",
+					text_bystander = "Seizing an opportunity, %S throws a punch right in %T's %Tgroin!",
+					text_receiver = "Seizing an opportunity, %S throws a punch right at your %Tgroin!",
+					requirements = {getCondition("attackerHumanoidish")},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}))
 				
 				
 		-- DRUID --

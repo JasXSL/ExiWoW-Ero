@@ -92,6 +92,9 @@ aTable.spells = function(self)
 		end
 	}))
 
+	table.insert(out, Spell:new({id="Opportunistic Strike"}));
+	table.insert(out, Spell:new({id="Enforcing Strike", tags={"KNOCKDOWN"}}));
+	
 	return out;
 
 end
