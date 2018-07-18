@@ -755,7 +755,6 @@ aTable.quests = function(self)
 			{
 				event = Event.Types.GOSSIP_SHOW,
 				fn = function(self, data)
-					print("Gossip show", UnitName("target"), GetSubZoneText());
 					if UnitName("target") == "Havi" and GetSubZoneText() == "Valdisdall" then
 						local comp = GetQuestsCompleted();
 						print(comp[40072]);
