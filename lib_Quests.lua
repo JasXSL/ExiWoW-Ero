@@ -472,21 +472,38 @@ aTable.quests = function(self)
 
 
 	-- Highmountain 1
+	-- /run ExiWoW.require("Quest").get("HIGHMOUNTAIN_1"):reset();
+	-- /run ExiWoW.require("Quest").get("HIGHMOUNTAIN_1"):offer();
 	table.insert(out, Quest:new({
 		id = "HIGHMOUNTAIN_1",
 		name = "For relaxation... obviously",
 		start_text = {
-			"Greetings traveler. I have received a task from Ebonhorn, but I need someone adventurous and on good standing with Mayla to help me.",
-			"You see, with the Legion and everything going on here recently, Ebonhorn is worried that Mayla is getting too stressed. He wants me to craft a totem to help her... relax.",
-			"There are two problems, but let us focus on the first. In order to make the totem, I need certain reagents. This is where you come in. I need three materials:",
-			"A sturdy log from an ettin to the south.\nA charm of arousal from one of the Crawliac harpies.\nA Rumblerock from the drogbar in Rockcrawler Chasm.",
-			"Want to help me help your friend?"
+			Talkbox.Line:new({
+				text = "Greetings traveler. I have received a task from Ebonhorn, but I need someone adventurous and on good standing with Mayla to help me.", 
+				animation=60, animLength=1.8 
+			}),
+			Talkbox.Line:new({
+				text = "You see, with the Legion and everything going on here recently, Ebonhorn is worried that Mayla is getting too stressed. He wants me to craft a totem to help her... relax.",
+				animation=83, animLength=4
+			}),
+			Talkbox.Line:new({
+				text = "There are two problems, but let us focus on the first. In order to make the totem, I need certain reagents. This is where you come in. I need three materials:",
+				animation=60, animLength=1.8
+			}),
+			Talkbox.Line:new({
+				text = "A sturdy log from an ettin to the south.\nA charm of arousal from one of the Crawliac harpies.\nA Rumblerock from the drogbar in Rockcrawler Chasm.",
+				animation=60, animLength=1.8 
+			}),
+			Talkbox.Line:new({
+				text = "Want to help me help your friend?",
+				animation=65, animLength=2
+			})
 		},
 		journal_entry = {
 			"Slyhoof the Shameless Shaman near the eastern exist to Thunder Totem needs help crafting a totem of relaxation for Mayla. He needs 3 reagents to craft it.\n\n"..
 				"1. A sturdy log from an ettin south of Thunder Totem.\n"..
 				"2. A charm of arousal from any crawliac harpy in Highmountain.\n"..
-				"3. A Rumblerock form the drogbar in Rockcrawler Chasm, north of Skyhorn."
+				"3. A Rumblerock from the drogbar in Rockcrawler Chasm, north of Skyhorn."
 		},
 		end_journal = "Return to Slyhoof",
 		questgiver = 66237,
@@ -526,7 +543,9 @@ aTable.quests = function(self)
 					num = 1,
 					onObjectiveEnable = function(self)
 						self:on(Event.Types.MONSTER_KILL, function(data)
-							if data.name:find("Deeprock ") and math.random() < 0.15 then
+
+							local rand = math.random();
+							if data.name:find("Deeprock ") and rand < 0.15 then
 								PlaySound(1194, "SFX");
 								RPText.print("You found a rumbling rock on the dead drogbar!");
 								self:add(1);
@@ -542,7 +561,9 @@ aTable.quests = function(self)
 					num = 1,
 					onObjectiveEnable = function(self)
 						self:on(Event.Types.MONSTER_KILL, function(data)
-							if data.name:find("Crawliac ") and math.random() < 0.15 then
+
+							local rand = math.random();
+							if data.name:find("Crawliac ") and rand < 0.15 then
 								PlaySound(1204, "SFX");
 								RPText.print("You find a sparkling charm on the harpy, this must be the Charm of Arousal!");
 								self:add(1);
@@ -581,9 +602,25 @@ aTable.quests = function(self)
 		id = "HIGHMOUNTAIN_2",
 		name = "Since You're Friends",
 		start_text = {
-			"I have made the Groin Rumble Totem, packs quite a punch too. Only problem is if I go down there and stick it between Mayla's legs, the guards will arrest me.",
-			"You two are good friends though, so I don't think she'll mind.",
-			"Let me know how it goes, and I might carve up a little something for you too."
+			Talkbox.Line:new({
+				text = "I have made a Groin Rumble Totem! It packs quite a punch too!",
+				animation = 64,
+				animLength = 1.8
+			}),
+			Talkbox.Line:new({
+				text = "Only problem is if I go down there and stick it between Mayla's legs, the guards will arrest me.",
+				animation = 83,
+				animLength = 4
+			}),
+			Talkbox.Line:new({
+				text = "You two are good friends though, so I don't think she'll mind.",
+				animation=65, animLength=2
+			}),
+			Talkbox.Line:new({
+				text = "Let me know how it goes, and I might carve up a little something for you too.",
+				animation = 64,
+				animLength = 1.8
+			})
 		},
 		journal_entry = {
 			"Slyhoof the Shameless Shaman near the eastern exist to Thunder Totem wants you to use his Groin Rumble Totem on Mayla at the bottom of Thunder Totem."
@@ -611,12 +648,17 @@ aTable.quests = function(self)
 					-- Success
 					self:on(Event.Types.POINT_REACHED, function()
 
+						if UI.talkbox.active then return end
 						UI.talkbox.set(Talkbox:new({
+							x = 54.91,
+							y = 63.26,
+							rad = 3,
 							lines = {
 								Talkbox.Line:new({text = "What can I do for you, champion?\n\n[Push the totem between her legs]", animation = 65, animLength = 1.7}),
 								Talkbox.Line:new({
 									text = function()
-										local _, snd = PlaySound(23269, "SFX");
+										PlaySound(71943, "SFX");
+										local _, snd = PlaySound(119255, "SFX");
 										Timer.set(function()
 											StopSound(snd, 2000);
 										end, 1);
