@@ -895,6 +895,44 @@ aTable.rpTexts = function(self)
 		}))
 
 
+	-- Pale orc npcs
+		table.insert(R, RPText:new({
+			id = "SWING",
+			text_bystander = "%S forces his %Spenis into %T's mouth!",
+			text_receiver = "%S forces his %Spenis into your mouth!",
+			sound = ExiWoW.getSound("squish"),
+			requirements = {
+				getCondition("attackerIsPaleOrc"),
+				getCondition("victimHeadJumped"),
+				getCondition("maleWhispers")
+			},
+			fn = Func.get("addExcitement")
+		}));
+		table.insert(R, RPText:new({
+			id = "SWING",
+			text_bystander = "%S grabs a hold of %T's ears and starts humping %This face!",
+			text_receiver = "%S grabs a hold of your ears and starts humping your face!",
+			sound = ExiWoW.getSound("squish"),
+			requirements = {
+				getCondition("attackerIsPaleOrc"),
+				getCondition("victimHeadJumped"),
+				getCondition("maleWhispers")
+			},
+			fn = Func.get("addExcitement")
+		}));
+		table.insert(R, RPText:new({
+			id = "SWING",
+			text_bystander = "%S rubs %Shis %Spenis across %T's face!",
+			text_receiver = "%S rubs %Shis %Spenis across your face!",
+			sound = ExiWoW.getSound("squish"),
+			requirements = {
+				getCondition("attackerIsPaleOrc"),
+				getCondition("victimHeadJumped"),
+				getCondition("maleWhispers")
+			},
+			fn = Func.get("addExcitement")
+		}));
+
 -- SPELLS --
 
 		-- GENERIC / NPC --
