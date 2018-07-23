@@ -933,6 +933,7 @@ aTable.rpTexts = function(self)
 			fn = Func.get("addExcitement")
 		}));
 
+
 -- SPELLS --
 
 		-- GENERIC / NPC --
@@ -1105,6 +1106,34 @@ aTable.rpTexts = function(self)
 						getCondition("attackerHumanoidish")
 					},
 					fn = Func.get("addExcitementMasochisticCrit")
+				}))
+
+			-- Grappling Hook
+				table.insert(R, RPText:new({
+					id = "Grappling Hook",
+					text_bystander = "%S's hook latches to the front of %T's %Tundies before flinging %Thim through the air!",
+					text_receiver = "%S's hook latches to the front of your %Tundies before flinging you through the air!",
+					requirements = {
+						getCondition("is_spell_ran"),
+						getCondition("targetWearsUnderwear"),
+						Condition:new({type=ty.RTYPE_ZONE, data="Frostfire Ridge"})
+					},
+					fn = Func.get("addExcitementMasochistic")
+				}))
+				table.insert(R, RPText:new({
+					id = "Grappling Hook",
+					text_bystander = "%S's hook latches to the front of %T's %Tundies, tearing it off as %The is flung through the air!",
+					text_receiver = "%S's hook latches to the front of your %Tundies, tearing it off as you are flung through the air!",
+					sound = 117818,
+					requirements = {
+						getCondition("is_spell_ran"),
+						getCondition("targetWearsUnderwear"),
+						Condition:new({type=ty.RTYPE_ZONE, data="Frostfire Ridge"})
+					},
+					fn = function()
+						Func.get("addExcitementMasochistic")();
+						ExiWoW.ME:unequipActiveUnderwear();
+					end
 				}))
 
 			-- Slitherstrike
