@@ -139,13 +139,13 @@ aTable.loot = function(self)
 		conditions = {
 			evtIsForage,
 			Condition:new({type=ty.RTYPE_ZONE, data="Azsuna", sender=true}),
-			Condition:new({type=ty.RTYPE_SUBZONE, data="Halls of Arcane Learning", sender=true}),
+			Condition:new({type=ty.RTYPE_SUBZONE, data="Hall of Arcane Learning", sender=true}),
 		},
 		items={
 			Item:new({
 				type = "Charges", 
 				id = "HEADMISTRESS_PADDLE", 
-				chance = 0.25,
+				chance = 0.75,
 				quant = math.huge,
 				sound = 1199,
 				text = RPText:new({
@@ -153,7 +153,7 @@ aTable.loot = function(self)
 				})
 			})
 		}
-	}))
+	}));
 
 
 

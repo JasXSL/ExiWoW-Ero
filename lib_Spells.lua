@@ -7,7 +7,7 @@ aTable.spells = function(self)
 	local RPText = require("RPText");
 	local Spell = require("Spell");
 	local spellKits = ExiWoW.LibAssets.spell_kits;
-	local Timer = Timer;
+	local Timer = require("Timer");
 	local Event = require("Event");
 	local evtype = Event.Types;
 	local Func = require("Func");
@@ -44,7 +44,8 @@ aTable.spells = function(self)
 					local tx = viable[ math.random( #viable ) ];
 					se.custom.texts[tx.k] = nil;
 					tx = tx.v;
-					local rptext = RPText.trigger(tx[1], ExiWoW.ME, ExiWoW.ME)
+					--id, senderUnit, receiverUnit, senderChar, receiverChar, eventData, event, action, debug
+					local rptext = RPText.trigger(tx[1], "player", "player", ExiWoW.ME, ExiWoW.ME)
 					if not rptext then return end
 	
 					if tx[3] then
@@ -52,7 +53,7 @@ aTable.spells = function(self)
 					end
 					if tx[2] then
 						Timer.set(function()
-							RPText.trigger(tx[2], ExiWoW.ME, ExiWoW.ME);
+							RPText.trigger(tx[2], "player", "player", ExiWoW.ME, ExiWoW.ME);
 						end, 2);
 					end
 				end, 30, math.huge)
@@ -78,7 +79,7 @@ aTable.spells = function(self)
 				self.custom.added = self.custom.added+1;
 				
 				if pre < 1 then
-					RPText.trigger("Shattering Song", ExiWoW.ME, ExiWoW.ME)
+					RPText.trigger("Shattering Song", "player", "player", ExiWoW.ME, ExiWoW.ME)
 					Func.get("toggleVibHubProgram")("SHATTERING_SONG", 300);
 				end
 			end
