@@ -493,13 +493,13 @@ aTable.rpTexts = function(self)
 
 		table.insert(R, RPText:new({
 			id = "SWING_CRIT",
-			text_bystander = "%S's attacks smacks against %T's %leftright %Tbreast!",
-			text_receiver = "%S's attacks smacks against your %leftright %Tbreast!",
+			text_bystander = "%S's attack smacks against %T's %leftright %Tbreast!",
+			text_receiver = "%S's attack smacks against your %leftright %Tbreast!",
 			sound = 37472,
 			requirements = {getCondition("attackerHumanoidish"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = Func.get("addExcitementMasochisticCrit")
-		}))
+		}));
 
 
 		table.insert(R, RPText:new({
@@ -560,7 +560,7 @@ aTable.rpTexts = function(self)
 			requirements = {getCondition("attackerIsPinchy"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = Func.get("addExcitementMasochistic")
-		}))
+		}));
 		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S pinches %T's %leftright %Tbreast!",
@@ -569,7 +569,7 @@ aTable.rpTexts = function(self)
 			requirements = {getCondition("attackerIsPinchy"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = Func.get("addExcitementMasochistic")
-		}))
+		}));
 		table.insert(R, RPText:new({
 			id = "SWING",
 			text_bystander = "%S pinches %T's %Tgroin!",
@@ -578,35 +578,111 @@ aTable.rpTexts = function(self)
 			requirements = {getCondition("attackerIsPinchy")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = Func.get("addExcitementMasochistic")
-		}))
+		}));
 
 		table.insert(R, RPText:new({
-			id = "SWING_CRIT",
+			id = {["SWING_CRIT"]=true, ["Pinch"]=true},
 			text_bystander = "%S clamps down hard on %T's %Tgroin!",
 			text_receiver = "%S clamps down hard on your %Tgroin!",
 			--sound = 57787,
 			requirements = {getCondition("attackerIsPinchy"), getCondition("victimPenis")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = Func.get("addExcitementMasochisticCrit")
-		}))
+		}));
 		table.insert(R, RPText:new({
-			id = "SWING_CRIT",
+			id = {["SWING_CRIT"]=true, ["Pinch"]=true},
 			text_bystander = "%S clamps down hard and tugs at both %T's nipples!",
 			text_receiver = "%S clamps down hard and tugs at both your nipples!",
 			--sound = 57787,
 			requirements = {getCondition("attackerIsPinchy"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = Func.get("addExcitementMasochisticCrit")
-		}))
+		}));
 		table.insert(R, RPText:new({
-			id = "SWING_CRIT",
+			id = {["SWING_CRIT"]=true, ["Pinch"]=true},
+			text_bystander = "%S reaches up between %T's legs and pinches %This %Tbutt!",
+			text_receiver = "%S reaches up between your legs and pinches your %Tbutt!",
+			--sound = 57787,
+			requirements = {getCondition("attackerIsPinchy")},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochisticCrit")
+		}));
+		table.insert(R, RPText:new({
+			id = {["SWING_CRIT"]=true, ["Pinch"]=true},
 			text_bystander = "%S clamps down hard on %T's %leftright nipple, twisting it in the process!",
 			text_receiver = "%S clamps down hard on your %leftright nipple, twisting it in the process!",
 			--sound = 57787,
 			requirements = {getCondition("attackerIsPinchy"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = Func.get("addExcitementMasochisticCrit")
-		}))
+		}));
+
+
+	-- Cloud Serpents
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S lashes across %T's %Tbreasts!",
+			text_receiver = "%S lashes across your %Tbreasts!",
+			sound = 3338,
+			requirements = {getCondition("attackerIsCloudSerpent"), getCondition("victimBreasts"), getCondition("attackerNotLarge")},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochisticCrit")
+		}));
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S lashes across %T's %leftright %Tbreast!",
+			text_receiver = "%S lashes across your %leftright %Tbreast!",
+			sound = 3338,
+			requirements = {getCondition("attackerIsCloudSerpent"), getCondition("victimBreasts"), getCondition("attackerNotLarge")},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochisticCrit")
+		}));
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S lashes across %T's %Tgroin!",
+			text_receiver = "%S lashes across your %Tgroin!",
+			sound = 3338,
+			requirements = {getCondition("attackerIsCloudSerpent"), getCondition("attackerNotLarge")},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochisticCrit")
+		}));
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S lashes up between %T's legs and flicks %This %leftright buttcheek!",
+			text_receiver = "%S lashes up between %T's legs and flicks %This %leftright buttcheek!",
+			sound = 3338,
+			requirements = {getCondition("attackerIsCloudSerpent"), getCondition("attackerNotLarge")},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochisticCrit")
+		}));
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S lashes up between %T's legs and strokes the tail up across %This %Tbutt and over %This %Tgroin!",
+			text_receiver = "%S lashes up between %T's legs and flicks %This %leftright buttcheek!",
+			sound = 3338,
+			requirements = {getCondition("attackerIsCloudSerpent"), getCondition("attackerNotLarge"), getCondition("victimVagina")},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementMasochisticCrit")
+		}));
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S's tail slips into %T's %Tundies!",
+			text_receiver = "%S's tail slips into your %Tundies, tickling your %Tgroin!",
+			sound = 21727,
+			requirements = {getCondition("attackerIsCloudSerpent"), getCondition("attackerNotLarge"), getCondition("targetWearsUnderwear")},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitement")
+		}));
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S's tail slips into %T's %Tundies, making %Thim shuffle uncomfortably!",
+			text_receiver = "%S's tail slips into your %Tundies wiggling up part way inside your %Tvagina!",
+			sound = 21727,
+			requirements = {getCondition("attackerIsCloudSerpent"), getCondition("attackerNotLarge"), getCondition("victimVagina"), getCondition("targetWearsUnderwear")},
+			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
+			fn = Func.get("addExcitementCrit")
+		}));
+
 
 
 	-- Wasps
@@ -1247,8 +1323,11 @@ aTable.rpTexts = function(self)
 					requirements = {
 						getCondition("victimBreasts"),
 						getCondition("ts_spillable"),
+						getCondition("rand20")
 					},
-					fn = Func.get("addExcitement")
+					fn = function()
+						Func.get("addExcitement")({id={SWING=true}});
+					end
 				}))
 
 			-- Bone toss
