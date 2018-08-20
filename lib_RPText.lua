@@ -1052,6 +1052,7 @@ aTable.rpTexts = function(self)
 						spellAddOrTick,  -- OR
 						getCondition("victimBreasts"),
 						getCondition("ts_electric"),
+						getCondition("spellDetrimental")
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
@@ -1062,6 +1063,7 @@ aTable.rpTexts = function(self)
 						spellAddOrTick,  -- OR
 						getCondition("victimBreasts"),
 						getCondition("ts_electric"),
+						getCondition("spellDetrimental")
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}));
@@ -1074,6 +1076,7 @@ aTable.rpTexts = function(self)
 						getCondition("noTabard"),
 						getCondition("noShirt"),
 						getCondition("ts_electric"),
+						getCondition("spellDetrimental")
 					},
 					fn = Func.get("addExcitementMasochisticCrit")
 				}));
@@ -1086,6 +1089,7 @@ aTable.rpTexts = function(self)
 						getCondition("victimBreasts"),
 						getCondition("ts_electric"),
 						getCondition("chestHeavyArmor"),
+						getCondition("spellDetrimental")
 					},
 					fn = Func.get("addExcitementMasochisticCrit")
 				}))
@@ -1096,9 +1100,42 @@ aTable.rpTexts = function(self)
 						spellAddOrTick,  -- OR
 						getCondition("ts_electric"),
 						getCondition("legsHeavyArmor"),
+						getCondition("spellDetrimental")
 					},
 					fn = Func.get("addExcitementMasochisticCrit")
 				}))
+				-- Beneficial lightning
+				table.insert(R, RPText:new({
+					text_receiver = "The %spell causes your nipples to tingle!",
+					requirements = {
+						spellAddOrTick,
+						getCondition("rand10"),
+						getCondition("victimBreasts"),
+						getCondition("ts_electric"),
+						getCondition("spellBeneficial")
+					},
+					fn = Func.get("addExcitement")
+				}));
+				table.insert(R, RPText:new({
+					text_receiver = "The %spell causes your %Tgenitals to tingle!",
+					requirements = {
+						spellAddOrTick,
+						getCondition("rand10"),
+						getCondition("ts_electric"),
+						getCondition("spellBeneficial")
+					},
+					fn = Func.get("addExcitement")
+				}));
+				table.insert(R, RPText:new({
+					text_receiver = "The %spell causes your %Tbutt to tingle!",
+					requirements = {
+						spellAddOrTick,
+						getCondition("rand10"),
+						getCondition("ts_electric"),
+						getCondition("spellBeneficial")
+					},
+					fn = Func.get("addExcitement")
+				}));
 
 
 			-- Petrifying (basilisk) spells
@@ -1268,6 +1305,79 @@ aTable.rpTexts = function(self)
 					},
 					fn = Func.get("addExcitementMasochistic")
 				}))
+
+			-- Cleaving Smack
+				table.insert(R, RPText:new({
+					id = "Cleaving Smack",
+					text_bystander = "%S's %spell lands across %T's %Tbreasts, smacking them around!",
+					text_receiver = "%S's %spell lands across your %Tbreasts, smacking them around!",
+					requirements = {
+						getCondition("victimBreasts"),
+						getCondition("attackerNotLarge"),
+						getCondition("victimChestNotPlate")
+					},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}))
+				table.insert(R, RPText:new({
+					id = "Cleaving Smack",
+					text_bystander = "%S's %spell bounces off of %T's breastplate!",
+					text_receiver = "%S's %spell bounces off of your breastplate!",
+					requirements = {
+						getCondition("victimBreasts"),
+						getCondition("attackerNotLarge"),
+						getCondition("victimChestPlate")
+					},
+					fn = Func.get("addExcitementMasochistic")
+				}));
+
+			-- Lick
+				table.insert(R, RPText:new({
+					id = "Lick",
+					text_bystander = "%S's tongue slithers across %T's %Tbreasts!",
+					text_receiver = "%S's tongue slithers across your %Tbreasts!",
+					requirements = {
+						getCondition("victimBreasts"),
+						getCondition("attackerIsSaurolisk"),
+						getCondition("is_spell_add")
+					},
+					fn = Func.get("addExcitement")
+				}));
+				table.insert(R, RPText:new({
+					id = "Lick",
+					text_bystander = "%S's big tongue gets into %T's outfit, licking across %This %Tbreasts!",
+					text_receiver = "%S's big tongue gets into your outfit, licking across your %Tbreasts!",
+					requirements = {
+						getCondition("victimBreasts"),
+						getCondition("attackerIsSaurolisk"),
+						getCondition("is_spell_add"),
+						getCondition("rand30"),
+					},
+					fn = Func.get("addExcitement")
+				}));
+				table.insert(R, RPText:new({
+					id = "Lick",
+					text_bystander = "%S's big tongue slithers up across %T's %Tgroin!",
+					text_receiver = "%S's big tongue slithers up across your %Tgroin!",
+					requirements = {
+						getCondition("attackerIsSaurolisk"),
+						getCondition("is_spell_add")
+					},
+					fn = Func.get("addExcitement")
+				}));
+				table.insert(R, RPText:new({
+					id = "Lick",
+					text_bystander = "%S's big tongue slithers up and into %T's %Tundies!",
+					text_receiver = "%S's big tongue slithers down your %Tundies and prods up across your %Tvagina!",
+					requirements = {
+						getCondition("targetWearsUnderwear"),
+						getCondition("victimVagina"),
+						getCondition("rand30"),
+						getCondition("attackerIsSaurolisk"),
+						getCondition("is_spell_add")
+					},
+					fn = Func.get("addExcitementCrit")
+				}));
+				
 
 
 			-- Magic whips
