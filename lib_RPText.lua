@@ -166,27 +166,45 @@ aTable.rpTexts = function(self)
 			}))
 			table.insert(R, RPText:new({
 				id = "TICKLE",
-				text_bystander = "%S tickles %T between %This legs with %Shis %item!",
-				text_sender = "You tickle %T between %This legs with your %item!",
-				text_receiver = "%S tickles your %Tgroin with %Shis %item!",
+				text_bystander = "%S tickles %T between %This legs with %Shis feather!",
+				text_sender = "You tickle %T between %This legs with your feather!",
+				text_receiver = "%S tickles your %Tgroin with %Shis feather!",
 				requirements = {getCondition("invFeathers")},
 			}))
 
 			-- Tickle self
 			table.insert(R, RPText:new({
 				id = "TICKLE",
-				text_bystander = "%T tickles %Thimself with %This %item!",
-				text_receiver = "You tickle your own %Tgroin with %This %item!",
+				text_bystander = "%T tickles %Thimself with %This feather!",
+				text_receiver = "You tickle your own %Tgroin with %This feather!",
 				requirements = {getCondition("invFeathers")},
 				
 			}))
+
+	-- NETTLE_RUB
+			-- SElf
+			table.insert(R, RPText:new({
+				id = "NETTLE_RUB",
+				text_bystander = "%T rubs %This own %Tbutt with a stinging nettle!",
+				text_receiver = "You rub your own %Tbutt with a stinging nettle!",
+				requirements = {},
+			}));
+			table.insert(R, RPText:new({
+				id = "NETTLE_RUB",
+				text_bystander = "%S slips %Shis hand into %T's clothes, rubbing %This %Tbutt with a stinging nettle!",
+				text_sender = "You slip your hand into %T's clothes, rubbing %This %Tbutt with a stinging nettle!",
+				text_receiver = "%S slips %Shis hand into your clothes, rubbing your %Tbutt with a stinging nettle!",
+				requirements = {},
+			}));
+			
+
 
 	-- VINE_SQUIRM --
 		table.insert(R, RPText:new({
 			id = "VINE_SQUIRM",
 			sound = 2579,
 			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
-			text_sender = "You cast cast a squirm spell at %T's %Tundies!",
+			text_sender = "You cast a squirm spell at %T's %Tundies!",
 			text_receiver = "%S casts a spell at you, making your %Tundies start to squirm!",
 		}))
 		table.insert(R, RPText:new({
@@ -205,7 +223,7 @@ aTable.rpTexts = function(self)
 			id = "VINE_THRASH",
 			sound = 21727,
 			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
-			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing a vine to prod into and tickle the inside of %This %Tbutt!",
+			text_sender = "You cast a squirm spell at %T's %Tundies, causing a vine to prod into and tickle the inside of %This %Tbutt!",
 			text_receiver = "%S casts a spell at your %Tundies, causing a vine to prod into and tickle the inside of your %Tbutt!",
 		}));
 
@@ -219,7 +237,7 @@ aTable.rpTexts = function(self)
 			id = "VINE_THRASH",
 			sound = 21727,
 			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
-			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing a few vines to slip inside %This %Tvagina, tickling %This inside!",
+			text_sender = "You cast a squirm spell at %T's %Tundies, causing a few vines to slip inside %This %Tvagina, tickling %This inside!",
 			text_receiver = "%S casts a spell at your %Tundies, causing a few vines to slip inside your %Tvagina, tickling your inside!",
 			requirements = {getCondition("victimVagina")},
 		}));
@@ -234,8 +252,8 @@ aTable.rpTexts = function(self)
 			id = "VINE_THRASH",
 			sound = 21727,
 			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
-			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing a thick vine to start thrusting rapidly inside your %Tvagina!",
-			text_receiver = "%S casts a spell at your %Tundies, causing a thick vine to start thrusting rapidly inside %This %Tvagina!",
+			text_sender = "You cast a squirm spell at %T's %Tundies, causing a thick vine to start thrusting rapidly inside %This %Tvagina!",
+			text_receiver = "%S casts a spell at your %Tundies, causing a thick vine to start thrusting rapidly inside your %Tvagina!",
 			requirements = {getCondition("victimVagina")},
 		}));
 
@@ -249,7 +267,7 @@ aTable.rpTexts = function(self)
 			id = "VINE_THRASH",
 			sound = 21727,
 			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
-			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing multiple vines to restrain %This genitals, squeezing painfully!",
+			text_sender = "You cast a squirm spell at %T's %Tundies, causing multiple vines to restrain %This genitals, squeezing painfully!",
 			text_receiver = "%S casts a spell at your %Tundies, causing multiple vines to restrain your genitals, squeezing painfully!",
 			requirements = {getCondition("victimPenis")},
 		}));
@@ -264,7 +282,7 @@ aTable.rpTexts = function(self)
 			id = "VINE_THRASH",
 			sound = 21727,
 			text_bystander = "%S casts a spell aimed at %T's %Tcrotch!",
-			text_sender = "You cast cast a squirm spell at %T's %Tundies, causing multiple vines to envelop and rapidly tug at %This %Tpenis!",
+			text_sender = "You cast a squirm spell at %T's %Tundies, causing multiple vines to envelop and rapidly tug at %This %Tpenis!",
 			text_receiver = "%S casts a spell at your %Tundies, causing multiple vines to envelop and rapidly tug at your %Tpenis!",
 			requirements = {getCondition("victimPenis")},
 		}));
@@ -734,6 +752,60 @@ aTable.rpTexts = function(self)
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			fn = Func.get("addExcitementMasochistic")
 		}))
+
+
+
+	-- Tentacle staff (funggarian?)
+	
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S prods %Shis tentacle staff up between %T's legs, letting it wriggle against %This %Tgroin!",
+			text_receiver = "%S prods %Shis tentacle staff up between your legs, letting it wriggle against your %Tgroin!",
+			sound = 37480,
+			requirements = {
+				getCondition("attackerHasTentacleStaff"), 
+				getCondition("attackerNotLarge")
+			},
+			fn = Func.get("addExcitementCrit")
+		}));
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S prods %Shis wriggling tentacle staff against %T's %Tbreasts!",
+			text_receiver = "%S prods %Shis wriggling tentacle staff against your %Tbreasts!",
+			sound = 37480,
+			requirements = {
+				getCondition("attackerHasTentacleStaff"), 
+				getCondition("attackerNotLarge"),
+				getCondition("victimBreasts")
+			},
+			fn = Func.get("addExcitementCrit")
+		}));
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S schlops %Shis tentacle staff up between %T's legs!",
+			text_receiver = "%S schlops %Shis tentacle staff up between your legs!",
+			sound = 37480,
+			requirements = {
+				getCondition("attackerHasTentacleStaff"), 
+				getCondition("attackerNotLarge")
+			},
+			fn = Func.get("addExcitementMasochisticCrit")
+		}));
+		table.insert(R, RPText:new({
+			id = "SWING_CRIT",
+			text_bystander = "%S smacks %Shis wriggling tentacle staff across %T's %Tbreasts!",
+			text_receiver = "%S smacks %Shis wriggling tentacle staff across %T's %Tbreasts!",
+			sound = 37480,
+			requirements = {
+				getCondition("attackerHasTentacleStaff"), 
+				getCondition("attackerNotLarge"),
+				getCondition("victimBreasts")
+			},
+			fn = Func.get("addExcitementMasochisticCrit")
+		}));
+
+
+
 
 	-- Lashing NPCs
 		table.insert(R, RPText:new({

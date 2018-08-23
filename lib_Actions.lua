@@ -305,6 +305,47 @@ aTable.actions = function(self)
 		end
 	}));
 
+
+	table.insert(out, Action:new({
+		id = "NETTLE_RUB",
+		name = "Nettle Rub",
+		description = "Rub a Stinging Nettle against your target's rear.",
+		texture = "inv_misc_spineleaf _01",
+		cooldown = 10,
+		cast_time = 2,
+		cast_sound_loop = 1142,
+		fn_send = function(self, sender, target, suppressErrors)
+			return self:sendRPText(sender, target, suppressErrors, function(se, success)
+				if success and not UnitIsUnit(target, "player") then
+					Func.get("critSound")(self, race, gender)
+				end
+			end);
+		end,
+		fn_receive = function(self, sender, target, args)
+			self:receiveRPText(sender, target, args)
+			Func.get("addExcitementMasochistic")();
+			if not UnitIsUnit(Ambiguate(sender, "all"), "player") then
+				DoEmote("GASP", sender);
+			end
+			return true
+		end,
+		conditions = {
+			Condition.get("victim_no_combat"),
+			Condition.get("sender_no_combat"),
+			Condition.get("require_party"),
+			Condition.get("sender_not_moving"),
+			Condition.get("melee_range"),
+		},
+		filters = {
+			Condition:new({
+				type = Condition.Types.RTYPE_HAS_INVENTORY,
+				data = {{name="Stinging Nettle"}},
+				sender = true
+			})
+		}
+
+	}));
+
 	return out;
 
 end
