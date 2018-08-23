@@ -279,7 +279,7 @@ aTable.actions = function(self)
 		cast_time = 2,
 		charges = 0,
 		rarity = 3,
-		cooldown = 15,
+		cooldown = 120,
 		cast_sound_success = 47759,
 		cast_sound_loop = 27,
 		conditions = {
@@ -322,7 +322,8 @@ aTable.actions = function(self)
 			end);
 		end,
 		fn_receive = function(self, sender, target, args)
-			self:receiveRPText(sender, target, args)
+			print("Received nettle rub");
+			self:receiveRPText(sender, target, args);
 			Func.get("addExcitementMasochistic")();
 			if not UnitIsUnit(Ambiguate(sender, "all"), "player") then
 				DoEmote("GASP", sender);
@@ -330,9 +331,6 @@ aTable.actions = function(self)
 			return true
 		end,
 		conditions = {
-			Condition.get("victim_no_combat"),
-			Condition.get("sender_no_combat"),
-			Condition.get("require_party"),
 			Condition.get("sender_not_moving"),
 			Condition.get("melee_range"),
 		},
