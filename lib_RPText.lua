@@ -2047,7 +2047,69 @@ aTable.rpTexts = function(self)
 					requirements = {getCondition("attackerHumanoidish")},
 					fn = Func.get("addExcitementMasochisticCrit")
 				}))
-				
+			-- Jab
+				table.insert(R, RPText:new({
+					id = "Jab",
+					text_bystander = "%S jabs at %T's %leftright %Tbreast!",
+					text_receiver = "%S jabs at your %leftright %Tbreast!",
+					requirements = {getCondition("attackerIsFistfighter"), getCondition("victimBreasts"), getCondition("victimChestNotPlate")},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}));
+				table.insert(R, RPText:new({
+					id = "Jab",
+					text_bystander = "%S's jab bounces off %T's chestplate!",
+					text_receiver = "%S's jab bounces off your chestplate!",
+					requirements = {getCondition("attackerIsFistfighter"), getCondition("victimBreasts"), getCondition("victimChestPlate")},
+				}));
+				table.insert(R, RPText:new({
+					id = "Jab",
+					text_bystander = "%S jabs from below at %T's %Tgroin!",
+					text_receiver = "%S jabs from below at your %Tgroin!",
+					requirements = {getCondition("attackerIsFistfighter"), getCondition("victimBreasts"), getCondition("attackerIsSmall"),getCondition("rand30")},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}));
+			-- Wrenching Smack
+				table.insert(R, RPText:new({
+					id = "Wrenching Smack",
+					text_bystander = "%S smacks %T's %Tbreasts with a wrench!",
+					text_receiver = "%S painfully smacks your %Tbreasts with a wrench!",
+					requirements = {getCondition("attackerNotLarge"), getCondition("victimBreasts"), getCondition("victimChestNotPlate"),getCondition("rand30")},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}));
+				table.insert(R, RPText:new({
+					id = "Wrenching Smack",
+					text_bystander = "%S smacks %T's chestplate with a wrench!",
+					text_receiver = "%S smacks your chestplate with a wrench!",
+					requirements = {getCondition("attackerNotLarge"), getCondition("victimBreasts"), getCondition("victimChestPlate"),getCondition("rand30")},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}));
+				table.insert(R, RPText:new({
+					id = "Wrenching Smack",
+					text_bystander = "%S smacks %T's crotchplate with a wrench!",
+					text_receiver = "%S smacks your crotchplate with a wrench!",
+					requirements = {getCondition("attackerNotLarge"), getCondition("victimCrotchPlate"),getCondition("rand30")},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}));
+
+			-- Coin toss
+				table.insert(R, RPText:new({
+					id = "Coin Toss",
+					text_receiver = "A coin slips into your chestpiece, coming to a rest between your %Tbreasts!",
+					requirements = {getCondition("hasChest"),getCondition("rand30")},
+					fn = Func.get("addExcitement")
+				}));
+				table.insert(R, RPText:new({
+					id = "Coin Toss",
+					text_receiver = "A coin slips into your %Tundies, coming to a rest between your %Tbuttcheeks!",
+					requirements = {getCondition("targetWearsUnderwear"),getCondition("rand30")},
+					fn = Func.get("addExcitement")
+				}));
+				table.insert(R, RPText:new({
+					id = "Coin Toss",
+					text_receiver = "A coin slips down your %Tundies, the cold metal tickles your %Tgroin!",
+					requirements = {getCondition("targetWearsUnderwear"),getCondition("rand30")},
+					fn = Func.get("addExcitement")
+				}));
 				
 		-- DRUID --
 
