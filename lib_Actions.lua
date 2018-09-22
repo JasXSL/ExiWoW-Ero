@@ -11,6 +11,8 @@ aTable.actions = function(self)
 	local Func = require("Func");
 	local toggleVibHubProgram = Func.get("toggleVibHubProgram");
 	local Condition = require("Condition");
+	local Timer = require("Timer");
+	local RPText = require("RPText");
 
 	-- Fondle (Public) --
 	table.insert(out, Action:new({
@@ -29,23 +31,25 @@ aTable.actions = function(self)
 		max_distance = Action.MELEE_RANGE,
 		fn_send = Action.sendRPText,
 		fn_receive = function(self, sender, target, args)
-			self:receiveRPText(sender, target, args); -- Default behavior
 			-- Custom actions
 			Func.get("addExcitementDefault")();
-			return true
+			return self:receiveRPText(sender, target, args); -- Default behavior
 		end
 	}));
 
 
+	-- /run ExiWoW.require("Event").on("SOUNDKIT_FINISHED", function(data) print("Soundkit finished", data[1]) end)
+	-- /run PlaySound(50858,"SFX",false,true);
+	-- /run ExiWoW.ME:addItem("Charges", "GOBLIN_BUZZROCKET", math.huge);
 	-- Goblin Buzzrocket (Item) --
 	table.insert(out, Action:new({
 		id = "GOBLIN_BUZZROCKET",
 		name = "Experimental Buzzrocket",
 		description = "An experimental goblin buzzrocket to enjoy some me-time with. The rocket fuel makes it hightly volatile.",
 		texture = "ability_mount_rocketmount",
-		cast_time = 20,
+		cast_time = 6,
 		charges = 0,
-		cast_sound_start = 43508,
+		--cast_sound_start = 43508,
 		cast_sound_loop = 50858,
 		rarity = 3,
 		conditions = {
@@ -54,12 +58,11 @@ aTable.actions = function(self)
 		},
 		not_defaults = {},
 		fn_cast = function(self)
-			local _, text = self:sendRPText("player", "player", false);
+			RPText.trigger(self.id, "player", "player", ExiWoW.ME, ExiWoW.ME, nil, nil, self);
 			Timer.clear(self.interval)
 			self.interval = Timer.set(function()
 				Func.get("addExcitementDefault")(self, true)
 			end, 1, 30)
-			text(self, true, {receiver=true});
 			toggleVibHubProgram("BUZZROCKET", 20);
 		end,
 		fn_done = function(self, success)
@@ -87,12 +90,11 @@ aTable.actions = function(self)
 		},
 		not_defaults = {},
 		fn_cast = function(self)
-			local _, text = self:sendRPText("player", "player", false);
+			RPText.trigger(self.id, "player", "player", ExiWoW.ME, ExiWoW.ME, nil, nil, self);
 			Timer.clear(self.interval)
 			self.interval = Timer.set(function()
 				Func.get("addExcitementDefault")(self, true);
 			end, 1, 30)
-			text(self, true, {receiver=true});
 			toggleVibHubProgram("JADE_ROD", 20)
 		end,
 		fn_done = function(self, success)
@@ -119,12 +121,11 @@ aTable.actions = function(self)
 		},
 		not_defaults = {},
 		fn_cast = function(self)
-			local _, text = self:sendRPText("player", "player", false);
+			RPText.trigger(self.id, "player", "player", ExiWoW.ME, ExiWoW.ME, nil, nil, self);
 			Timer.clear(self.interval)
 			self.interval = Timer.set(function()
 				Func.get("addExcitementDefault")(self, true);
 			end, 1, 30)
-			text(self, true, {receiver=true});
 			toggleVibHubProgram("SHARAS_FEL_ROD", 20)
 		end,
 		fn_done = function(self, success)
@@ -135,6 +136,7 @@ aTable.actions = function(self)
 	}));
 
 	-- Groin Rumble Totem (Item) --
+	-- /run ExiWoW.ME:addItem("Charges", "GROIN_RUMBLE_TOTEM", math.huge);
 	table.insert(out, Action:new({
 		id = "GROIN_RUMBLE_TOTEM",
 		name = "Groin Tremble Totem",
@@ -153,9 +155,8 @@ aTable.actions = function(self)
 		not_defaults = {},
 		fn_send = Action.sendRPText,
 		fn_receive = function(self, sender, target, args)
-			self:receiveRPText(sender, target, args); -- Default behavior
 			Effect.run("GROIN_RUMBLE_TOTEM");
-			return true;
+			return self:receiveRPText(sender, target, args); -- Default behavior
 		end
 	}));
 
@@ -182,9 +183,8 @@ aTable.actions = function(self)
 		not_defaults = {},
 		fn_send = Action.sendRPText,
 		fn_receive = function(self, sender, target, args)
-			self:receiveRPText(sender, target, args) -- Default behavior
 			Effect.run("PULSATING_MUSHROOM")
-			return true
+			return self:receiveRPText(sender, target, args) -- Default behavior
 		end
 	}));
 
@@ -207,9 +207,8 @@ aTable.actions = function(self)
 		not_defaults = {},
 		fn_send = Action.sendRPText,
 		fn_receive = function(self, sender, target, args)
-			self:receiveRPText(sender, target, args) -- Default behavior
 			Effect.run("PULSATING_MANA_GEM")
-			return true
+			return self:receiveRPText(sender, target, args) -- Default behavior
 		end
 	}));
 
@@ -238,8 +237,7 @@ aTable.actions = function(self)
 		fn_receive = function(self, sender, target, args)
 			DoEmote("GASP");
 			Func.get("addExcitementMasochisticCrit")();
-			self:receiveRPText(sender, target, args);
-			return true
+			return self:receiveRPText(sender, target, args);
 		end
 	}));
 
@@ -263,10 +261,8 @@ aTable.actions = function(self)
 		not_defaults = {},
 		fn_send = Action.sendRPText,
 		fn_receive = function(self, sender, target, args)
-			self:receiveRPText(sender, target, args) -- Default behavior
-			--TODO: Run effect
 			Effect.run("VINE_SQUIRM");
-			return true
+			return self:receiveRPText(sender, target, args) -- Default behavior
 		end
 	}));
 
@@ -298,10 +294,9 @@ aTable.actions = function(self)
 			end);
 		end,
 		fn_receive = function(self, sender, target, args)
-			self:receiveRPText(sender, target, args); -- Default behavior
 			Func.get("addExcitementCrit")();
 			DoEmote("gasp", "player");
-			return true
+			return self:receiveRPText(sender, target, args); -- Default behavior
 		end
 	}));
 
@@ -323,12 +318,11 @@ aTable.actions = function(self)
 		end,
 		fn_receive = function(self, sender, target, args)
 			print("Received nettle rub");
-			self:receiveRPText(sender, target, args);
 			Func.get("addExcitementMasochistic")();
 			if not UnitIsUnit(Ambiguate(sender, "all"), "player") then
 				DoEmote("GASP", sender);
 			end
-			return true
+			return self:receiveRPText(sender, target, args);
 		end,
 		conditions = {
 			Condition.get("sender_not_moving"),

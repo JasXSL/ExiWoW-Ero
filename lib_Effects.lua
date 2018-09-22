@@ -154,7 +154,7 @@ aTable.effects = function(self)
 			Timer.clear(self.interval);
 			Func.get("toggleVibHubProgram")("PULSATING_MUSHROOM")
 			if not self.rightClicked then
-				RPText.trigger("FX_PULSATING_MUSHROOM_REM", ExiWoW.ME, ExiWoW.ME)
+				RPText.trigger("FX_PULSATING_MUSHROOM_REM", "player","player", ExiWoW.ME, ExiWoW.ME)
 			end
 		end,
 		onRightClick = function(self, data)
@@ -182,7 +182,8 @@ aTable.effects = function(self)
 				-- Handle the receiving end here
 				fn_send = function(self, sender, target, suppressErrors)
 		
-					RPText.trigger("FX_PULSATING_MUSHROOM_REM", ExiWoW.ME, ExiWoW.ME)
+					--id, senderUnit, receiverUnit, senderChar, receiverChar, eventData, event, action, debug
+					RPText.trigger("FX_PULSATING_MUSHROOM_REM", "player","player",ExiWoW.ME, ExiWoW.ME)
 					Effect.rem(id)
 
 					return false
