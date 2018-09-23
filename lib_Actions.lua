@@ -13,6 +13,7 @@ aTable.actions = function(self)
 	local Condition = require("Condition");
 	local Timer = require("Timer");
 	local RPText = require("RPText");
+	local Event = require("Event");
 
 	-- Fondle (Public) --
 	table.insert(out, Action:new({
@@ -20,7 +21,7 @@ aTable.actions = function(self)
 		name = "Fondle",
 		description = "Fondle a player.",
 		texture = "ability_paladin_handoflight",
-		--cooldown = 1.5,
+		cooldown = 10,
 		cast_sound_success = 57179,
 		conditions = {
 			Condition.get("melee_range"),
@@ -160,7 +161,6 @@ aTable.actions = function(self)
 		end
 	}));
 
-	
 
 
 	-- Pulsating mushroom consumable
@@ -218,7 +218,7 @@ aTable.actions = function(self)
 		name = "Headmistress' Paddle",
 		description = "Whap your target across their rear.",
 		texture = "inv_bullroarer",
-		cooldown = 6,
+		cooldown = 30,
 		charges=0,
 		rarity=3,
 		conditions = {
@@ -300,7 +300,7 @@ aTable.actions = function(self)
 		end
 	}));
 
-
+	-- Nettle rub
 	table.insert(out, Action:new({
 		id = "NETTLE_RUB",
 		name = "Nettle Rub",
@@ -317,7 +317,6 @@ aTable.actions = function(self)
 			end);
 		end,
 		fn_receive = function(self, sender, target, args)
-			print("Received nettle rub");
 			Func.get("addExcitementMasochistic")();
 			if not UnitIsUnit(Ambiguate(sender, "all"), "player") then
 				DoEmote("GASP", sender);
@@ -335,6 +334,60 @@ aTable.actions = function(self)
 				sender = true
 			})
 		}
+
+	}));
+
+
+
+	-- Class specific
+	-- Priest Disc/Shadow - Lingering Shadow
+	table.insert(out, Action:new({
+		id = "LINGERING_SHADOW",
+		name = "Lingering Shadow",
+		description = "Shadow Mend has a 25% chance of arousing your target with a void tentacle.",
+		texture = "spell_shadow_shadowmend",
+		cooldown = 20,
+		passive = true,
+		fn_send = function(self, sender, target, suppressErrors)
+			local race = UnitRace(target)
+			local gender = UnitSex(target)
+			return self:sendRPText(sender, target, suppressErrors, function(se, success)
+				if success and not UnitIsUnit(target, "player") then
+					Func.get("critSound")(self, race, gender)
+				end
+			end);
+		end,
+		fn_receive = function(self, sender, target, args)
+			return self:receiveRPText(sender, target, args);
+		end,
+		filters = {
+			Condition:new({
+				type = Condition.Types.RTYPE_CLASS,
+				data = {Priest=true},
+				sender = true
+			}),
+			Condition:new({
+				type = Condition.Types.RTYPE_SPEC,
+				data = {s0=true},
+				sender = true
+			}),
+		},
+		passive_on_enabled = function(self, fromButton)
+			self:passiveOn("COMBAT_LOG_EVENT_UNFILTERED", function(data)
+				if 
+					self:getCooldown() <= 0 and
+					random() < 0.25 and
+					UnitIsUnit(data[5], "player") and 
+					data[2] == "SPELL_CAST_SUCCESS" and
+					data[13] == "Shadow Mend"
+				then
+					local target = data[9];
+					Action.useOnTarget(self.id, target, true, true);
+				end
+			end);
+		end,
+		passive_on_disabled = function(self)
+		end
 
 	}));
 

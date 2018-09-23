@@ -169,22 +169,7 @@ aTable.rpTexts = function(self)
 				text_receiver = "%S tickles you between your legs!",
 				requirements = {},
 			}))
-			table.insert(R, RPText:new({
-				id = "TICKLE",
-				text_bystander = "%S tickles %T between %This legs with %Shis feather!",
-				text_sender = "You tickle %T between %This legs with your feather!",
-				text_receiver = "%S tickles your %Tgroin with %Shis feather!",
-				requirements = {getCondition("invFeathers")},
-			}))
 
-			-- Tickle self
-			table.insert(R, RPText:new({
-				id = "TICKLE",
-				text_bystander = "%T tickles %Thimself with %This feather!",
-				text_receiver = "You tickle your own %Tgroin with %This feather!",
-				requirements = {getCondition("invFeathers")},
-				
-			}))
 
 	-- NETTLE_RUB
 			-- SElf
@@ -523,6 +508,115 @@ aTable.rpTexts = function(self)
 			text_receiver = "You slap your own %Tbutt with the headmistress' paddle!",
 		}));
 		
+
+	-- LINGERING_SHADOW
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "excitement",
+			text_sender = "Your Shadow Mend causes a void tendril to sprout in %T's %Tundies, wriggling across %This %Tgroin!",
+			text_receiver = "%S's Shadow Mend causes a void tendril to sprout in your %Tundies, wriggling across your %Tgroin!",
+			requirements = {getCondition("targetWearsUnderwear")},
+			fn = Func.get("addExcitement")
+		}));
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "excitement",
+			text_receiver = "Your Shadow Mend causes a void tendril to sprout in your %Tundies, wriggling across your %Tgroin!",
+			requirements = {getCondition("targetWearsUnderwear")},
+			fn = Func.get("addExcitement"),
+		}));
+
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "heavyExcitement",
+			text_receiver = "Your Shadow Mend causes a void tendril to sprout in your %Tundies, prodding into and wriggling about in your %Tvagina!",
+			fn = Func.get("addExcitementCrit"),
+			requirements = {getCondition("targetWearsUnderwear"),getCondition("victimVagina")}
+		}));
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "heavyExcitement",
+			text_sender = "Your Shadow Mend causes a void tendril to sprout in %T's %Tundies, prodding into and wriggling about in %This %Tvagina!",
+			text_receiver = "%S's Shadow Mend causes a void tendril to sprout in your %Tundies, prodding into and wriggling about in your %Tvagina!",
+			requirements = {getCondition("targetWearsUnderwear"),getCondition("victimVagina")},
+			fn = Func.get("addExcitementCrit")
+		}));
+
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "heavyExcitement",
+			text_receiver = "Your Shadow Mend causes a void tendril to wrap around your neck, pushing inside your mouth and wriggling about rapidly!",
+			requirements = {},
+			fn = Func.get("addExcitement")
+		}));
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "heavyExcitement",
+			text_sender = "Your Shadow Mend causes a void tendril to wrap around %T's neck, pushing inside %This mouth and wriggling about rapidly!",
+			text_receiver = "%S's Shadow Mend causes a void tendril to wrap around your neck, pushing inside your mouth and wriggling about rapidly!",
+			requirements = {},
+			fn = Func.get("addExcitement")
+		}));
+
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "heavyExcitement",
+			text_receiver = "Your Shadow Mend causes a void tendril to sprout in your %Tundies, prodding into and wriggling about in your %Tbutt!",
+			fn = Func.get("addExcitementCrit"),
+			requirements = {getCondition("targetWearsUnderwear")}
+		}));
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "heavyExcitement",
+			text_sender = "Your Shadow Mend causes a void tendril to sprout in %T's %Tundies, prodding into and wriggling about in %This %Tbutt!",
+			text_receiver = "%S's Shadow Mend causes a void tendril to sprout in your %Tundies, prodding into and wriggling about in your %Tbutt!",
+			requirements = {getCondition("targetWearsUnderwear")},
+			fn = Func.get("addExcitementCrit")
+		}));
+
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "heavyExcitement",
+			text_receiver = "Your Shadow Mend causes a void tendril to sprout in your %Tundies, wrapping around and squeezing your %Tpenis!",
+			fn = Func.get("addExcitementCrit"),
+			requirements = {getCondition("targetWearsUnderwear"),getCondition("victimPenis")}
+		}));
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "heavyExcitement",
+			text_sender = "Your Shadow Mend causes a void tendril to sprout in %T's %Tundies, wrapping around and squeezing %This %Tpenis!",
+			text_receiver = "%S's Shadow Mend causes a void tendril to sprout in your %Tundies, wrapping around and squeezing your %Tpenis!",
+			requirements = {getCondition("targetWearsUnderwear"),getCondition("victimPenis")},
+			fn = Func.get("addExcitementCrit")
+		}));
+
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "heavyExcitement",
+			text_receiver = "Your Shadow Mend causes a void tendril to wrap around your %leftright %Tbreast, tugging at your nipple!",
+			requirements = {getCondition("victimBreasts")},
+			fn = Func.get("addExcitement")
+		}));
+		table.insert(R, RPText:new({
+			id = "LINGERING_SHADOW",
+			sound = 115656,
+			visual = "heavyExcitement",
+			text_sender = "Your Shadow Mend causes a void tendril to wrap around %T's %leftright %Tbreast, tugging at %This nipple!",
+			text_receiver = "%S's Shadow Mend causes a void tendril to wrap around your %leftright %Tbreast, tugging at your nipple!",
+			requirements = {},
+			fn = Func.get("addExcitement")
+		}));
 
 		
 	
