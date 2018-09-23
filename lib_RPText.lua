@@ -549,7 +549,7 @@ aTable.rpTexts = function(self)
 		table.insert(R, RPText:new({
 			id = "LINGERING_SHADOW",
 			sound = 115656,
-			visual = "heavyExcitement",
+			visual = "excitement",
 			text_receiver = "Your Shadow Mend causes a void tendril to wrap around your neck, pushing inside your mouth and wriggling about rapidly!",
 			requirements = {},
 			fn = Func.get("addExcitement")
@@ -557,7 +557,7 @@ aTable.rpTexts = function(self)
 		table.insert(R, RPText:new({
 			id = "LINGERING_SHADOW",
 			sound = 115656,
-			visual = "heavyExcitement",
+			visual = "excitement",
 			text_sender = "Your Shadow Mend causes a void tendril to wrap around %T's neck, pushing inside %This mouth and wriggling about rapidly!",
 			text_receiver = "%S's Shadow Mend causes a void tendril to wrap around your neck, pushing inside your mouth and wriggling about rapidly!",
 			requirements = {},
@@ -603,7 +603,7 @@ aTable.rpTexts = function(self)
 		table.insert(R, RPText:new({
 			id = "LINGERING_SHADOW",
 			sound = 115656,
-			visual = "heavyExcitement",
+			visual = "excitement",
 			text_receiver = "Your Shadow Mend causes a void tendril to wrap around your %leftright %Tbreast, tugging at your nipple!",
 			requirements = {getCondition("victimBreasts")},
 			fn = Func.get("addExcitement")
@@ -611,7 +611,7 @@ aTable.rpTexts = function(self)
 		table.insert(R, RPText:new({
 			id = "LINGERING_SHADOW",
 			sound = 115656,
-			visual = "heavyExcitement",
+			visual = "excitement",
 			text_sender = "Your Shadow Mend causes a void tendril to wrap around %T's %leftright %Tbreast, tugging at %This nipple!",
 			text_receiver = "%S's Shadow Mend causes a void tendril to wrap around your %leftright %Tbreast, tugging at your nipple!",
 			requirements = {},
