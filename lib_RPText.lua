@@ -618,7 +618,24 @@ aTable.rpTexts = function(self)
 			fn = Func.get("addExcitement")
 		}));
 
-		
+	-- PLEASURE_TOUCH
+		table.insert(R, RPText:new({
+			id = "PLEASURE_TOUCH",
+			sound = 26863,
+			visual = "excitement",
+			text_bystander = "%S rapidly taps %T's %Tgroin in various places, making %Thim a little flustered.",
+			text_sender = "You rapidly tap various secret points around %T's %Tgroin...",
+			text_receiver = "%S rapidly taps your %Tgroin in various places. You feel something building up...",
+			requirements = {},
+		}));
+		table.insert(R, RPText:new({
+			id = "PLEASURE_TOUCH",
+			sound = 26863,
+			visual = "excitement",
+			text_bystander = "%S rapidly taps %This %Tgroin in various places...",
+			text_receiver = "Your rapidly tap your %Tgroin in various places. You feel something building up...",
+			requirements = {},
+		}));
 	
 
 

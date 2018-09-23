@@ -374,11 +374,12 @@ aTable.actions = function(self)
 		},
 		passive_on_enabled = function(self, fromButton)
 			self:passiveOn("COMBAT_LOG_EVENT_UNFILTERED", function(data)
+				if not data[5] then return end
 				if 
+					data[2] == "SPELL_CAST_SUCCESS" and
 					self:getCooldown() <= 0 and
 					random() < 0.25 and
 					UnitIsUnit(data[5], "player") and 
-					data[2] == "SPELL_CAST_SUCCESS" and
 					data[13] == "Shadow Mend"
 				then
 					local target = data[9];
@@ -390,6 +391,38 @@ aTable.actions = function(self)
 		end
 
 	}));
+
+
+
+	-- Monk - Pleasure Touch
+	table.insert(out, Action:new({
+		id = "PLEASURE_TOUCH",
+		name = "Pleasure Touch",
+		description = "Touch a secret pleasure point on your target, maxing their arousal after 5 seconds.",
+		texture = "ability_druid_empoweredtouch",
+		cooldown = 120,
+		fn_send = function(self, sender, target, suppressErrors)
+			local race = UnitRace(target)
+			local gender = UnitSex(target)
+			return self:sendRPText(sender, target, suppressErrors, function(se, success)
+			end);
+		end,
+		fn_receive = function(self, sender, target, args)
+			Timer.set(function()
+				ExiWoW.ME:addExcitement(10000);
+			end, 5);
+			return self:receiveRPText(sender, target, args);
+		end,
+		filters = {
+			Condition:new({
+				type = Condition.Types.RTYPE_CLASS,
+				data = {Monk=true},
+				sender = true
+			}),
+		},
+	}));
+
+
 
 	return out;
 
