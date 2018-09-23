@@ -368,7 +368,7 @@ aTable.actions = function(self)
 			}),
 			Condition:new({
 				type = Condition.Types.RTYPE_SPEC,
-				data = {s0=true},
+				data = {s0=true,s2=true},
 				sender = true
 			}),
 		},
