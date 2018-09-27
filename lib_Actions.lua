@@ -398,7 +398,7 @@ aTable.actions = function(self)
 	table.insert(out, Action:new({
 		id = "PLEASURE_TOUCH",
 		name = "Pleasure Touch",
-		description = "Touch a secret pleasure point on your target, maxing their arousal after 5 seconds.",
+		description = "Touch a secret pleasure point on your target, maxing their arousal after 10 seconds.",
 		texture = "ability_druid_empoweredtouch",
 		cooldown = 120,
 		fn_send = function(self, sender, target, suppressErrors)
@@ -410,7 +410,7 @@ aTable.actions = function(self)
 		fn_receive = function(self, sender, target, args)
 			Timer.set(function()
 				ExiWoW.ME:addExcitement(10000);
-			end, 5);
+			end, 10);
 			return self:receiveRPText(sender, target, args);
 		end,
 		filters = {

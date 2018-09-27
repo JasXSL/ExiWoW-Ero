@@ -1745,7 +1745,9 @@ aTable.rpTexts = function(self)
 					text_receiver = "Liquid from the %spell trickles down between your %Tbreasts!",
 					requirements = {
 						getCondition("victimBreasts"), 
-						getCondition("ts_slosh")
+						getCondition("ts_slosh"),
+						getCondition("rand10"),
+						getCondition("spellDetrimental")
 					},
 					fn = Func.get("addExcitement")
 				}))
@@ -1753,13 +1755,15 @@ aTable.rpTexts = function(self)
 					text_receiver = "Liquid from the %spell pours into your %Tundies!",
 					requirements = {
 						getCondition("targetWearsUnderwear"),
-						getCondition("ts_slosh")
+						getCondition("rand10"),
+						getCondition("spellDetrimental"),
+						getCondition("ts_slosh"),
 					},
 					fn = Func.get("addExcitement")
 				}))
 				table.insert(R, RPText:new({
 					text_receiver = "Liquid from the %spell seeps into your outfit.",
-					requirements = {getCondition("ts_slosh")}
+					requirements = {getCondition("ts_slosh"),getCondition("rand10"),getCondition("spellDetrimental"),}
 				}))
 
 			-- Small Shards
@@ -2348,7 +2352,28 @@ aTable.rpTexts = function(self)
 					requirements = {getCondition("targetWearsUnderwear"),getCondition("rand30")},
 					fn = Func.get("addExcitement")
 				}));
-				
+			-- Wild Punch
+				table.insert(R, RPText:new({
+					id = "Wild Punch",
+					text_receiver = "%T's %spell smacks your %leftright %Tbreast around!",
+					requirements = {getCondition("victimChestNotPlate"),getCondition("victimBreasts"),getCondition("rand20")},
+					visual = "pain",
+					fn = Func.get("addExcitementMasochistic")
+				}));
+				table.insert(R, RPText:new({
+					id = "Wild Punch",
+					text_receiver = "%T's %spell smacks across your crotchplate!",
+					visual = "pain",
+					requirements = {getCondition("victimCrotchPlate"),getCondition("rand20")},
+					fn = Func.get("addExcitementMasochistic")
+				}));
+				table.insert(R, RPText:new({
+					id = "Wild Punch",
+					text_receiver = "%T's %spell smacks across your %Tgroin!",
+					visual = "heavyPain",
+					requirements = {getCondition("victimCrotchNotPlate"),getCondition("rand20")},
+					fn = Func.get("addExcitementMasochisticCrit")
+				}));
 		-- DRUID --
 
 			-- Entangling Roots
@@ -2543,6 +2568,72 @@ aTable.rpTexts = function(self)
 		}))
 
 	--
+	-- FX_SlitheringThongAdd
+		table.insert(R, RPText:new({
+			id = "FX_SlitheringThongAdd",
+			text_receiver = "Your slithering thong wiggles to life!",
+			sound = 90073,
+			visual = "heavyExcitement",
+			requirements = {},
+		}));
+
+	-- FX_SlitheringThongAdd
+		table.insert(R, RPText:new({
+			id = "FX_SlitheringThongProc",
+			sound = 21727,
+			visual = "excitement",
+			text_receiver = "The rear of your slithering thong wriggles between your buttcheeks!",
+			fn = Func.get("addExcitement")
+		}));
+		table.insert(R, RPText:new({
+			id = "FX_SlitheringThongProc",
+			sound = 21727,
+			visual = "excitement",
+			text_receiver = "Your slithering thong wriggles heavily, tickling your %Tvagina!",
+			requirements = {getCondition("victimVagina")},
+			fn = Func.get("addExcitement")
+		}));
+		table.insert(R, RPText:new({
+			id = "FX_SlitheringThongProc",
+			sound = 21727,
+			visual = "excitement",
+			text_receiver = "Your slithering wraps around and envelops your %Tpenis, tickling it with its slippery tendrils!",
+			requirements = {getCondition("victimPenis")},
+			fn = Func.get("addExcitement")
+		}));
+		table.insert(R, RPText:new({
+			id = "FX_SlitheringThongProc",
+			sound = 21727,
+			visual = "heavyExcitement",
+			text_receiver = "Your living thong slithers a tentacle into your %Tbutt, wriggling it around inside!",
+			fn = Func.get("addExcitementCrit")
+		}));
+		table.insert(R, RPText:new({
+			id = "FX_SlitheringThongProc",
+			sound = 21727,
+			visual = "heavyExcitement",
+			text_receiver = "Your living thong slithers a thick tentacle into your %Tvagina, wriggling it around inside!",
+			fn = Func.get("addExcitementCrit"),
+			requirements = {getCondition("victimVagina")},
+		}));
+		table.insert(R, RPText:new({
+			id = "FX_SlitheringThongProc",
+			sound = 21727,
+			visual = "heavyExcitement",
+			text_receiver = "Two tendrils from your slithering thong force their way up into your %Tvagina, swirling around inside!",
+			fn = Func.get("addExcitementCrit"),
+			requirements = {getCondition("victimVagina")},
+		}));
+		table.insert(R, RPText:new({
+			id = "FX_SlitheringThongProc",
+			sound = 21727,
+			visual = "excitement",
+			text_receiver = "Your slithering thong contracts, wedging up between the lips of your %Tvagina!",
+			fn = Func.get("addExcitement"),
+			requirements = {getCondition("victimVagina")},
+		}));
+		
+
 --
 
 -- Voice chats
@@ -2640,6 +2731,25 @@ aTable.rpTexts = function(self)
 				fn = Func.get("addExcitementMasochisticCrit"),
 				requirements = {}
 			}));
+
+		-- Q_SLITHERING_THONG_NAGA_FAIL
+			table.insert(R, RPText:new({
+				id = "Q_SLITHERING_THONG_NAGA_FAIL",
+				is_chat = true,
+				text_receiver = "%S says: I will never give up the ssecretsss!",
+			}));
+			table.insert(R, RPText:new({
+				id = "Q_SLITHERING_THONG_NAGA_FAIL",
+				is_chat = true,
+				text_receiver = "%S says: The ssecret sstays with me, ssssuck it landwalker!",
+			}));
+			table.insert(R, RPText:new({
+				id = "Q_SLITHERING_THONG_NAGA_FAIL",
+				is_chat = true,
+				text_receiver = "%S says: The relic belongsss to my queen!",
+			}));
+			
+		
 
 
 

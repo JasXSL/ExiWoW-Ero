@@ -13,7 +13,7 @@ aTable.quests = function(self)
 	local UI = require("UI");
 	local Condition = require("Condition");
 	local Talkbox = require("Talkbox");
-
+	local Tools = require("Tools");
 
 	local out = {}
 
@@ -903,6 +903,254 @@ aTable.quests = function(self)
 				end
 			}
 		}
+	}));
+
+
+
+
+	-- The Slithering Thong
+	-- 
+	table.insert(out, Quest:new({
+		id = "SLITHERING_THONG_0",
+		name = "Azshara's Relic",
+		start_text = {
+			Talkbox.Line:new({text = "You there, adventurer!", animation=81, animLength=1.8}),
+			Talkbox.Line:new({text = "I was sifting through my scrolls and found one detailing a potion of revival for 'Azshara's favorite relic'.", animation=60, animLength=2}),
+			Talkbox.Line:new({text = "You seem like the spritely type who knows how to fight naga...", animation=60, animLength=2 }),
+			Talkbox.Line:new({text = "Take the scroll and beat them until they reveal the location of this artifact!", animation=81, animLength=1.8 }),
+		},
+		journal_entry = {
+			"Okada the Tortollan has given me an old recipe labeled as a revival potion for Azshara's favorite relic.\n"..
+				"I might be able to beat some information out of Zeth'jir naga. There should be some near Fort Daelin",
+			"The Naga have revealed that the relic was lost in Kraken's reach to the east. Maybe I could forage around the sunken ships there."
+		},
+		questgiver = 77686,
+		end_text = {
+			"I have found the relic! It's a thong made of many tendrils. But it looks pretty dead, and won't stay on..."
+		},
+		rewards = {},
+		objectives = {
+			{
+				Objective:new({
+					id = "informationGathered",
+					name = "Information Gathered",
+					num = 3,
+					onObjectiveEnable = function(self)
+						-- Success
+						self:on(Event.Types.MONSTER_KILL, function(data)
+							local senderChar = Character.buildNPC("none", data.name);
+							if Tools.multiSearch(data.name, {["%Zeth'jir"]=true}) then
+								if random() < 0.3 then
+									self:add(1);
+									local texts = {
+										"%S says: The relic was a gift from our queen's night elf lover...",
+										"%S says: The relic was used to sssubdue through sssensual sstimulations...",
+										"%S says: We do not possesss the relic. It was losst in a sship in Kraken's reach to the eassst...",
+									};
+									RPText:new({
+										text_receiver = texts[self.current_num],
+										is_is_chat = true
+									}):convertAndReceive(senderChar, ExiWoW.ME);
+
+								else
+									RPText.trigger("Q_SLITHERING_THONG_NAGA_FAIL", "player", "player", senderChar, ExiWoW.ME)
+								end
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				})
+			},
+			{
+				Objective:new({
+					id = "relicLocated",
+					name = "Relic Located",
+					num = 1,
+					onObjectiveEnable = function(self)
+						self:on(Event.Types.FORAGE, function()
+							
+							if Condition.all({
+								Condition:new({
+									type = Condition.Types.RTYPE_LOC,
+									data = {x=72.97, y=45.46, rad=0.8}
+								}),
+								Condition:new({
+									type = Condition.Types.RTYPE_ZONE,
+									data = "Stormsong Valley"
+								}),
+								Condition:new({
+									type = Condition.Types.RTYPE_SUBZONE,
+									data = "Kraken's Reach"
+								}),
+							}, "player", "player", ExiWoW.ME, ExiWoW.ME) then 
+								PlaySound(90073, "SFX");
+								self:add(1);
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				})
+			},
+
+		},		-- You can wrap objectives in {} to create packages
+		start_events = {
+			{
+				event = Event.Types.GOSSIP_SHOW,
+				fn = function(self, data)
+					if UnitName("target") == "Okada" and GetSubZoneText() == "Seekers' Vista" then
+						return true;
+					end
+				end
+			}
+		},
+		onCompletion = function(self)
+			-- Auto start the next quest
+			Timer.set(function()
+				Quest.get("SLITHERING_THONG_1"):offer(true);
+			end, 0.1)
+		end,
+	}));
+
+
+	table.insert(out, Quest:new({
+		id = "SLITHERING_THONG_1",
+		name = "The Slithering Thong",
+		start_text = {
+			"Azshara's relic turned out to be a slithering thong. But it looks rather dead.",
+			"Luckily the tortollan scroll is a recipe of revival just for the relic.",
+			"I'll mark the reagents in my journal."
+		},
+		questgiver = 30780,
+		journal_entry = {
+			"Azshara's relic turned out to be a slithering thong. It looks rather dead though.\n"..
+				"Luckily, the scroll given to me by the tortollan contains a potion to revive it. I need:\n"..
+				"  1. Animated water from right outside the entryway to Shrine of the Storm.\n"..
+				"  2. Sticky Honey from the animated honey around Mildenhall Meadery.\n"..
+				"  3. Oil. The Venture Co.'s goons up by seeker's vista should have plenty.",
+			"I have acquired the reagents. The scroll mentions a required runic source of power. The big ritual stone near the entrance of Briarback Kraul might do..."
+		},
+		end_text = {
+			"The thong looks more animated, but dry. I should probably go for a swim if I want it to really come to life."
+		},
+		rewards = {
+			Reward:new({
+				id="SLITHERING_THONG",
+				type="Underwear"
+			})
+		},
+		objectives = {
+			{
+				Objective:new({
+					id = "animatedWater",
+					name = "Animated Water",
+					num = 10,
+					onObjectiveEnable = function(self)
+						-- Success
+						self:on(Event.Types.MONSTER_KILL, function(data)
+							if data.name == "Animated Droplet" then
+								self:add(1);
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				}),
+				Objective:new({
+					id = "stickyHoney",
+					name = "Sticky Honey",
+					num = 10,
+					onObjectiveEnable = function(self)
+						-- Success
+						self:on(Event.Types.MONSTER_KILL, function(data)
+							if data.name == "Flowing Honey" then
+								local totNr = math.ceil(random()*3);
+								if self.current_num+totNr > self.num then
+									totNr = self.num-self.current_num;
+								end
+								for i=1,totNr do
+									Timer.set(function()
+										PlaySound(1197, "SFX");
+										self:add(1);
+									end, i*0.25)
+								end
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				}),
+				Objective:new({
+					id = "oil",
+					name = "Oil",
+					num = 10,
+					onObjectiveEnable = function(self)
+						-- Success
+						--if  then
+						self:on(Event.Types.MONSTER_KILL, function(data)
+							if Tools.multiSearch(data.name, {["%Venture Co."]=true}) and Condition.all({
+								Condition:new({
+									type = Condition.Types.RTYPE_ZONE,
+									data = "Stormsong Valley"
+								}),
+								Condition:new({
+									type = Condition.Types.RTYPE_SUBZONE,
+									data = "The Jeweled Coast"
+								}),
+							}, "player", "player", ExiWoW.ME, ExiWoW.ME) then 
+								local totNr = math.ceil(random()*3);
+								if self.current_num+totNr > self.num then
+									totNr = self.num-self.current_num;
+								end
+								for i=1,totNr do
+									Timer.set(function()
+										PlaySound(1197, "SFX");
+										self:add(1);
+									end, i*0.25)
+								end
+							end
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				}),
+			},
+			{
+				Objective:new({
+					id = "concoctionCreated",
+					name = "Concoction Created at Runestone",
+					num = 1,
+					onObjectiveEnable = function(self)
+						self:on(Event.Types.POINT_REACHED, function()
+							if UI.talkbox.active then return end
+							UI.talkbox.set(Talkbox:new({
+								x = 44.09,
+								y = 72.36,
+								rad = 3,
+								lines = {
+									Talkbox.Line:new({text = "This looks like a suitable place.\n\n\n         [Make the Potion]"}),
+									Talkbox.Line:new({
+										text = function()
+											PlaySound(116887, "SFX");
+											return "\n\n\n[You mix the reagents and pour the concoction on the thong]"
+										end, 
+									}),
+								},
+								displayInfo = 30780,
+								title = "",
+								onComplete = function()
+									self:add(1);
+								end
+							}));
+						end, {zone="Stormsong Valley", sub="Briarback Kraul", x=44.09, y=72.36, dist=0.23});
+					end,
+					onObjectiveDisable = function(self)
+					end
+				})
+			},
+
+		},		-- You can wrap objectives in {} to create packages
 	}));
 
 	-- This will cause the property to self delete, it's not needed. 

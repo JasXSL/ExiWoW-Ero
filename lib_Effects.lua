@@ -385,5 +385,33 @@ aTable.effects = function(self)
 		end
 	}));
 
+
+	-- Slithering Thong
+	-- /run Effect.run("oozeInClothes")
+	table.insert(out, Effect:new({
+		id = "slitheringThong",
+		detrimental = true,
+		duration = 600,
+		ticking = 20,
+		max_stacks = 1,
+		texture = "Interface/Icons/inv_qiraj_skinsandworm",
+		name = "Slithering Thong",
+		description = "Moistening the thong has made it come to life. Periodically arouses.",
+		onAdd = function(self, binding, fromReload)
+			Func.get("toggleVibHubProgram")("IDLE_OOZE", math.huge);
+			if not fromReload then
+				RPText.trigger("FX_SlitheringThongAdd", "player", "player", ExiWoW.ME, ExiWoW.ME)
+			end
+		end,
+		onTick = function(self)
+			if math.random() < 0.2 then
+				RPText.trigger("FX_SlitheringThongProc", "player", "player", ExiWoW.ME, ExiWoW.ME)
+			end
+		end,
+		onRemove = function(self)
+			Func.get("toggleVibHubProgram")("IDLE_OOZE");
+		end,
+	}));
+
 	return out
 end
