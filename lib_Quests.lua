@@ -914,13 +914,11 @@ aTable.quests = function(self)
 		id = "SLITHERING_THONG_0",
 		name = "Azshara's Relic",
 		start_text = {
-			Talkbox.Line:new({text = "You there, adventurer!", animation=81, animLength=1.8}),
-			Talkbox.Line:new({text = "I was sifting through my scrolls and found one detailing a potion of revival for 'Azshara's favorite relic'.", animation=60, animLength=2}),
-			Talkbox.Line:new({text = "You seem like the spritely type who knows how to fight naga...", animation=60, animLength=2 }),
-			Talkbox.Line:new({text = "Take the scroll and beat them until they reveal the location of this artifact!", animation=81, animLength=1.8 }),
+			Talkbox.Line:new({text = "Hey adventurer, over here. I have a scroll that might interest you!", animation=81, animLength=1.8}),
 		},
 		journal_entry = {
-			"Okada the Tortollan has given me an old recipe labeled as a revival potion for Azshara's favorite relic.\n"..
+			"Okada the Tortollan in Seekers' Vista in Stormsong Valley has found a scroll that might interest me. ",
+			"He handed me the scroll, which turned out to be an old recipe labeled as a revival potion for Azshara's favorite relic.\n"..
 				"I might be able to beat some information out of Zeth'jir naga. There should be some near Fort Daelin",
 			"The Naga have revealed that the relic was lost in Kraken's reach to the east. Maybe I could forage around the sunken ships there."
 		},
@@ -930,6 +928,37 @@ aTable.quests = function(self)
 		},
 		rewards = {},
 		objectives = {
+			{
+				Objective:new({
+					id = "talkToOkada",
+					name = "Okada Talked To",
+					num = 1,
+					onObjectiveEnable = function(self)
+						self:on(Event.Types.GOSSIP_SHOW, function( data )
+							if UnitName("target") ~= "Okada" or GetSubZoneText() ~= "Seekers' Vista" then
+								return;
+							end
+							UI.talkbox.set(Talkbox:new({
+								x = 40.82,
+								y = 37.1,
+								rad = 0.2,
+								lines = {
+									Talkbox.Line:new({text = "I was sifting through my scrolls and found one detailing a potion of revival for 'Azshara's favorite relic'.", animation=60, animLength=2}),
+									Talkbox.Line:new({text = "You seem like the spritely type who knows how to fight naga...", animation=60, animLength=2 }),
+									Talkbox.Line:new({text = "Take the scroll and beat them until they reveal the location of this artifact!", animation=81, animLength=1.8 }),
+								},
+								displayInfo = 77686,
+								title = "Okada",
+								onComplete = function()
+									self:add(1);
+								end
+							}));
+						end);
+					end,
+					onObjectiveDisable = function(self)
+					end
+				})
+			},
 			{
 				Objective:new({
 					id = "informationGathered",
@@ -997,12 +1026,11 @@ aTable.quests = function(self)
 		},		-- You can wrap objectives in {} to create packages
 		start_events = {
 			{
-				event = Event.Types.GOSSIP_SHOW,
+				event = Event.Types.POINT_REACHED,
+				data = {zone="Stormsong Valley", sub="Seekers' Vista"},
 				fn = function(self, data)
-					if UnitName("target") == "Okada" and GetSubZoneText() == "Seekers' Vista" then
-						return true;
-					end
-				end
+					return true;
+				end				
 			}
 		},
 		onCompletion = function(self)
@@ -1012,7 +1040,6 @@ aTable.quests = function(self)
 			end, 0.1)
 		end,
 	}));
-
 
 	table.insert(out, Quest:new({
 		id = "SLITHERING_THONG_1",
