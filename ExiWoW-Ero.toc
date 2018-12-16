@@ -1,10 +1,12 @@
-## Interface: 80000
+## Interface: 80100
 ## Title: ExiWoW Ero
 ## Notes: Non worksafe library for ExiWoW
 ## Version: 0.0.1
 
-index.lua
+# XML
+combat/main.xml
 
+index.lua
 
 # Functions
 lib_Functions.lua
@@ -22,3 +24,11 @@ lib_Loot.lua
 lib_Spells.lua
 #Quests
 lib_Quests.lua
+
+# Combat stuff
+combat/index.lua
+combat/Player.lua
+combat/Ability.lua
+combat/lib_Ability.lua
+combat/lib_Player.lua
+
