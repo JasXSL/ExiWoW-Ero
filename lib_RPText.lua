@@ -2355,14 +2355,14 @@ aTable.rpTexts = function(self)
 			-- Wild Punch
 				table.insert(R, RPText:new({
 					id = "Wild Punch",
-					text_receiver = "%T's %spell smacks your %leftright %Tbreast around!",
+					text_receiver = "%S's %spell smacks your %leftright %Tbreast around!",
 					requirements = {getCondition("victimChestNotPlate"),getCondition("victimBreasts"),getCondition("rand20")},
 					visual = "pain",
 					fn = Func.get("addExcitementMasochistic")
 				}));
 				table.insert(R, RPText:new({
 					id = "Wild Punch",
-					text_receiver = "%T's %spell smacks across your crotchplate!",
+					text_receiver = "%S's %spell smacks across your crotchplate!",
 					visual = "pain",
 					requirements = {getCondition("victimCrotchPlate"),getCondition("rand20")},
 					fn = Func.get("addExcitementMasochistic")
@@ -2373,6 +2373,32 @@ aTable.rpTexts = function(self)
 					visual = "heavyPain",
 					requirements = {getCondition("victimCrotchNotPlate"),getCondition("rand20")},
 					fn = Func.get("addExcitementMasochisticCrit")
+				}));
+
+			-- Icy grip
+				table.insert(R, RPText:new({
+					id = "Icy Grip",
+					text_bystander = "%S charges their fist with cold and grabs a firm hold of %T's %leftright %Tbreast!",
+					text_receiver = "%S charges their fist with cold and grabs a firm hold of your %leftright %Tbreast!",
+					visual = "frost",
+					requirements = {getCondition("is_spell_add"), getCondition("victimBreasts")},
+					fn = Func.get("addExcitementMasochistic")
+				}));
+				table.insert(R, RPText:new({
+					id = "Icy Grip",
+					text_bystander = "%S charges their fist with cold and grabs a firm hold of %T's %Tgroin!",
+					text_receiver = "%S charges their fist with cold and grabs a firm hold of your %Tgroin!",
+					visual = "frost",
+					requirements = {getCondition("is_spell_add"), },
+					fn = Func.get("addExcitementMasochistic")
+				}));
+				table.insert(R, RPText:new({
+					id = "Icy Grip",
+					text_bystander = "%S charges their fists with cold and grabs a firm hold of %T's %Tbutt!",
+					text_receiver = "%S charges their fists with cold and grabs a firm hold of your %Tbutt!",
+					visual = "frost",
+					requirements = {getCondition("is_spell_add"), },
+					fn = Func.get("addExcitementMasochistic")
 				}));
 		-- DRUID --
 
