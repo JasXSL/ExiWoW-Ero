@@ -330,6 +330,35 @@ aTable.rpTexts = function(self)
 			
 		}))
 
+	-- Swamp muck --
+		table.insert(R, RPText:new({
+			id = "SWAMP_MUCK",
+			text_bystander = "%S throws a handful of swamp muck at %T, seeping down %This cleavage!", 
+			text_sender = "You throw a handful of swamp muck at %T, seeping down %This cleavage!", 
+			text_receiver = "%S throws a handful of swamp muck at you, seeping down your cleavage!",
+			requirements = {getCondition("victimBreasts")},
+			sound = 20674,
+			visual = "greenSplatPersistent",
+		}));
+		table.insert(R, RPText:new({
+			id = "SWAMP_MUCK",
+			text_bystander = "%S throws a handful of swamp muck at %T, splattering across %This %Tbreasts!", 
+			text_sender = "You throw a handful of swamp muck at %T, splattering across %This %Tbreasts!", 
+			text_receiver = "%S throws a handful of swamp muck at you, splattering across your %Tbreasts!",
+			requirements = {getCondition("victimBreasts")},
+			sound = 20674,
+			visual = "greenSplatPersistent",
+		}));
+		table.insert(R, RPText:new({
+			id = "SWAMP_MUCK",
+			text_bystander = "%S throws a handful of swamp muck at %T, hitting %Thim in %This %Tgroin!", 
+			text_sender = "You throw a handful of swamp muck at %T, hitting %Thim in %This %Tgroin!", 
+			text_receiver = "%S throws a handful of swamp muck at %T, hitting %Thim in %This %Tgroin!",
+			sound = 20674,
+			visual = "greenSplatPersistent",
+		}));
+
+
 
 	-- Claw pinch --
 		table.insert(R, RPText:new({

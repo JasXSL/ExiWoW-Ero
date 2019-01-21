@@ -84,7 +84,6 @@ aTable.underwear = function(self)
 				for _,sp in pairs(all) do
 					eventData.tags = sp:exportTags();
 					if Condition.get("ts_slosh"):validate("player", "player", ExiWoW.ME, ExiWoW.ME, eventData) then
-						print("It was a success")
 						trigger();
 					end
 				end
