@@ -190,7 +190,7 @@ aTable.rpTexts = function(self)
 				text_receiver = "%S reaches up between your legs and fondles your %Tgroin!",
 				sound = 57179,
 				visual = "excitement",
-				requirements = {getCondition("sender_much_shorter")}
+				requirements = {getCondition("senderMuchShorter")}
 			}));
 			table.insert(R, RPText:new({
 				id = "FONDLE",
@@ -199,7 +199,7 @@ aTable.rpTexts = function(self)
 				text_receiver = "%S reaches up between your legs and fondles your %Tbutt!",
 				sound = 57179,
 				visual = "excitement",
-				requirements = {getCondition("sender_much_shorter")}
+				requirements = {getCondition("senderMuchShorter")}
 			}));
 			
 			
@@ -239,7 +239,7 @@ aTable.rpTexts = function(self)
 				text_bystander = "%S reaches up between %T's legs and tickles %This %Tgroin!",
 				text_sender = "%S reaches up between %T's legs and tickles %This %Tgroin!",
 				text_receiver = "%S reaches up between %T's legs and tickles %This %Tgroin!",
-				requirements = {getCondition("sender_much_shorter")},
+				requirements = {getCondition("senderMuchShorter")},
 			}));
 
 

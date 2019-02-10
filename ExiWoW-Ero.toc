@@ -4,8 +4,6 @@
 ## Version: 0.0.1
 
 # XML
-combat/main.xml
-
 index.lua
 
 # Functions
