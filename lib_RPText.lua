@@ -117,7 +117,7 @@ aTable.rpTexts = function(self)
 				sound = 57179,
 				requirements = {getCondition("victimBreasts")},
 				visual = "excitement",
-			}))
+			}));
 
 			-- Fondle groin target
 			table.insert(R, RPText:new({
@@ -128,7 +128,7 @@ aTable.rpTexts = function(self)
 				sound = 57179,
 				visual = "excitement",
 				requirements = {}
-			}))
+			}));
 
 			-- Fondle butt target
 			table.insert(R, RPText:new({
@@ -139,7 +139,70 @@ aTable.rpTexts = function(self)
 				sound = 57179,
 				visual = "excitement",
 				requirements = {}
-			}))
+			}));
+
+
+			-- DK / Undead
+			table.insert(R, RPText:new({
+				id = "FONDLE",
+				text_sender = "You grab a hold of and rub %T's %Tbutt with your cold hands!",
+				text_bystander = "%S grabs a hold of %T's %Tbutt and rubs it with %Shis cold hands!",
+				text_receiver = "%S grabs a hold of your %Tbutt and rubs it with %Shis cold hands!",
+				sound = {57179},
+				requirements = {{getCondition("sender_class_deathknight"), getCondition("sender_race_undead")}},
+				visual = "frost",
+			}));
+			table.insert(R, RPText:new({
+				id = "FONDLE",
+				text_sender = "You grab a hold of and rub %T's %Tgroin with your cold hands!",
+				text_bystander = "%S grabs a hold of %T's %Tgroin and rubs it with %Shis cold hands!",
+				text_receiver = "%S grabs a hold of your %Tgroin and rubs it with %Shis cold hands!",
+				sound = {57179},
+				requirements = {{getCondition("sender_class_deathknight"), getCondition("sender_race_undead")}},
+				visual = "frost",
+			}));
+			table.insert(R, RPText:new({
+				id = "FONDLE",
+				text_sender = "You grab a hold of and rub %T's %Tbreasts with your cold hands!",
+				text_bystander = "%S grabs a hold of %T's %Tbreasts and rubs it with %Shis cold hands!",
+				text_receiver = "%S grabs a hold of your %Tbreasts and rubs it with %Shis cold hands!",
+				sound = {57179},
+				requirements = {{getCondition("sender_class_deathknight"), getCondition("sender_race_undead")}, getCondition("victimBreasts")},
+				visual = "frost",
+			}));
+
+			-- Fondle butt sender worgen
+			table.insert(R, RPText:new({
+				id = "FONDLE",
+				text_bystander = "%S grabs a hold of and squeezes %T's %Tbutt!",
+				text_sender = "You grab a hold of and squeezes %T, letting your claws painfully sting %This %Tbutt!",
+				text_receiver = "%S grabs a hold of and squeezes your %Tbutt, painfully stinging you with %Shis claws!",
+				sound = 57179,
+				visual = "excitement",
+				requirements = {getCondition("sender_race_worgen")}
+			}));
+
+			-- Short races
+			table.insert(R, RPText:new({
+				id = "FONDLE",
+				text_bystander = "%S reaches up between %T's legs and fondles %This %Tgroin!",
+				text_sender = "You reach up between %T's legs and fondles %This %Tgroin!",
+				text_receiver = "%S reaches up between your legs and fondles your %Tgroin!",
+				sound = 57179,
+				visual = "excitement",
+				requirements = {getCondition("sender_much_shorter")}
+			}));
+			table.insert(R, RPText:new({
+				id = "FONDLE",
+				text_bystander = "%S reaches up between %T's legs and fondles %This %Tbutt!",
+				text_sender = "You reach up between %T's legs and fondles %This %Tbutt!",
+				text_receiver = "%S reaches up between your legs and fondles your %Tbutt!",
+				sound = 57179,
+				visual = "excitement",
+				requirements = {getCondition("sender_much_shorter")}
+			}));
+			
+			
 
 		-- SELF --
 			table.insert(R, RPText:new({
@@ -149,7 +212,7 @@ aTable.rpTexts = function(self)
 				sound = 57179,
 				visual = "excitement",
 				requirements = {}
-			}))
+			}));
 			table.insert(R, RPText:new({
 				id = "FONDLE",
 				text_bystander = "%T rubs %This %Tbreasts!",
@@ -157,7 +220,7 @@ aTable.rpTexts = function(self)
 				sound = 57179,
 				visual = "excitement",
 				requirements = { getCondition("victimBreasts") }
-			}))
+			}));
 		--
 
 	-- TICKLE --
@@ -168,7 +231,16 @@ aTable.rpTexts = function(self)
 				text_sender = "You tickle %T between %This legs!",
 				text_receiver = "%S tickles you between your legs!",
 				requirements = {},
-			}))
+			}));
+
+			-- Shorter races
+			table.insert(R, RPText:new({
+				id = "TICKLE",
+				text_bystander = "%S reaches up between %T's legs and tickles %This %Tgroin!",
+				text_sender = "%S reaches up between %T's legs and tickles %This %Tgroin!",
+				text_receiver = "%S reaches up between %T's legs and tickles %This %Tgroin!",
+				requirements = {getCondition("sender_much_shorter")},
+			}));
 
 
 	-- NETTLE_RUB
@@ -186,7 +258,395 @@ aTable.rpTexts = function(self)
 				text_receiver = "%S slips %Shis hand into your clothes, rubbing your %Tbutt with a stinging nettle!",
 				requirements = {},
 			}));
-			
+
+
+	-- Spank
+		-- Base
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T slaps %This %Tbutt!",
+			text_receiver = "You slap your %Tbutt!",
+			sound = 37472,
+			requirements = {},
+			visual = "pain",
+			custom = "painModerate"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You slap %T's %Tbutt!",
+			text_bystander = "%S slaps %T's %Tbutt!",
+			text_receiver = "%S slap your %Tbutt!",
+			sound = 37472,
+			requirements = {},
+			visual = "pain",
+			custom = "painModerate"
+		}));
+
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You lift the back of %T's tabard and slap %This %Tbutt!",
+			text_bystander = "%S lifts the back of %T's tabard and slaps %This %Tbutt!",
+			text_receiver = "%S lifts the back of your tabard and slaps your %Tbutt!",
+			sound = 37472,
+			requirements = {getCondition("targetTabard")},
+			visual = "pain",
+			custom = "painModerate"
+		}));
+
+
+		-- SHAMAN
+		-- Resto
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T slaps %This %Tbutt with a watery whip!",
+			text_receiver = "You slap your %Tbutt with a watery whip!",
+			sound = {37472,27002},
+			requirements = {getCondition("sender_class_shaman"),getCondition("sender_spec_3")},
+			visual = "quickWet",
+			custom = "painModerate"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You slap %T's %Tbutt with a watery whip!",
+			text_bystander = "%S slaps %T's %Tbutt with a watery whip!",
+			text_receiver = "%S slap your %Tbutt with a watery whip!",
+			sound = {37472,27002},
+			requirements = {getCondition("sender_class_shaman"),getCondition("sender_spec_3")},
+			visual = "quickWet",
+			custom = "painModerate"
+		}));
+
+		-- Any
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T charges %This palm with lightning and slaps %This own %Tbutt!",
+			text_receiver = "You charge your palm with lightning and slap your own %Tbutt!",
+			sound = {37472,29489},
+			requirements = {getCondition("sender_class_shaman")},
+			visual = "lightning",
+			custom = "painHeavy"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You charge your palm with lightning and slap %T's %Tbutt!",
+			text_bystander = "%S charges %Shis palm with lightning and slaps %T's %Tbutt!",
+			text_receiver = "%S charges %Shis palm with lightning and slaps your %Tbutt!",
+			sound = {37472,29489},
+			requirements = {getCondition("sender_class_shaman")},
+			visual = "lightning",
+			custom = "painHeavy"
+		}));
+
+		-- Enh
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T charges %This palm with windfury and slaps %This own %Tbutt rapidly!",
+			text_receiver = "You charge your palm with windfury and slap your own %Tbutt rapidly!",
+			sound = {37472,63845},
+			requirements = {getCondition("sender_class_shaman"),getCondition("sender_spec_2")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You charge your palm with windfury and slap %T's %Tbutt rapidly!",
+			text_bystander = "%S charges %Shis palm with windfury and slaps %T's %Tbutt rapidly!",
+			text_receiver = "%S charges %Shis palm with windfury and slaps your %Tbutt rapidly!",
+			sound = {37472,63845},
+			requirements = {getCondition("sender_class_shaman"),getCondition("sender_spec_2")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+
+
+		-- WARRIOR
+		-- Any
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T throws a rage induced slap at %This own %Tbutt!",
+			text_receiver = "You throw a rage induced slap at your own %Tbutt!",
+			sound = {83716},
+			requirements = {getCondition("sender_class_warrior")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You throw a heavy, rage induced slap at %T's %Tbutt, jiggling %This buttcheeks around!",
+			text_bystander = "%S throws a heavy, rage induced slap at %T's %Tbutt, jiggling %This buttcheeks around!",
+			text_receiver = "%S throws a heavy, rage induced slap at your %Tbutt, jiggling your buttcheeks around!",
+			sound = {83716},
+			requirements = {getCondition("sender_class_warrior")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+
+		-- DRUID
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T lashes %This own %Tbutt with a vine whip!",
+			text_receiver = "You lash your own %Tbutt with a vine whip!",
+			sound = {37472,96003},
+			requirements = {getCondition("sender_class_druid")},
+			visual = "pain",
+			custom = "painModerate"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You lash %T's %Tbutt with a vine whip!",
+			text_bystander = "%S lashes %T's %Tbutt with a vine whip!",
+			text_receiver = "%S lashes your %Tbutt with a vine whip!",
+			sound = {37472,96003},
+			requirements = {getCondition("sender_class_druid")},
+			visual = "pain",
+			custom = "painModerate"
+		}));
+
+		-- MAGE
+		-- Arcane
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T aims a small shock of arcane energy at %This own %Tbutt!",
+			text_receiver = "You aim a small shock of arcane energy at your own %Tbutt!",
+			sound = {37472,85814},
+			requirements = {getCondition("sender_class_mage"),getCondition("sender_spec_1")},
+			visual = "pain",
+			custom = "painModerate"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You send a small shock of arcane energy across %T's %Tbutt!",
+			text_bystander = "%S sends a small shock of arcane energy across %T's %Tbutt!",
+			text_receiver = "%S sends a small shock of arcane energy across your %Tbutt!",
+			sound = {37472,85814},
+			requirements = {getCondition("sender_class_mage"),getCondition("sender_spec_1")},
+			visual = "pain",
+			custom = "painModerate"
+		}));
+		-- Fire
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T engulfs %This hand with flame and slaps %This own %Tbutt!",
+			text_receiver = "You engulf your hand with flame and slap your own %Tbutt!",
+			sound = {37472,116129},
+			requirements = {getCondition("sender_class_mage"),getCondition("sender_spec_2")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You engulf your hand with flame and slap %T's %Tbutt!",
+			text_bystander = "%S engulfs %Shis hand with flame and slaps %T's %Tbutt!",
+			text_receiver = "%S engulfs %Shis hand with flame and slaps your %Tbutt!",
+			sound = {37472,116129},
+			requirements = {getCondition("sender_class_mage"),getCondition("sender_spec_2")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+		-- Frost
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T surrounds %Shis hand in frost and slaps %This own butt!",
+			text_receiver = "You surround your hand in frost and slap your own butt!",
+			sound = {37472,85503},
+			requirements = {getCondition("sender_class_mage"),getCondition("sender_spec_3")},
+			visual = "frost",
+			custom = "painModerate"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You surround your hand with frost and slap %T's %Tbutt!",
+			text_bystander = "%S surrounds %Shis hand with frost and slaps %T's %Tbutt!",
+			text_receiver = "%S surrounds %Shis hand with frost and slaps your %Tbutt!",
+			sound = {37472,85503},
+			requirements = {getCondition("sender_class_mage"),getCondition("sender_spec_3")},
+			visual = "frost",
+			custom = "painHeavy"
+		}));
+
+		-- PRIEST
+		-- Disc/Holy
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T playfully slaps %This own %Tbutt, sending little sparkles flying from the impact!",
+			text_receiver = "You playfully slap your own %Tbutt, sending little sparkles flying from the impact!",
+			sound = {37472,1430},
+			requirements = {getCondition("sender_class_priest"),{getCondition("sender_spec_1"),getCondition("sender_spec_2")}},
+			--visual = "pain",
+			custom = "painModerate"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You playfully slap %T's %Tbutt, sending little sparkles flying from the impact!",
+			text_bystander = "%S playfully slaps %T's %Tbutt, sending little sparkles flying from the impact!",
+			text_receiver = "%S playfully slaps your %Tbutt, sending little sparkles flying from the impact!",
+			sound = {37472,1430},
+			requirements = {getCondition("sender_class_priest"),{getCondition("sender_spec_1"),getCondition("sender_spec_2")}},
+			--visual = "pain",
+			custom = "painModerate"
+		}));
+		-- Shadow
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T lashes %This own %Tbutt with a void tendril!",
+			text_receiver = "You lash your own %Tbutt with a void tendril!",
+			sound = {37472,96003},
+			requirements = {getCondition("sender_class_priest"),getCondition("sender_spec_3")},
+			visual = "pain",
+			custom = "painModerate"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You lash %T's %Tbutt with a void tendril!",
+			text_bystander = "%S lashes %T's %Tbutt with a void tendril!",
+			text_receiver = "%S lashes your %Tbutt with a void tendril!",
+			sound = {37472,96003},
+			requirements = {getCondition("sender_class_priest"),getCondition("sender_spec_3")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+
+		-- WARLOCK
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T painfully singes %This own %Tbutt with a small burst of felfire!",
+			text_receiver = "You painfully singe your own %Tbutt with a small burst of felfire!",
+			sound = {37472,51605},
+			requirements = {getCondition("sender_class_warlock")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You painfully singe %T's %Tbutt with a small burst of felfire!",
+			text_bystander = "%S painfully singes %T's %Tbutt with a small burst of felfire!",
+			text_receiver = "%S painfully singes your %Tbutt with a small burst of felfire!",
+			sound = {37472,51605},
+			requirements = {getCondition("sender_class_warlock")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+
+		-- ROGUE
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You surprise %T with a rapid slap to %This %Tbutt!",
+			text_bystander = "%S surprises %T with a rapid slap to %This %Tbutt!",
+			text_receiver = "%S surprises you with a rapid slap to your %Tbutt!",
+			sound = {37472},
+			requirements = {getCondition("sender_class_rogue")},
+			visual = "pain",
+			custom = "painModerate"
+		}));
+
+		-- DH
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T slaps %This own %Tbutt, leaving a stinging fiery brand behind!",
+			text_receiver = "You slap your own %Tbutt, leaving a stinging fiery brand behind!",
+			sound = {37472,59082},
+			requirements = {getCondition("sender_class_demonhunter")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You slap %T's %Tbutt, leaving a stinging fiery brand behind!",
+			text_bystander = "%S slaps %T's %Tbutt, leaving a stinging fiery brand behind!",
+			text_receiver = "%S slaps your %Tbutt, leaving a stinging fiery brand behind!",
+			sound = {37472,59082},
+			requirements = {getCondition("sender_class_demonhunter")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+
+		-- DK
+		-- Blood
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T summons a bone and whacks it across %This own %Tbutt!",
+			text_receiver = "You summon a bone and whack it across your own %Tbutt!",
+			sound = {37472,24037},
+			requirements = {getCondition("sender_class_deathknight"),getCondition("sender_spec_1")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You summon a bone and whack it across %T's %Tbutt!",
+			text_bystander = "%S summons a bone and whacks it across %T's %Tbutt!",
+			text_receiver = "%S summons a bone and whacks it across your %Tbutt!",
+			sound = {37472,24037},
+			requirements = {getCondition("sender_class_deathknight"),getCondition("sender_spec_1")},
+			visual = "heavyPain",
+			custom = "painHeavy"
+		}));
+
+		-- Frost
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T gently swats %This own %Tbutt, causing a thin layer of frost to spread across it!",
+			text_receiver = "You gently swat your own %Tbutt, causing a thin layer of frost to spread across it!",
+			sound = {37472,12877},
+			requirements = {getCondition("sender_class_deathknight"),getCondition("sender_spec_2")},
+			visual = "frost",
+			custom = "painHeavy"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You gently swat %T's %Tbutt, causing a thin layer of frost to spread across it!",
+			text_bystander = "%S gently swats %T's %Tbutt, causing a thin layer of frost to spread across it!",
+			text_receiver = "%S gently swats your %Tbutt, causing a thin layer of frost to spread across it!",
+			sound = {37472,12877},
+			requirements = {getCondition("sender_class_deathknight"),getCondition("sender_spec_2")},
+			visual = "frost",
+			custom = "painHeavy"
+		}));
+
+		-- Unholy
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T commands %This undead minion to slap %This %Tbutt!",
+			text_receiver = "You command your undead minion to slap your %Tbutt!",
+			sound = {37472},
+			requirements = {getCondition("sender_class_deathknight"),getCondition("sender_spec_3"),getCondition("sender_has_pet")},
+			visual = "pain",
+			custom = "painModerate"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You command your undead minion to slap %T's %Tbutt!",
+			text_bystander = "%S commands %Shis undead minion to slap %T's %Tbutt!",
+			text_receiver = "%S commands %Shis undead minion to slap your %Tbutt!",
+			sound = {37472},
+			requirements = {getCondition("sender_class_deathknight"),getCondition("sender_spec_3"),getCondition("sender_has_pet")},
+			visual = "pain",
+			custom = "painModerate"
+		}));
+
+
+		-- PALADIN
+		-- Todo
+
+		-- MONK
+		-- Todo
+
+		-- HUNTER
+		-- Todo
+
+
+
+		--[[
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T slaps %This %Tbutt!",
+			text_receiver = "You slap your %Tbutt hard test!",
+			sound = 37472,
+			requirements = {},
+			visual = "pain",
+			custom = "painHeavy"
+		}));
+		]]
 
 
 	-- VINE_SQUIRM --
@@ -1008,7 +1468,7 @@ aTable.rpTexts = function(self)
 			requirements = {getCondition("attackerIsLasher")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			visual = "pain",
-			fn = Func.get("addExcitementMasochistic")
+			fn = Func.get("addExcitementMasochisticCrit")
 		}))
 
 		table.insert(R, RPText:new({
@@ -1019,7 +1479,7 @@ aTable.rpTexts = function(self)
 			requirements = {getCondition("attackerIsLasher"), getCondition("victimBreasts")},
 			-- FN is currently only supported for NPC actions. PC->PC actions should use the Action system instead
 			visual = "pain",
-			fn = Func.get("addExcitementMasochistic")
+			fn = Func.get("addExcitementMasochisticCrit")
 		}))
 
 		table.insert(R, RPText:new({
@@ -2489,6 +2949,7 @@ aTable.rpTexts = function(self)
 			text_receiver = "The goo in your outfit comes to life!",
 			sound = 73580,
 			requirements = {},
+			visual = "greenSplat",
 		}))
 		table.insert(R, RPText:new({
 			id = "FX_OozeInClothesFade",

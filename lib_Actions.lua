@@ -15,6 +15,7 @@ aTable.actions = function(self)
 	local RPText = require("RPText");
 	local Event = require("Event");
 
+	
 	-- Fondle (Public) --
 	table.insert(out, Action:new({
 		id = "FONDLE",
@@ -336,6 +337,54 @@ aTable.actions = function(self)
 		}
 
 	}));
+
+
+	-- Spank
+	table.insert(out, Action:new({
+		id = "SPANK",
+		name = "Spank!",
+		description = "Slap your target's rear in a fashion related to your race or class.",
+		texture = "ability_monk_tigerpalm",
+		cooldown = 0,
+		fn_send = function(self, sender, target, suppressErrors)
+			local race = UnitRace(target)
+			local gender = UnitSex(target)
+			return self:sendRPText(sender, target, suppressErrors, function(se, success, data)
+				if success and not UnitIsUnit(target, "player") then
+					local sound = "";
+					if data.tc == "painHeavy" then
+						sound = "critSound";
+					elseif data.tc == "painModerate" then
+						sound = "painSound";
+					end
+					if sound ~= "" then
+						Func.get(sound)(self, race, gender)
+					end
+				end
+			end);
+		end,
+		fn_receive = function(self, sender, target, args)
+			
+			return self:receiveRPText(sender, target, args, function(text)
+				if text.custom == "painHeavy" then 
+					if not UnitIsUnit(Ambiguate(sender, "all"), "player") then
+						DoEmote("GASP");
+					end
+					Func.get("addExcitementMasochisticCrit")();
+				elseif text.custom == "painModerate" then
+					Func.get("addExcitementMasochistic")();
+				end
+
+			end);
+		end,
+		conditions = {
+			Condition.get("melee_range"),
+		},
+		no_defaults = {
+			"party_restricted"
+		},
+	}));
+
 
 
 

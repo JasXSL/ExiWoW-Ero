@@ -24,11 +24,3 @@ lib_Loot.lua
 lib_Spells.lua
 #Quests
 lib_Quests.lua
-
-# Combat stuff
-combat/index.lua
-combat/Player.lua
-combat/Ability.lua
-combat/lib_Ability.lua
-combat/lib_Player.lua
-
