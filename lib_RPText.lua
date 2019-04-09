@@ -626,7 +626,26 @@ aTable.rpTexts = function(self)
 
 
 		-- PALADIN
-		-- Todo
+		-- Holy
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_bystander = "%T playfully slaps %This own %Tbutt, sending little sparkles flying from the impact!",
+			text_receiver = "You playfully slap your own %Tbutt, sending little sparkles flying from the impact!",
+			sound = {37472,1430},
+			requirements = {getCondition("sender_class_paladin"),getCondition("sender_spec_1")},
+			--visual = "pain",
+			custom = "painModerate"
+		}));
+		table.insert(R, RPText:new({
+			id = "SPANK",
+			text_sender = "You playfully slap %T's %Tbutt, sending little sparkles flying from the impact!",
+			text_bystander = "%S playfully slaps %T's %Tbutt, sending little sparkles flying from the impact!",
+			text_receiver = "%S playfully slaps your %Tbutt, sending little sparkles flying from the impact!",
+			sound = {37472,1430},
+			requirements = {getCondition("sender_class_paladin"),getCondition("sender_spec_1")},
+			--visual = "pain",
+			custom = "painModerate"
+		}));
 
 		-- MONK
 		-- Todo
