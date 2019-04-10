@@ -2258,7 +2258,7 @@ aTable.rpTexts = function(self)
 						getCondition("spellDetrimental")
 					},
 					fn = Func.get("addExcitement")
-				}))
+				}));
 				table.insert(R, RPText:new({
 					text_receiver = "Liquid from the %spell pours into your %Tundies!",
 					requirements = {
@@ -2268,11 +2268,31 @@ aTable.rpTexts = function(self)
 						getCondition("ts_slosh"),
 					},
 					fn = Func.get("addExcitement")
-				}))
+				}));
 				table.insert(R, RPText:new({
 					text_receiver = "Liquid from the %spell seeps into your outfit.",
 					requirements = {getCondition("ts_slosh"),getCondition("rand10"),getCondition("spellDetrimental"),}
-				}))
+				}));
+				table.insert(R, RPText:new({
+					text_receiver = "%spell splashes across your %Tbreasts!",
+					requirements = {
+						getCondition("victimBreasts"), 
+						getCondition("ts_slosh"),
+						getCondition("rand10"),
+						getCondition("spellDetrimental")
+					},
+					fn = Func.get("addExcitement")
+				}));
+				table.insert(R, RPText:new({
+					text_receiver = "%spell splashes across your %Tgroin!",
+					requirements = {
+						getCondition("ts_slosh"),
+						getCondition("rand10"),
+						getCondition("spellDetrimental")
+					},
+					fn = Func.get("addExcitement")
+				}));
+				
 
 			-- Small Shards
 				table.insert(R, RPText:new({
@@ -2690,6 +2710,128 @@ aTable.rpTexts = function(self)
 						getCondition("is_spell_add"),
 					}
 				}));
+
+			-- Daze
+				table.insert(R, RPText:new({
+					id = "Dazed",
+					text_bystander = "%S throws a quick slap across %T's %Tbutt!",
+					text_receiver = "%S throws a quick slap across your %Tbutt!",
+					fn = Func.get("addExcitementMasochistic"),
+					visual = "pain",
+					sound = 37472,
+					requirements = {
+						getCondition("attackerNotLarge"),
+						getCondition("is_spell_add"),
+						getCondition("attackerHumanoidish")
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Dazed",
+					text_bystander = "%S grabs a hold of and tugs at the back of %T's %Tundies!",
+					text_receiver = "%S grabs a hold of and tugs at the back of your %Tundies!",
+					fn = Func.get("addExcitementMasochistic"),
+					visual = "pain",
+					sound = 25626,
+					requirements = {
+						getCondition("targetWearsUnderwear"),
+						getCondition("is_spell_add"),
+						getCondition("attackerNotLarge"),
+						getCondition("attackerHumanoidish")
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Dazed",
+					text_bystander = "%S reaches around from behind and grabs %T's %Tbreasts!",
+					text_receiver = "%S reaches around from behind and grabs your %Tbreasts!",
+					fn = Func.get("addExcitement"),
+					visual = "excitement",
+					sound = 25626,
+					requirements = {
+						getCondition("targetBreasts"),
+						getCondition("is_spell_add"),
+						getCondition("attackerNotLarge"),
+						getCondition("attackerHumanoidish")
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Dazed",
+					text_bystander = "%S grabs a hold of and squeezes your %Tbutt!",
+					text_receiver = "%S grabs a hold of and squeezes your %Tbutt!",
+					fn = Func.get("addExcitement"),
+					visual = "excitement",
+					sound = 25626,
+					requirements = {
+						getCondition("is_spell_add"),
+						getCondition("attackerHumanoidish")
+					}
+				}));
+				
+				table.insert(R, RPText:new({
+					id = "Dazed",
+					text_bystander = "%S jabs at %T's %Tbutt!",
+					text_receiver = "%S jabs at your %Tbutt!",
+					fn = Func.get("addExcitementMasochistic"),
+					visual = "pain",
+					sound = 37472,
+					requirements = {
+						getCondition("attackerNotLarge"),
+						getCondition("is_spell_add"),
+						getCondition("attackerIsFistfighter"),
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Dazed",
+					text_bystander = "%S lashes across %T's %Tbutt!",
+					text_receiver = "%S lashes across your %Tbutt!",
+					fn = Func.get("addExcitementMasochistic"),
+					visual = "pain",
+					sound = 37472,
+					requirements = {
+						getCondition("is_spell_add"),
+						getCondition("attackerIsLasher"),
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Dazed",
+					text_bystander = "%S bites %T's %Tbutt!",
+					text_receiver = "%S bites your %Tbutt!",
+					fn = Func.get("addExcitementMasochisticCrit"),
+					visual = "pain",
+					sound = 7374,
+					requirements = {
+						getCondition("attackerNotLarge"),
+						getCondition("is_spell_add"),
+						getCondition("attackerBeast"),
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Dazed",
+					text_bystander = "%S pinches %T's %Tbutt!",
+					text_receiver = "%S pinches your %Tbutt!",
+					fn = Func.get("addExcitementMasochisticCrit"),
+					visual = "pain",
+					sound = 7374,
+					requirements = {
+						getCondition("attackerNotLarge"),
+						getCondition("is_spell_add"),
+						getCondition("attackerIsPinchy"),
+					}
+				}));
+				table.insert(R, RPText:new({
+					id = "Dazed",
+					text_bystander = "%S stings %T's %Tbutt!",
+					text_receiver = "%S stings your %Tbutt!",
+					fn = Func.get("addExcitementMasochisticCrit"),
+					visual = "pain",
+					sound = 84366,
+					requirements = {
+						getCondition("attackerNotLarge"),
+						getCondition("is_spell_add"),
+						getCondition("attackerIsWasp"),
+					}
+				}));
+
+				
 
 			-- Shadow Manacles + Willbreaker combo
 				table.insert(R, RPText:new({
