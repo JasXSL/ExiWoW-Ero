@@ -1,4 +1,4 @@
-## Interface: 80300
+## Interface: 90100
 ## Title: ExiWoW Ero
 ## Notes: Non worksafe library for ExiWoW
 ## Version: 0.0.1
